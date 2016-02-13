@@ -1,0 +1,808 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C98C3679-1449-46C0-90ED-73E6BDCC5F25}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>BudgetYou</RootNamespace>
+    <AssemblyName>BudgetYou</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\DashboardsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HouseholdsController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BudgetModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="minimal-portfolio\ajax\loadMore.html" />
+    <Content Include="minimal-portfolio\ajax\project1.html" />
+    <Content Include="minimal-portfolio\ajax\project10.html" />
+    <Content Include="minimal-portfolio\ajax\project11.html" />
+    <Content Include="minimal-portfolio\ajax\project12.html" />
+    <Content Include="minimal-portfolio\ajax\project13.html" />
+    <Content Include="minimal-portfolio\ajax\project2.html" />
+    <Content Include="minimal-portfolio\ajax\project3.html" />
+    <Content Include="minimal-portfolio\ajax\project4.html" />
+    <Content Include="minimal-portfolio\ajax\project5.html" />
+    <Content Include="minimal-portfolio\ajax\project6.html" />
+    <Content Include="minimal-portfolio\ajax\project7.html" />
+    <Content Include="minimal-portfolio\ajax\project8.html" />
+    <Content Include="minimal-portfolio\ajax\project9.html" />
+    <Content Include="minimal-portfolio\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="minimal-portfolio\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="minimal-portfolio\bootstrap\css\bootstrap.css" />
+    <Content Include="minimal-portfolio\bootstrap\css\bootstrap.min.css" />
+    <Content Include="minimal-portfolio\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="minimal-portfolio\bootstrap\js\bootstrap.js" />
+    <Content Include="minimal-portfolio\bootstrap\js\bootstrap.min.js" />
+    <Content Include="minimal-portfolio\bootstrap\js\npm.js" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\changelog.txt" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\flexslider.css" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\fonts\flexslider-icon.svg" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\jquery.flexslider-min.js" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\jquery.flexslider.js" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\css\font-awesome.css" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\css\font-awesome.min.css" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="minimal-portfolio\bower_components\jquery\dist\jquery.js" />
+    <Content Include="minimal-portfolio\bower_components\jquery\dist\jquery.min.js" />
+    <Content Include="minimal-portfolio\bower_components\jquery\MIT-LICENSE.txt" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\css\lightbox.css" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\images\close.png" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\images\loading.gif" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\images\next.png" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\images\prev.png" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\js\lightbox-plus-jquery.js" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\js\lightbox-plus-jquery.min.js" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\js\lightbox.js" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\js\lightbox.min.js" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\examples\index.html" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\Gruntfile.js" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\src\css\lightbox.css" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\src\images\close.png" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\src\images\loading.gif" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\src\images\next.png" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\src\images\prev.png" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\src\js\lightbox.js" />
+    <Content Include="minimal-portfolio\bower_components\masonry\dist\masonry.pkgd.js" />
+    <Content Include="minimal-portfolio\bower_components\masonry\dist\masonry.pkgd.min.js" />
+    <Content Include="minimal-portfolio\bower_components\masonry\masonry.js" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\add-items.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\basic.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\bottom-up.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\browserify\index.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\browserify\main.js" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\element-sizing.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\fit-width.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\fluid.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\jquery.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\require-js\index.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\require-js\main.js" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\right-to-left.html" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\sandbox.css" />
+    <Content Include="minimal-portfolio\bower_components\masonry\sandbox\stamps.html" />
+    <Content Include="minimal-portfolio\bower_components\package\MIT-LICENSE.txt" />
+    <Content Include="minimal-portfolio\bower_components\package\package.js" />
+    <Content Include="minimal-portfolio\bower_components\package\util.js" />
+    <Content Include="minimal-portfolio\bower_components\wow\dist\wow.js" />
+    <Content Include="minimal-portfolio\bower_components\wow\dist\wow.min.js" />
+    <Content Include="minimal-portfolio\bower_components\wow\Gruntfile.js" />
+    <Content Include="minimal-portfolio\contact_form\contact.js" />
+    <Content Include="minimal-portfolio\css\animate.css" />
+    <Content Include="minimal-portfolio\css\style.css" />
+    <Content Include="minimal-portfolio\cubeportfolio\css\cubeportfolio.css" />
+    <Content Include="minimal-portfolio\cubeportfolio\css\cubeportfolio.min.css" />
+    <Content Include="minimal-portfolio\cubeportfolio\img\cbp-loading-popup.gif" />
+    <Content Include="minimal-portfolio\cubeportfolio\img\cbp-loading.gif" />
+    <Content Include="minimal-portfolio\cubeportfolio\img\cbp-sprite.png" />
+    <Content Include="minimal-portfolio\cubeportfolio\js\jquery.cubeportfolio.js" />
+    <Content Include="minimal-portfolio\cubeportfolio\js\jquery.cubeportfolio.min.js" />
+    <Content Include="minimal-portfolio\et-line-icons\fonts\et-line.svg" />
+    <Content Include="minimal-portfolio\et-line-icons\style.css" />
+    <Content Include="minimal-portfolio\hoe-nav\header.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe-horizontal-navigation.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe-overlay-effect.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe-push-effect.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe-rightsidebar.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe-shrink-effect.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe-theme-color.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe.css" />
+    <Content Include="minimal-portfolio\hoe-nav\hoe.js" />
+    <Content Include="minimal-portfolio\images\arrow-up.png" />
+    <Content Include="minimal-portfolio\images\avatar-1.jpg" />
+    <Content Include="minimal-portfolio\images\bg-1.jpg" />
+    <Content Include="minimal-portfolio\images\bg-2.jpg" />
+    <Content Include="minimal-portfolio\images\bg-3.jpg" />
+    <Content Include="minimal-portfolio\images\bg-4.jpg" />
+    <Content Include="minimal-portfolio\images\bg-5.jpg" />
+    <Content Include="minimal-portfolio\images\bg-6.jpg" />
+    <Content Include="minimal-portfolio\images\bg1.png" />
+    <Content Include="minimal-portfolio\images\brickwall.png" />
+    <Content Include="minimal-portfolio\images\budget.jpg" />
+    <Content Include="minimal-portfolio\images\budget.png" />
+    <Content Include="minimal-portfolio\images\budget1.jpg" />
+    <Content Include="minimal-portfolio\images\budget1.png" />
+    <Content Include="minimal-portfolio\images\cl-1.png" />
+    <Content Include="minimal-portfolio\images\cl-2.png" />
+    <Content Include="minimal-portfolio\images\cl-3.png" />
+    <Content Include="minimal-portfolio\images\cl-4.png" />
+    <Content Include="minimal-portfolio\images\cl-5.png" />
+    <Content Include="minimal-portfolio\images\img-1.jpg" />
+    <Content Include="minimal-portfolio\images\img-2.jpg" />
+    <Content Include="minimal-portfolio\images\img-3.jpg" />
+    <Content Include="minimal-portfolio\images\img-4.jpg" />
+    <Content Include="minimal-portfolio\images\img-5.jpg" />
+    <Content Include="minimal-portfolio\images\img-6.jpg" />
+    <Content Include="minimal-portfolio\images\img-7.jpg" />
+    <Content Include="minimal-portfolio\images\img-8.jpg" />
+    <Content Include="minimal-portfolio\images\img-9.jpg" />
+    <Content Include="minimal-portfolio\images\marker.png" />
+    <Content Include="minimal-portfolio\images\mas-1.jpg" />
+    <Content Include="minimal-portfolio\images\mas-2.jpg" />
+    <Content Include="minimal-portfolio\images\pattern.png" />
+    <Content Include="minimal-portfolio\images\t-1.jpg" />
+    <Content Include="minimal-portfolio\images\t-2.jpg" />
+    <Content Include="minimal-portfolio\images\team-1.jpg" />
+    <Content Include="minimal-portfolio\images\team-2.jpg" />
+    <Content Include="minimal-portfolio\images\team-3.jpg" />
+    <Content Include="minimal-portfolio\images\team-4.jpg" />
+    <Content Include="minimal-portfolio\index.html" />
+    <Content Include="minimal-portfolio\js\cube-portfolio.js" />
+    <Content Include="minimal-portfolio\js\custom.js" />
+    <Content Include="minimal-portfolio\js\froogaloop2.min.js" />
+    <Content Include="minimal-portfolio\js\google-map.js" />
+    <Content Include="minimal-portfolio\js\jquery-migrate.min.js" />
+    <Content Include="minimal-portfolio\js\jquery.appear.js" />
+    <Content Include="minimal-portfolio\js\jquery.backstretch.min.js" />
+    <Content Include="minimal-portfolio\js\jquery.counterup.min.js" />
+    <Content Include="minimal-portfolio\js\jquery.easing.1.3.min.js" />
+    <Content Include="minimal-portfolio\js\jquery.hoverdir.js" />
+    <Content Include="minimal-portfolio\js\modernizr.custom.97074.js" />
+    <Content Include="minimal-portfolio\js\parallax.min.js" />
+    <Content Include="minimal-portfolio\js\vimeo.js" />
+    <Content Include="minimal-portfolio\js\waypoints.min.js" />
+    <Content Include="minimal-portfolio\mailchimp\index.html" />
+    <Content Include="minimal-portfolio\owl-carousel\AjaxLoader.gif" />
+    <Content Include="minimal-portfolio\owl-carousel\grabbing.png" />
+    <Content Include="minimal-portfolio\owl-carousel\owl.carousel.css" />
+    <Content Include="minimal-portfolio\owl-carousel\owl.carousel.js" />
+    <Content Include="minimal-portfolio\owl-carousel\owl.carousel.min.js" />
+    <Content Include="minimal-portfolio\owl-carousel\owl.theme.css" />
+    <Content Include="minimal-portfolio\owl-carousel\owl.transitions.css" />
+    <Content Include="minimal-portfolio\revolution\assets\coloredbg.png" />
+    <Content Include="minimal-portfolio\revolution\assets\gridtile.png" />
+    <Content Include="minimal-portfolio\revolution\assets\gridtile_3x3.png" />
+    <Content Include="minimal-portfolio\revolution\assets\gridtile_3x3_white.png" />
+    <Content Include="minimal-portfolio\revolution\assets\gridtile_white.png" />
+    <Content Include="minimal-portfolio\revolution\assets\loader.gif" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\fb.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\fr.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\ig.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\post.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\revolution_slide1.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\revolution_slide2.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\tw.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\vm.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\wc.png" />
+    <Content Include="minimal-portfolio\revolution\assets\sources\yt.png" />
+    <Content Include="minimal-portfolio\revolution\css\closedhand.cur" />
+    <Content Include="minimal-portfolio\revolution\css\layers.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\ares.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\custom.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\dione.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\erinyen.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\gyges.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\hades.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\hebe.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\hephaistos.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\hermes.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\hesperiden.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\metis.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\persephone.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\uranus.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation-skins\zeus.css" />
+    <Content Include="minimal-portfolio\revolution\css\navigation.css" />
+    <Content Include="minimal-portfolio\revolution\css\openhand.cur" />
+    <Content Include="minimal-portfolio\revolution\css\settings.css" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\css\font-awesome.css" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\css\font-awesome.min.css" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\css\helper.css" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\css\pe-icon-7-stroke.css" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.svg" />
+    <Content Include="minimal-portfolio\revolution\fonts\revicons\revicons.svg" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.actions.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.carousel.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.kenburn.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.layeranimation.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.migration.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.navigation.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.parallax.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.slideanims.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\revolution.extension.video.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.actions.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.carousel.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.kenburn.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.layeranimation.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.migration.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.navigation.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.parallax.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.slideanims.js" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\revolution.extension.video.js" />
+    <Content Include="minimal-portfolio\revolution\js\jquery.themepunch.enablelog.js" />
+    <Content Include="minimal-portfolio\revolution\js\jquery.themepunch.revolution.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\jquery.themepunch.tools.min.js" />
+    <Content Include="minimal-portfolio\revolution\js\source\jquery.themepunch.enablelog.js" />
+    <Content Include="minimal-portfolio\revolution\js\source\jquery.themepunch.revolution.js" />
+    <Content Include="minimal-portfolio\revolution\js\source\jquery.themepunch.tools.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\style.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_base.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_cta.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_folio.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_footer.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_header.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_mixins.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_pricing.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_tabs.scssc" />
+    <Content Include="minimal-portfolio\.sass-cache\e41b9910afc27b6a1c823bf050145cec941d9722\_variables.scssc" />
+    <Content Include="minimal-portfolio\bootstrap\css\bootstrap-theme.css.map" />
+    <Content Include="minimal-portfolio\bootstrap\css\bootstrap.css.map" />
+    <Content Include="minimal-portfolio\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="minimal-portfolio\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="minimal-portfolio\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="minimal-portfolio\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\.bower.json" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\bower.json" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\CONTRIBUTING.md" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\flexslider.less" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\fonts\flexslider-icon.eot" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\fonts\flexslider-icon.ttf" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\fonts\flexslider-icon.woff" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\LICENSE.md" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\package.json" />
+    <Content Include="minimal-portfolio\bower_components\flexslider\README.mdown" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\.bower.json" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\.npmignore" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\bower.json" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\css\font-awesome.css.map" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <Content Include="minimal-portfolio\bower_components\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="minimal-portfolio\bower_components\jquery\.bower.json" />
+    <Content Include="minimal-portfolio\bower_components\jquery\bower.json" />
+    <Content Include="minimal-portfolio\bower_components\jquery\dist\jquery.min.map" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\.bower.json" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\bower.json" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\CONTRIBUTING.md" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\js\lightbox-plus-jquery.min.map" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\dist\js\lightbox.min.map" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\LICENSE" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\package.json" />
+    <Content Include="minimal-portfolio\bower_components\lightbox2\README.md" />
+    <Content Include="minimal-portfolio\bower_components\masonry\.bower.json" />
+    <Content Include="minimal-portfolio\bower_components\masonry\bower.json" />
+    <Content Include="minimal-portfolio\bower_components\masonry\changelog.md" />
+    <Content Include="minimal-portfolio\bower_components\masonry\README.mdown" />
+    <Content Include="minimal-portfolio\bower_components\package\.bower.json" />
+    <Content Include="minimal-portfolio\bower_components\package\bower.json" />
+    <Content Include="minimal-portfolio\bower_components\package\package.json" />
+    <Content Include="minimal-portfolio\bower_components\package\README.md" />
+    <Content Include="minimal-portfolio\bower_components\wow\.bower.json" />
+    <Content Include="minimal-portfolio\bower_components\wow\bower.json" />
+    <Content Include="minimal-portfolio\bower_components\wow\LICENSE-MIT" />
+    <Content Include="minimal-portfolio\bower_components\wow\package.json" />
+    <Content Include="minimal-portfolio\bower_components\wow\README.md" />
+    <Content Include="minimal-portfolio\contact_form\process-contact.php" />
+    <Content Include="minimal-portfolio\css\style.css.map" />
+    <Content Include="minimal-portfolio\et-line-icons\fonts\et-line.eot" />
+    <Content Include="minimal-portfolio\et-line-icons\fonts\et-line.ttf" />
+    <Content Include="minimal-portfolio\et-line-icons\fonts\et-line.woff" />
+    <Content Include="minimal-portfolio\mailchimp\config.inc.php" />
+    <Content Include="minimal-portfolio\mailchimp\MCAPI.class.php" />
+    <Content Include="minimal-portfolio\mailchimp\process-subscribe.php" />
+    <Content Include="minimal-portfolio\revolution\css\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\css\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\fonts\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\font-awesome\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\css\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\fonts\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.eot" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.ttf" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\fonts\Pe-icon-7-stroke.woff" />
+    <Content Include="minimal-portfolio\revolution\fonts\pe-icon-7-stroke\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\revicons\index.php" />
+    <Content Include="minimal-portfolio\revolution\fonts\revicons\revicons.eot" />
+    <Content Include="minimal-portfolio\revolution\fonts\revicons\revicons.ttf" />
+    <Content Include="minimal-portfolio\revolution\fonts\revicons\revicons.woff" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\index.php" />
+    <Content Include="minimal-portfolio\revolution\js\extensions\source\index.php" />
+    <Content Include="minimal-portfolio\revolution\js\index.php" />
+    <Content Include="minimal-portfolio\revolution\js\source\index.php" />
+    <Content Include="minimal-portfolio\revolution\php\facebook\class-facebook.php" />
+    <Content Include="minimal-portfolio\revolution\php\flickr\class-flickr.php" />
+    <Content Include="minimal-portfolio\revolution\php\instagram\class-instagram.php" />
+    <Content Include="minimal-portfolio\revolution\php\twitter\class-twitter.php" />
+    <Content Include="minimal-portfolio\revolution\php\twitter\connection\Application.php" />
+    <Content Include="minimal-portfolio\revolution\php\twitter\connection\ConnectionAbstract.php" />
+    <Content Include="minimal-portfolio\revolution\php\twitter\connection\User.php" />
+    <Content Include="minimal-portfolio\revolution\php\twitter\RestApi.php" />
+    <Content Include="minimal-portfolio\revolution\php\vimeo\class-vimeo.php" />
+    <Content Include="minimal-portfolio\revolution\php\youtube\class-youtube.php" />
+    <Content Include="minimal-portfolio\scss\style.scss" />
+    <Content Include="minimal-portfolio\scss\_base.scss" />
+    <Content Include="minimal-portfolio\scss\_folio.scss" />
+    <Content Include="minimal-portfolio\scss\_footer.scss" />
+    <Content Include="minimal-portfolio\scss\_header.scss" />
+    <Content Include="minimal-portfolio\scss\_mixins.scss" />
+    <Content Include="minimal-portfolio\scss\_variables.scss" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="theme\0-base.html" />
+    <Content Include="theme\404.html" />
+    <Content Include="theme\calendar.html" />
+    <Content Include="theme\charts.html" />
+    <Content Include="theme\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="theme\css\bootstrap-wysihtml5.css" />
+    <Content Include="theme\css\bootstrap.css" />
+    <Content Include="theme\css\bootstrap.min.css" />
+    <Content Include="theme\css\delete.gif" />
+    <Content Include="theme\css\font-awesome.css" />
+    <Content Include="theme\css\font-awesome.min.css" />
+    <Content Include="theme\css\fullcalendar.css" />
+    <Content Include="theme\css\images\banner.png" />
+    <Content Include="theme\css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="theme\css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="theme\css\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="theme\css\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="theme\css\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="theme\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="theme\css\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="theme\css\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="theme\css\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="theme\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="theme\css\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="theme\css\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="theme\css\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="theme\css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="theme\css\jquery-ui.css" />
+    <Content Include="theme\css\jquery.dataTables.css" />
+    <Content Include="theme\css\jquery.gritter.css" />
+    <Content Include="theme\css\jquery.onoff.css" />
+    <Content Include="theme\css\less-style.css" />
+    <Content Include="theme\css\prettify.css" />
+    <Content Include="theme\css\prettyPhoto.css" />
+    <Content Include="theme\css\rateit.css" />
+    <Content Include="theme\css\steps.css" />
+    <Content Include="theme\css\style.css" />
+    <Content Include="theme\errorlog.html" />
+    <Content Include="theme\fonts\fontawesome-webfont.svg" />
+    <Content Include="theme\form-validate.html" />
+    <Content Include="theme\form-wizard.html" />
+    <Content Include="theme\form.html" />
+    <Content Include="theme\gallery.html" />
+    <Content Include="theme\grid.html" />
+    <Content Include="theme\img\data-tables\back_disabled.png" />
+    <Content Include="theme\img\data-tables\back_enabled.png" />
+    <Content Include="theme\img\data-tables\back_enabled_hover.png" />
+    <Content Include="theme\img\data-tables\forward_disabled.png" />
+    <Content Include="theme\img\data-tables\forward_enabled.png" />
+    <Content Include="theme\img\data-tables\forward_enabled_hover.png" />
+    <Content Include="theme\img\data-tables\sort_asc.png" />
+    <Content Include="theme\img\data-tables\sort_asc_disabled.png" />
+    <Content Include="theme\img\data-tables\sort_both.png" />
+    <Content Include="theme\img\data-tables\sort_desc.png" />
+    <Content Include="theme\img\data-tables\sort_desc_disabled.png" />
+    <Content Include="theme\img\delete.gif" />
+    <Content Include="theme\img\gritter\gritter.png" />
+    <Content Include="theme\img\gritter\ie-spacer.gif" />
+    <Content Include="theme\img\main-back.png" />
+    <Content Include="theme\img\portfolio\1.jpg" />
+    <Content Include="theme\img\portfolio\2.jpg" />
+    <Content Include="theme\img\portfolio\3.jpg" />
+    <Content Include="theme\img\portfolio\4.jpg" />
+    <Content Include="theme\img\portfolio\5.jpg" />
+    <Content Include="theme\img\portfolio\6.jpg" />
+    <Content Include="theme\img\portfolio\7.jpg" />
+    <Content Include="theme\img\portfolio\8.jpg" />
+    <Content Include="theme\img\portfolio\9.jpg" />
+    <Content Include="theme\img\portfolio\tn1.jpg" />
+    <Content Include="theme\img\portfolio\tn2.jpg" />
+    <Content Include="theme\img\portfolio\tn3.jpg" />
+    <Content Include="theme\img\portfolio\tn4.jpg" />
+    <Content Include="theme\img\portfolio\tn5.jpg" />
+    <Content Include="theme\img\portfolio\tn6.jpg" />
+    <Content Include="theme\img\portfolio\tn7.jpg" />
+    <Content Include="theme\img\portfolio\tn8.jpg" />
+    <Content Include="theme\img\portfolio\tn9.jpg" />
+    <Content Include="theme\img\prettyPhoto\dark_rounded\btnNext.png" />
+    <Content Include="theme\img\prettyPhoto\dark_rounded\btnPrevious.png" />
+    <Content Include="theme\img\prettyPhoto\dark_rounded\contentPattern.png" />
+    <Content Include="theme\img\prettyPhoto\dark_rounded\default_thumbnail.gif" />
+    <Content Include="theme\img\prettyPhoto\dark_rounded\loader.gif" />
+    <Content Include="theme\img\prettyPhoto\dark_rounded\sprite.png" />
+    <Content Include="theme\img\prettyPhoto\dark_square\btnNext.png" />
+    <Content Include="theme\img\prettyPhoto\dark_square\btnPrevious.png" />
+    <Content Include="theme\img\prettyPhoto\dark_square\contentPattern.png" />
+    <Content Include="theme\img\prettyPhoto\dark_square\default_thumbnail.gif" />
+    <Content Include="theme\img\prettyPhoto\dark_square\loader.gif" />
+    <Content Include="theme\img\prettyPhoto\dark_square\sprite.png" />
+    <Content Include="theme\img\prettyPhoto\default\default_thumb.png" />
+    <Content Include="theme\img\prettyPhoto\default\loader.gif" />
+    <Content Include="theme\img\prettyPhoto\default\sprite.png" />
+    <Content Include="theme\img\prettyPhoto\default\sprite_next.png" />
+    <Content Include="theme\img\prettyPhoto\default\sprite_prev.png" />
+    <Content Include="theme\img\prettyPhoto\default\sprite_x.png" />
+    <Content Include="theme\img\prettyPhoto\default\sprite_y.png" />
+    <Content Include="theme\img\prettyPhoto\facebook\btnNext.png" />
+    <Content Include="theme\img\prettyPhoto\facebook\btnPrevious.png" />
+    <Content Include="theme\img\prettyPhoto\facebook\contentPatternBottom.png" />
+    <Content Include="theme\img\prettyPhoto\facebook\contentPatternLeft.png" />
+    <Content Include="theme\img\prettyPhoto\facebook\contentPatternRight.png" />
+    <Content Include="theme\img\prettyPhoto\facebook\contentPatternTop.png" />
+    <Content Include="theme\img\prettyPhoto\facebook\default_thumbnail.gif" />
+    <Content Include="theme\img\prettyPhoto\facebook\loader.gif" />
+    <Content Include="theme\img\prettyPhoto\facebook\sprite.png" />
+    <Content Include="theme\img\prettyPhoto\light_rounded\btnNext.png" />
+    <Content Include="theme\img\prettyPhoto\light_rounded\btnPrevious.png" />
+    <Content Include="theme\img\prettyPhoto\light_rounded\default_thumbnail.gif" />
+    <Content Include="theme\img\prettyPhoto\light_rounded\loader.gif" />
+    <Content Include="theme\img\prettyPhoto\light_rounded\sprite.png" />
+    <Content Include="theme\img\prettyPhoto\light_square\btnNext.png" />
+    <Content Include="theme\img\prettyPhoto\light_square\btnPrevious.png" />
+    <Content Include="theme\img\prettyPhoto\light_square\default_thumbnail.gif" />
+    <Content Include="theme\img\prettyPhoto\light_square\loader.gif" />
+    <Content Include="theme\img\prettyPhoto\light_square\sprite.png" />
+    <Content Include="theme\img\star.gif" />
+    <Content Include="theme\img\user1.png" />
+    <Content Include="theme\img\user2.png" />
+    <Content Include="theme\inbox.html" />
+    <Content Include="theme\index.html" />
+    <Content Include="theme\invoice.html" />
+    <Content Include="theme\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="theme\js\bootstrap-wysihtml5.min.js" />
+    <Content Include="theme\js\bootstrap.js" />
+    <Content Include="theme\js\bootstrap.min.js" />
+    <Content Include="theme\js\custom.js" />
+    <Content Include="theme\js\custom.notification.js" />
+    <Content Include="theme\js\excanvas.min.js" />
+    <Content Include="theme\js\fullcalendar.min.js" />
+    <Content Include="theme\js\html5shiv.js" />
+    <Content Include="theme\js\jquery-ui.min.js" />
+    <Content Include="theme\js\jquery.dataTables.min.js" />
+    <Content Include="theme\js\jquery.flot.min.js" />
+    <Content Include="theme\js\jquery.flot.pie.min.js" />
+    <Content Include="theme\js\jquery.flot.resize.min.js" />
+    <Content Include="theme\js\jquery.flot.stack.min.js" />
+    <Content Include="theme\js\jquery.gritter.min.js" />
+    <Content Include="theme\js\jquery.js" />
+    <Content Include="theme\js\jquery.knob.js" />
+    <Content Include="theme\js\jquery.onoff.min.js" />
+    <Content Include="theme\js\jquery.prettyPhoto.js" />
+    <Content Include="theme\js\jquery.rateit.min.js" />
+    <Content Include="theme\js\jquery.slimscroll.min.js" />
+    <Content Include="theme\js\jquery.sparklines.js" />
+    <Content Include="theme\js\jquery.steps.min.js" />
+    <Content Include="theme\js\jquery.validate.js" />
+    <Content Include="theme\js\moment.min.js" />
+    <Content Include="theme\js\prettify.js" />
+    <Content Include="theme\js\respond.min.js" />
+    <Content Include="theme\js\wysihtml5-0.3.0.js" />
+    <Content Include="theme\lock.html" />
+    <Content Include="theme\login.html" />
+    <Content Include="theme\mail-read.html" />
+    <Content Include="theme\mail-write.html" />
+    <Content Include="theme\media.html" />
+    <Content Include="theme\posts.html" />
+    <Content Include="theme\statement.html" />
+    <Content Include="theme\tables-data.html" />
+    <Content Include="theme\tables.html" />
+    <Content Include="theme\ui.html" />
+    <Content Include="theme\users.html" />
+    <Content Include="theme\widgets.html" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="theme\fonts\fontawesome-webfont.eot" />
+    <Content Include="theme\fonts\fontawesome-webfont.ttf" />
+    <Content Include="theme\fonts\fontawesome-webfont.woff" />
+    <Content Include="theme\fonts\fontawesome-webfont.woff2" />
+    <Content Include="theme\fonts\FontAwesome.otf" />
+    <Content Include="theme\less\less-style.less" />
+    <Content Include="Views\Households\Create.cshtml" />
+    <Content Include="Views\Households\Delete.cshtml" />
+    <Content Include="Views\Households\Details.cshtml" />
+    <Content Include="Views\Households\Edit.cshtml" />
+    <Content Include="Views\Households\Index.cshtml" />
+    <Content Include="Views\Shared\_Household.cshtml" />
+    <Content Include="Views\Dashboards\Create.cshtml" />
+    <Content Include="Views\Dashboards\Delete.cshtml" />
+    <Content Include="Views\Dashboards\Details.cshtml" />
+    <Content Include="Views\Dashboards\Edit.cshtml" />
+    <Content Include="Views\Dashboards\Index.cshtml" />
+    <Content Include="Views\Accounts\Create.cshtml" />
+    <Content Include="Views\Accounts\Delete.cshtml" />
+    <Content Include="Views\Accounts\Details.cshtml" />
+    <Content Include="Views\Accounts\Edit.cshtml" />
+    <Content Include="Views\Accounts\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53144</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53144/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

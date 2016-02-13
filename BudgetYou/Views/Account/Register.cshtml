@@ -1,0 +1,182 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Title here -->
+    <title>BudgetYou - Register</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @model BudgetYou.Models.RegisterViewModel
+    @{
+        Layout = null;
+    }
+
+    <!-- Bootstrap CSS -->
+    <link href="~/theme/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="~/theme/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Color CSS -->
+    <link href="~/theme/css/less-style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/theme/css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="outer-page">
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+           
+            @Html.ValidationSummary("", new { @class = "text-danger" })
+
+      <!-- Login page -->
+            <div class="login-page">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active">
+                        <a href="" data-toggle="tab" class="br-lblue"><i class="fa fa-pencil"></i> Register</a>
+                    </li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane fade active in" id="register">
+
+                        <!-- Register form -->
+
+                        <div class="alert alert-info">
+                            Just
+                            <strong>Click "Register"</strong> to visit the Dashboard
+                        </div>
+
+                        <form role="form" action="index.html">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FirstName)
+
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @placeholder = "First Name" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.LastName)
+
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @placeholder = "Last Name" })
+
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.HouseholdName)
+
+                                @Html.TextBoxFor(m => m.HouseholdName, new { @class = "form-control", @placeholder = "Add Household" })
+
+                            </div>
+                          
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email)
+
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })
+
+                            </div>
+
+
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Password)
+
+                                @Html.TextBoxFor(m => m.Password, new { @class = "form-control", @placeholder = "Password" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ConfirmPassword)
+
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", @placeholder = "Confirm Password" })
+                            </div>
+
+                            <input type="submit" class="btn btn-info" value="Register" />
+                            <input type="reset" class="btn btn-default " />
+                        </form>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+            @*<h2>@ViewBag.Title.</h2>
+
+                @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                 {
+                     <h4>Create a new account.</h4>
+                     <hr />
+                     @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                     <div class="form-group">
+                         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                         <div class="col-md-10">
+                             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                         <div class="col-md-10">
+                             @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                         </div>
+                     </div>
+
+                     <div class="form-group">
+                         @Html.LabelFor(m => m.HouseholdName, new { @class = "col-md-2 control-label" })
+                         <div class="col-md-10">
+                             @Html.TextBoxFor(m => m.HouseholdName, new { @class = "form-control" })
+                         </div>
+                     </div>
+
+
+                     <div class="form-group">
+                         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                         <div class="col-md-10">
+                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                         <div class="col-md-10">
+                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                         <div class="col-md-10">
+                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                         </div>
+                     </div>
+                     <div class="form-group">
+                         <div class="col-md-offset-2 col-md-10">
+                             <input type="submit" class="btn btn-default" value="Register" />
+                         </div>
+                     </div>*@
+        }
+
+    </div>
+
+    <!-- Javascript files -->
+    <!-- jQuery -->
+    <script src="~/theme/js/jquery.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/theme/js/bootstrap.min.js"></script>
+    <!-- Respond JS for IE8 -->
+    <script src="~/theme/js/respond.min.js"></script>
+    <!-- HTML5 Support for IE -->
+    <script src="~/theme/js/html5shiv.js"></script>
+
+
+</body>
+</html>
+
