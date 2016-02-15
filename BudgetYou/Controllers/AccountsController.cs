@@ -53,7 +53,7 @@ namespace BudgetYou.Controllers
 
             if (ModelState.IsValid)
             {
-                account.HouseholdId = db.Households.FirstOrDefault(u => u.Name == User.Identity.Name).Id;
+                account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
                 account.CreationDate = new DateTimeOffset(DateTime.Now);
 
                 db.Accounts.Add(account);
