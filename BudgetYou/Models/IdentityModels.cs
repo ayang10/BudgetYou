@@ -14,12 +14,12 @@ namespace BudgetYou.Models
         //add fields right here, example
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int HouseholdId { get; set; }
+        public int? HouseholdId { get; set; }
 
         public ApplicationUser()
         {
             this.Transactions = new HashSet<Transaction>();
-            this.Households = new HashSet<Household>();
+            //this.Households = new HashSet<Household>();
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -30,7 +30,8 @@ namespace BudgetYou.Models
             return userIdentity;
         }
         public virtual ICollection<Transaction> Transactions { get; set; }
-        public virtual ICollection<Household> Households { get; set; }
+        //public virtual ICollection<Household> Households { get; set; }
+        public virtual Household Household { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -52,6 +53,5 @@ namespace BudgetYou.Models
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<BudgetItem> BudgetItems { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
-        public DbSet<Dashboard> Dashboards { get; set; }
     }
 }

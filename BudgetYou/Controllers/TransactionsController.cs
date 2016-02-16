@@ -10,113 +10,116 @@ using BudgetYou.Models;
 
 namespace BudgetYou.Controllers
 {
-    public class AccountsController : Controller
+    public class TransactionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Accounts
+        // GET: Transactions
         public ActionResult Index()
         {
-            return View(db.Accounts.ToList());
+            var transactions = db.Transactions.Include(t => t.Account).Include(t => t.Category);
+            return View(transactions.ToList());
         }
 
-        // GET: Accounts/Details/5
+        // GET: Transactions/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
-            if (account == null)
+            Transaction transaction = db.Transactions.Find(id);
+            if (transaction == null)
             {
                 return HttpNotFound();
             }
-            return View(account);
+            return View(transaction);
         }
 
-        // GET: Accounts/Create
+        // GET: Transactions/Create
         public ActionResult Create()
         {
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name");
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
             return View();
         }
 
-        // POST: Accounts/Create
+        // POST: Transactions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HouseholdId,Balance,Name,CreationDate,ReconcileBalance")] Account account)
+        public ActionResult Create([Bind(Include = "Id,AccountId,Description,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
-            account.CreationDate = new DateTimeOffset(DateTime.Now);
-
-
             if (ModelState.IsValid)
             {
-                //account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
-                account.CreationDate = new DateTimeOffset(DateTime.Now);
-
-                db.Accounts.Add(account);
+                db.Transactions.Add(transaction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(account);
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
+            return View(transaction);
         }
 
-        // GET: Accounts/Edit/5
+        // GET: Transactions/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
-            if (account == null)
+            Transaction transaction = db.Transactions.Find(id);
+            if (transaction == null)
             {
                 return HttpNotFound();
             }
-            return View(account);
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
+            return View(transaction);
         }
 
-        // POST: Accounts/Edit/5
+        // POST: Transactions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,HouseholdId,Balance,Name,CreationDate,ReconcileBalance")] Account account)
+        public ActionResult Edit([Bind(Include = "Id,AccountId,Description,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(account).State = EntityState.Modified;
+                db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(account);
+            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
+            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
+            return View(transaction);
         }
 
-        // GET: Accounts/Delete/5
+        // GET: Transactions/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
-            if (account == null)
+            Transaction transaction = db.Transactions.Find(id);
+            if (transaction == null)
             {
                 return HttpNotFound();
             }
-            return View(account);
+            return View(transaction);
         }
 
-        // POST: Accounts/Delete/5
+        // POST: Transactions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Account account = db.Accounts.Find(id);
-            db.Accounts.Remove(account);
+            Transaction transaction = db.Transactions.Find(id);
+            db.Transactions.Remove(transaction);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

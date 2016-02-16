@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BudgetYou.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,8 @@ namespace BudgetYou.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult Index()
         {
             return View();
@@ -15,9 +18,13 @@ namespace BudgetYou.Controllers
 
         public ActionResult Dashboard()
         {
-            ViewBag.Message = "Your application description page.";
+            
+            //DashboardViewModels model = new DashboardViewModels();
+            //model.Household = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Household;
 
-            return View();
+
+
+            return View(/*model*/);
         }
 
         public ActionResult Contact()

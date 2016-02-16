@@ -1,37 +1,85 @@
-﻿@model IEnumerable<BudgetYou.Models.Household>
+﻿@model BudgetYou.Models.Household
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "My Household";
 }
-
+<div class="container ">
+    <br />
+    <h2>My Household: @Model.Name</h2>
+    <hr />
+</div>
 <div class="container">
-<h2>Index</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Members</h4>
+                </div>
+                <section class="panel-body">
+                    <h5>All members of this household</h5>
+                    <div class="table">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Name
+                                    </th>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+                                    <th>
+                                        Email
+                                    </th>
+                                </tr>
+                            </thead>
+                            @foreach (var user in Model.Members)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modeluser => user.FirstName)
+                                            @Html.DisplayFor(modeuser => user.LastName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modeluser => user.Email)
 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            }
+                        </table>
+                    </div>
+                </section>
+            </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+           
+        </div>
+        </div>
 
-</table>
+    <div class="row">
+        <div class="col-md-2">
+          
+                    <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal">Leave Household</button>
+              
     </div>
+</div>
+
+
+<!-- Modal for warning before leaving your household -->
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="panel-title">Leave Household</h4>
+            </div>
+            <div class="panel-body">
+                <form method="Post" action="@Url.Action("Leave","Households")">
+                    <h5>Are you sure you want to leave this household?</h5>
+                    <br />
+                    <input type="submit" value="Leave" class="btn btn-sm btn-danger pull-right" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

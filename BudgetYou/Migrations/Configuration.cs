@@ -42,7 +42,7 @@ namespace BudgetYou.Migrations
             {
                 
             
-            var household = context.Households.Add(new Household { Name = "Yang HouseHold" });
+            var household = context.Households.Add(new Household { Name = "Demo household" });
 
             var uStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(uStore);

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BudgetYou.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BudgetYou.Controllers
 {
@@ -14,11 +15,30 @@ namespace BudgetYou.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        //// GET: Households
+        //public ActionResult Index()
+        //{
+
+        //    return View(db.Households.ToList());
+        //}
+
+
         // GET: Households
+        
         public ActionResult Index()
         {
-           
-            return View(db.Households.ToList());
+
+
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Household household = db.Households.Find(user.HouseholdId);
+            if (household == null)
+            {
+                return RedirectToAction("Create", "Households");
+            }
+
+
+          
+            return View(household);
         }
 
         // GET: Households/Details/5
@@ -51,14 +71,43 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Id,Name")] Household household)
         {
+          
+
             if (ModelState.IsValid)
             {
-                db.Households.Add(household);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var user = db.Users.Find(User.Identity.GetUserId());
+
+                if (user.HouseholdId == null)
+                {
+                    db.Households.Add(household);
+                    db.SaveChanges();
+
+                    var getHousehold = db.Households.FirstOrDefault(h => h.Name == household.Name);
+                    user.HouseholdId = getHousehold.Id;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index", new { id = getHousehold.Id });
+                }
+                else
+                {
+                    return RedirectToAction("Index", new { id = user.HouseholdId });
+                }
             }
 
-            return View(household);
+          
+            return View();
+        }
+
+
+
+
+        public ActionResult Leave()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            user.HouseholdId = null;
+            db.SaveChanges();
+
+            return RedirectToAction("Create", "Households");
         }
 
         // GET: Households/Edit/5

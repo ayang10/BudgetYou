@@ -80,7 +80,7 @@ namespace BudgetYou.Models
         [Display(Name = "Email")]
         public string Email { get; set; }
         
-        //
+        [Required]
         [Display(Name = "Household Name")]
         public string HouseholdName { get; set; }
 

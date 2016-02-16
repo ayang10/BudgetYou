@@ -128,28 +128,14 @@ namespace BudgetYou.Models
     }
 
 
-    public class Dashboard
+    public class DashboardViewModels
     {
-        public Dashboard()
-        {
-            this.Accounts = new HashSet<Account>();
-            this.Households = new HashSet<Household>();
-            this.Transactions = new HashSet<Transaction>();
-            this.Categories = new HashSet<Category>();
-            this.Budgets = new HashSet<Budget>();
-            this.BudgetItems = new HashSet<BudgetItem>();
-            this.Invitations = new HashSet<Invitation>();
-        }
+        public Household Household { get; set; }
+        public Invitation Invitation { get; set; }
+        public Budget Budget { get; set; }
+        public ICollection<Account> Accounts { get; set; }
+        public ICollection<Transaction> Transactions { get; set; }
 
-        public int Id { get; set; }
-
-        public virtual ICollection<Account> Accounts { get; set; }
-        public virtual ICollection<Household> Households { get; set; }
-        public virtual ICollection<Transaction> Transactions { get; set; }
-        public virtual ICollection<Category> Categories { get; set; }
-        public virtual ICollection<Budget> Budgets { get; set; }
-        public virtual ICollection<BudgetItem> BudgetItems { get; set; }
-        public virtual ICollection<Invitation> Invitations { get; set; }
 
     }
 
