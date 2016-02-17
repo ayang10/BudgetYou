@@ -4,15 +4,19 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div class="container">
+    <br />
+    <h1>Accounts</h1>
+    <br />
+    <p>
+        @Html.ActionLink("+ Add Account", "Create", null, new { @class ="btn btn-success"})
+    </p>
+</div>
+<br>
+@*<table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.HouseholdId)
+            @Html.DisplayNameFor(model => model.Household.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Balance)
@@ -29,29 +33,90 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HouseholdId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Balance)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReconcileBalance)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Household.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreationDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReconcileBalance)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Accounts", new { id = item.Id })"><i class="fa fa-check"></i></a> |
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
-</table>
+</table>*@
+
+
+
+<!---------------------------------------------------------------------------------->
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Accounts</h4>
+                </div>
+                <section class="panel-body">
+                    <table class="table table-hover table-bordered ">
+                        <thead>
+                            <tr>
+                                <th>Account Name</th>
+                                <th>@Html.DisplayNameFor(model => model.Balance)</th>
+                                <th>@Html.DisplayNameFor(model => model.CreationDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.ReconcileBalance)</th>
+                                <th>Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Balance)
+                                    </td>
+                                    <td>
+                                        @item.CreationDate.ToString("F")
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReconcileBalance)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Accounts", new { id = item.Id })"><i class="fa fa-pencil btn btn-sm btn-warning"></i></a> 
+                                        <a href="@Url.Action("Delete", "Accounts", new { id = item.Id })"><i class="fa fa-times btn btn-sm btn-danger"></i></a> 
+                                    
+                                    </td>
+                                </tr>
+                            }
+
+                           
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+            
+    </div>
+        </div>
+    
+        </div>

@@ -4,6 +4,139 @@
     ViewBag.Title = "Dashboard";
 }
 
+<br />
+
+<div class="container">
+    <div class="col-md-9">
+        <!-- Widget chart -->
+        <div class="widget chart-widget">
+            <!-- Widget head -->
+            <div class="widget-head br-green">
+                <h3>
+                    <i class="fa fa-signal"></i> Buget
+                </h3>
+            </div>
+            <!-- Widget body -->
+            <div class="widget-body">
+                <!-- Chart container -->
+                <div class="chart-container">
+                    <div id="curve-chart" class="chart-placeholder"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3 pull-right">
+        <!-- Pages widget -->
+        <div class="widget pages-widget">
+
+            <div class="widget-head br-red">
+                <h3>
+                    <i class="fa fa-university"></i> Accounts / Balances
+                </h3>
+            </div>
+
+            <div class="widget-body no-padd">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <!-- Table heading -->
+                        <thead>
+                            <tr>
+                                <th>Account Name</th>
+                                <th>Balance</th>
+                                <th>Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Accounts)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Balance)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit", "Accounts", new { id = item.Id })"><i class="fa fa-pencil btn btn-sm btn-warning"></i></a>
+                                        <a href="@Url.Action("Delete", "Accounts", new { id = item.Id })"><i class="fa fa-times btn btn-sm btn-danger"></i></a>
+
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </tbody>
 
 
 
+                    </table>
+                </div>
+
+            </div>
+
+            <div class="widget-foot">
+                <span class="pull-right">
+                    @Html.ActionLink("+ Add Account", "Create", null, new { @class = "btn btn-success" })
+                </span>
+
+                <div class="clearfix"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <!-- Project widget -->
+            <div class="widget projects-widget">
+
+                <div class="widget-head br-blue">
+                    <h3>
+                        <i class="fa fa-archive"></i> Recent Transactions
+                    </h3>
+                </div>
+
+                <div class="widget-body no-padd">
+
+                    <ul class="list-unstyled">
+                        @foreach (var tran in Model.Transactions)
+                        {
+                            <li>
+
+                                <strong><i class="fa fa-user"></i> @tran.Entry.UserName</strong>
+                                <p>
+                                    <span>@MvcHtmlString.Create("$")@tran.Amount - @tran.Account.Name | @tran.Category.Name</span>
+                                </p>
+                                <p class="p-meta">
+                                    <span>@tran.Description</span>
+
+                                    </p>
+                                <p class="p-meta">
+                                    <!-- Due date & % Completed -->
+                                    <span>@tran.Date.ToString("D")</span>
+                                </p>
+
+
+
+
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>

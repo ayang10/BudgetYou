@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BudgetYou.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BudgetYou.Controllers
 {
@@ -51,8 +52,19 @@ namespace BudgetYou.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,AccountId,Description,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
+            transaction.Date = new DateTimeOffset(DateTime.Now);
+
             if (ModelState.IsValid)
             {
+                transaction.Date = new DateTimeOffset(DateTime.Now);
+
+                transaction.EntryId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+
+                var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
+                
+                account.Balance += transaction.Amount;
+
+
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -87,8 +99,16 @@ namespace BudgetYou.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,AccountId,Description,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
+            transaction.Date = new DateTimeOffset(DateTime.Now);
+
             if (ModelState.IsValid)
             {
+                transaction.Date = new DateTimeOffset(DateTime.Now);
+                transaction.EntryId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
+
+                var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
+                account.Balance += transaction.Amount;
+
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

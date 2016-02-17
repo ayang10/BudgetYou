@@ -24,7 +24,6 @@ namespace BudgetYou.Controllers
 
 
         // GET: Households
-        
         public ActionResult Index()
         {
 
@@ -109,6 +108,9 @@ namespace BudgetYou.Controllers
 
             return RedirectToAction("Create", "Households");
         }
+
+
+
 
         // GET: Households/Edit/5
         [Authorize]

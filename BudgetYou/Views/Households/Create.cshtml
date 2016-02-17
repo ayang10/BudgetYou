@@ -3,35 +3,89 @@
 @{
     ViewBag.Title = "Create";
 }
+
 <br />
-<h2>Create</h2>
-
-
 <div class="container">
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+    <h1>Please Create or Join a Household</h1>
+    <hr />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class=" panel panel-default">
+                    
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Create</h4>
+                        </div>
+                    <section class="panel-body ">
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>Household</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <div class="form-horizontal">
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+
+                              
+                                    <div class="col-md-2 pull-right">
+                                        <input type="submit" value="Create" class="btn btn-lg btn-primary btn-block" />
+                                    </div>
+                         
+                            </div>
+                        }
+                    </section>
                 </div>
             </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-4 pull-right panel">
+
+                <fieldset>
+                    <legend style="color:blue;font-weight:bold; text-align: center;">About Households</legend>
+                    <table>
+                        <tr>
+                            Households are how we group accounts and users.
+                        </tr>
+                        <tr>
+                            Each user belongs to only 1 household, but the household can have many users.
+                        </tr>
+                        <tr>
+                            Each user in your household has full access to all account data.
+                        </tr>
+                    </table>
+                </fieldset>
+
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">Join</h4>
+                        </div>
+                    <section class="panel-body ">
+                        <form id="contact-form" action="@Url.Action("Join","HouseHolds")" method="post">
+
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label>Send invitation to join</label>
+                                <input type="text" name="Code" class="form-control" />
+                            </div>
+                            <div class="col-md-2 pull-right">
+                                <input type="submit" value="Join" class="btn btn-lg btn-primary btn-block" />
+                            </div>
+                        </form>
+                    </section>
                 </div>
             </div>
         </div>
-    }
+
+    </div>
 
 </div>
 

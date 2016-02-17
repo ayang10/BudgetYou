@@ -4,12 +4,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@*<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+</p>*@
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Account.Name)
@@ -59,7 +59,7 @@
             @Html.DisplayFor(modelItem => item.Reconciled)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.EntryId)
+            @Html.DisplayFor(modelItem => item.Entry.UserName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ReconciledAmount)
@@ -72,4 +72,124 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+
+
+
+<!----------------------------------------------------->
+
+<div class="main-content">
+    <div class="container">
+
+        <div class="page-content">
+
+            <!-- Heading -->
+            <div class="single-head">
+                <!-- Heading -->
+                <h2 class="pull-left"><i class="fa fa-table purple"></i>Transactions</h2> 
+               
+                <div class="pull-right">@Html.ActionLink("+ Add Transaction", "Create", null, new { @class = "btn btn-primary" })</div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- Table Page -->
+            <div class="page-tables">
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table cellpadding="0" cellspacing="0" border="0" id="data-table" width="100%" class="table ">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Reconciled</th>
+                                <th>Entry</th>
+                                <th>Reconciled Amount</th>
+                                <th>Control</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                       @foreach (var item in Model)
+                       {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Account.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Category.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Reconciled)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Entry.UserName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ReconciledAmount)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Transactions", new { id = item.Id })"><i class="fa fa-edit lblue"></i></a>
+                                <a href="@Url.Action("Details", "Transactions", new { id = item.Id })"><i class="fa fa-share-square-o green"></i></a>
+                                <a href="@Url.Action("Delete", "Transactions", new { id = item.Id })"><i class="fa fa-trash-o red"></i></a>
+
+
+                             
+                            </td>
+                        </tr>
+                       }
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Account</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Reconciled</th>
+                                <th>Entry</th>
+                                <th>Reconciled Amount</th>
+                                <th>Control</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+
+<script type="text/javascript">
+		/* ****************************************** */
+		/* Data Table JS */
+		/* ****************************************** */
+
+		$(document).ready(function() {
+			$('#data-table').dataTable({
+			   "sPaginationType": "full_numbers"
+			});
+		});
+
+</script>
+
+}

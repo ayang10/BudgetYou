@@ -15,10 +15,13 @@ namespace BudgetYou.Models
         }
         public int Id { get; set; }
         public int HouseholdId { get; set; }
+        public string Name { get; set; }
+        
+      
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Balance { get; set; }
-        public string Name { get; set; }
+       
         public DateTimeOffset CreationDate { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
@@ -26,7 +29,13 @@ namespace BudgetYou.Models
 
         public virtual ICollection<Transaction> Transactions { get; set; }
         public virtual Household Household { get; set; }
+     
+       
     }
+
+    
+   
+
 
     public class Household
     {
@@ -60,11 +69,11 @@ namespace BudgetYou.Models
         public decimal Amount { get; set; }
         public int CategoryId { get; set; }
         public bool Reconciled { get; set; }
-        public int EntryId { get; set; }
+        public string EntryId { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal? ReconciledAmount { get; set; }
 
-        public virtual ApplicationUser User { get; set; }
+        public virtual ApplicationUser Entry { get; set; }
         public virtual Category Category { get; set; }
         public virtual Account Account { get; set; }
 
@@ -130,9 +139,9 @@ namespace BudgetYou.Models
 
     public class DashboardViewModels
     {
-        public Household Household { get; set; }
-        public Invitation Invitation { get; set; }
-        public Budget Budget { get; set; }
+        public Household Households { get; set; }
+        public ICollection<Invitation> Invitations { get; set; }
+        public Budget Budgets { get; set; }
         public ICollection<Account> Accounts { get; set; }
         public ICollection<Transaction> Transactions { get; set; }
 

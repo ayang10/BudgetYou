@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BudgetYou.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BudgetYou.Controllers
 {
@@ -17,7 +18,16 @@ namespace BudgetYou.Controllers
         // GET: Accounts
         public ActionResult Index()
         {
-            return View(db.Accounts.ToList());
+            var user = db.Users.Find(User.Identity.GetUserId());
+            //Account account = db.Accounts.Find(user.HouseholdId);
+            //var accounts = db.Accounts.Include(b => b.Household);
+
+            var account = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
+
+           
+
+
+            return View(account);
         }
 
         // GET: Accounts/Details/5
@@ -38,6 +48,7 @@ namespace BudgetYou.Controllers
         // GET: Accounts/Create
         public ActionResult Create()
         {
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name");
             return View();
         }
 
@@ -50,17 +61,21 @@ namespace BudgetYou.Controllers
         {
             account.CreationDate = new DateTimeOffset(DateTime.Now);
 
-
             if (ModelState.IsValid)
             {
                 //account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId;
+                //var user = db.Users.Find(User.Identity.GetUserId());
+                account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId.Value;
                 account.CreationDate = new DateTimeOffset(DateTime.Now);
+                
+                
 
                 db.Accounts.Add(account);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
             return View(account);
         }
 
@@ -76,6 +91,7 @@ namespace BudgetYou.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
             return View(account);
         }
 
@@ -92,6 +108,7 @@ namespace BudgetYou.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", account.HouseholdId);
             return View(account);
         }
 

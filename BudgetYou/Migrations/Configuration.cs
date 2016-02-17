@@ -32,6 +32,7 @@ namespace BudgetYou.Migrations
                     context.Categories.Add(new Category { Name = c });
                 }
             }
+
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             //lamda expression, check to see if context, roles, look for any roles in the table name is "Admin"
             //if(!roleManager.RoleExists("Admin")) this if functions does the same thing

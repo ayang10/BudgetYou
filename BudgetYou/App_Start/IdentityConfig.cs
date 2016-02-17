@@ -11,6 +11,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using BudgetYou.Models;
+using System.Net;
+using SendGrid;
+using System.Configuration;
+using System.Net.Mail;
 
 namespace BudgetYou
 {
@@ -18,6 +22,21 @@ namespace BudgetYou
     {
         public Task SendAsync(IdentityMessage message)
         {
+
+            var username = ConfigurationManager.AppSettings["ayang10"];
+            var password = ConfigurationManager.AppSettings["ayan8296"];
+            var from = ConfigurationManager.AppSettings["ayang014@gmail.com"];
+
+            SendGridMessage myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.From = new MailAddress(from);
+            myMessage.Subject = message.Subject;
+            myMessage.Html = message.Body;
+
+            var credentials = new NetworkCredential(username, password);
+            var transportWeb = new Web(credentials);
+            transportWeb.DeliverAsync(myMessage);
+
             // Plug in your email service here to send an email.
             return Task.FromResult(0);
         }

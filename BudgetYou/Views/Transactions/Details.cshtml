@@ -4,79 +4,84 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<br />
+<div class="container">
+    <h2>Details</h2>
 
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Account.Name)
-        </dt>
+    <div>
+        <br />
+        <h4>Transaction</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Account Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Account.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Account.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
+            <dt>
+                Category
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Category.Name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Amount)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Amount)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Reconciled)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Reconciled)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Reconciled)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Reconciled)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EntryId)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Entry.UserName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.EntryId)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Entry.UserName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReconciledAmount)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.ReconciledAmount)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ReconciledAmount)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ReconciledAmount)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <p> 
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
