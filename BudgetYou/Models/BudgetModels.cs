@@ -65,6 +65,8 @@ namespace BudgetYou.Models
         public string Description { get; set; }
         public DateTimeOffset Date { get; set; }
 
+        public bool TypeOfFunction { get; set; }
+
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Amount { get; set; }
         public int CategoryId { get; set; }
@@ -78,6 +80,7 @@ namespace BudgetYou.Models
         public virtual Account Account { get; set; }
 
     }
+    
 
     public class Category
     {
@@ -111,18 +114,16 @@ namespace BudgetYou.Models
 
     public class BudgetItem
     {
-        public BudgetItem()
-        {
-            this.Budgets = new HashSet<Budget>();
-        }
+        
 
         public int Id { get; set; }
+        public int BudgetId { get; set; }
         public int CategoryId { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Amount { get; set; }
 
-        public virtual ICollection<Budget> Budgets { get; set; }
+        public virtual Budget Budget { get; set; }
         public virtual Category Category { get; set; }
     }
 

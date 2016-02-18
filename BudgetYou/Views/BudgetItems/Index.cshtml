@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BudgetYou.Models.BudgetItem>
 
-@{
+@*@{
     ViewBag.Title = "Index";
 }
 
@@ -12,7 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
+            Budget Name
+        </th>
+        <th>
+            Category
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Amount)
@@ -22,6 +25,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Budget.Name)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Category.Name)
         </td>
@@ -36,4 +42,88 @@
     </tr>
 }
 
-</table>
+</table>*@
+
+
+<!------------------------------>
+
+<div class="main-content">
+    <div class="container">
+
+        <div class="page-content">
+
+            <!-- Heading -->
+            <div class="single-head">
+                <!-- Heading -->
+                <h2 class="pull-left"><i class="fa fa-table orange"></i> Budget Items</h2>
+
+                <div class="pull-right">@Html.ActionLink("+ Add Budget Items", "Create", null, new { @class = "btn btn-warning" })</div>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- Table Page -->
+            <div class="page-tables">
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table cellpadding="0" cellspacing="0" border="0" id="data-table" width="100%" class="table ">
+                        <thead>
+                            <tr>
+                                <th>Budget Name</th>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Control</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                         @foreach (var item in Model)
+                         {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Budget.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Amount)
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Edit", "BudgetItems", new { id = item.Id })"><i class="fa fa-edit lblue fa-2x"></i></a>
+                                    <a href="@Url.Action("Details", "BudgetItems", new { id = item.Id })"><i class="fa fa-share-square-o green fa-2x"></i></a>
+                                    <a href="@Url.Action("Delete", "BudgetItems", new { id = item.Id })"><i class="fa fa-trash-o red fa-2x"></i></a>
+                                </td>
+                            </tr>
+                         }
+
+
+                        </tbody>
+                    
+                    </table>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+		/* ****************************************** */
+		/* Data Table JS */
+		/* ****************************************** */
+
+		$(document).ready(function() {
+			$('#data-table').dataTable({
+			   "sPaginationType": "full_numbers"
+			});
+		});
+
+    </script>
+
+}

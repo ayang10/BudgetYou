@@ -17,7 +17,7 @@ namespace BudgetYou.Controllers
         // GET: BudgetItems
         public ActionResult Index()
         {
-            var budgetItems = db.BudgetItems.Include(b => b.Category);
+            var budgetItems = db.BudgetItems.Include(b => b.Budget).Include(b => b.Category);
             return View(budgetItems.ToList());
         }
 
@@ -39,6 +39,7 @@ namespace BudgetYou.Controllers
         // GET: BudgetItems/Create
         public ActionResult Create()
         {
+            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
             return View();
         }
@@ -48,7 +49,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,CategoryId,Amount")] BudgetItem budgetItem)
+        public ActionResult Create([Bind(Include = "Id,BudgetId,CategoryId,Amount")] BudgetItem budgetItem)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +58,7 @@ namespace BudgetYou.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", budgetItem.BudgetId);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
             return View(budgetItem);
         }
@@ -73,6 +75,7 @@ namespace BudgetYou.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", budgetItem.BudgetId);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
             return View(budgetItem);
         }
@@ -82,7 +85,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,CategoryId,Amount")] BudgetItem budgetItem)
+        public ActionResult Edit([Bind(Include = "Id,BudgetId,CategoryId,Amount")] BudgetItem budgetItem)
         {
             if (ModelState.IsValid)
             {
@@ -90,6 +93,7 @@ namespace BudgetYou.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", budgetItem.BudgetId);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
             return View(budgetItem);
         }

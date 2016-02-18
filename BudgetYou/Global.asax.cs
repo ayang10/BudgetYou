@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -16,6 +18,23 @@ namespace BudgetYou
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+
+           
         }
+        protected void Application_BeginRequest()
+        {
+            var ci = CultureInfo.GetCultureInfo("en-US");
+
+            if (Thread.CurrentThread.CurrentCulture.DisplayName == ci.DisplayName)
+            {
+                ci = CultureInfo.CreateSpecificCulture("en-US");
+                ci.NumberFormat.CurrencyNegativePattern = 1;
+                Thread.CurrentThread.CurrentCulture = ci;
+                Thread.CurrentThread.CurrentUICulture = ci;
+            }
+        }
+
+
     }
 }

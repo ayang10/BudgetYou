@@ -18,7 +18,12 @@ namespace BudgetYou.Controllers
         // GET: Transactions
         public ActionResult Index()
         {
+            
+
             var transactions = db.Transactions.Include(t => t.Account).Include(t => t.Category);
+
+            
+            
             return View(transactions.ToList());
         }
 
@@ -42,6 +47,7 @@ namespace BudgetYou.Controllers
         {
             ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
+            
             return View();
         }
 
@@ -50,7 +56,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AccountId,Description,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "Id,AccountId,Description,Date,TypeOfFunction,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
             transaction.Date = new DateTimeOffset(DateTime.Now);
 
@@ -64,7 +70,11 @@ namespace BudgetYou.Controllers
                 
                 account.Balance += transaction.Amount;
 
+                transaction.ReconciledAmount = transaction.Amount;
 
+                transaction.Reconciled = true;
+                
+                
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -108,6 +118,7 @@ namespace BudgetYou.Controllers
 
                 var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
                 account.Balance += transaction.Amount;
+                
 
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
@@ -139,6 +150,11 @@ namespace BudgetYou.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Transaction transaction = db.Transactions.Find(id);
+
+            var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
+
+            account.Balance -= transaction.Amount;
+
             db.Transactions.Remove(transaction);
             db.SaveChanges();
             return RedirectToAction("Index");

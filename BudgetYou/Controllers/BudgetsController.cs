@@ -52,6 +52,8 @@ namespace BudgetYou.Controllers
         {
             if (ModelState.IsValid)
             {
+                budget.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId.Value;
+
                 db.Budgets.Add(budget);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,6 +88,8 @@ namespace BudgetYou.Controllers
         {
             if (ModelState.IsValid)
             {
+                budget.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId.Value;
+
                 db.Entry(budget).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

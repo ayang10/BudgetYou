@@ -102,8 +102,13 @@ namespace BudgetYou.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,HouseholdId,Balance,Name,CreationDate,ReconcileBalance")] Account account)
         {
+            account.CreationDate = new DateTimeOffset(DateTime.Now);
+
             if (ModelState.IsValid)
             {
+                account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId.Value;
+                account.CreationDate = new DateTimeOffset(DateTime.Now);
+
                 db.Entry(account).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

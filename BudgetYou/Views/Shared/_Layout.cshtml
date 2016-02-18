@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- Title here -->
-    <title>Dashboard - Barnie</title>
+    <title>Budget-You</title>
     <!-- Description, Keywords and Author -->
     <meta name="description" content="Your description">
     <meta name="keywords" content="Your,Keywords">
@@ -53,12 +53,13 @@
                         <h4>Main</h4>
                         <!-- Sidebar links -->
                         <ul class="list-unstyled">
-                            <li><a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-delicious"></i>Home</a></li>
-                            <li><a href="@Url.Action("Index", "Households")"><i class="fa fa-delicious"></i>HouseHold</a></li>
-                            <li><a href="@Url.Action("Index", "Accounts")"><i class="fa fa-delicious"></i>Accounts</a></li>
-                            <li><a href="@Url.Action("Index", "Transactions")"><i class="fa fa-delicious"></i>Transactions</a></li>
-                            <li><a href="@Url.Action("Index", "Budgets")"><i class="fa fa-delicious"></i>Budget</a></li>
-                            <li><a href="@Url.Action("Index", "Invitations")"><i class="fa fa-delicious"></i>Invitations</a></li>
+                            <li><a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-home"></i>Home</a></li>
+                            <li><a href="@Url.Action("Index", "Households")"><i class="fa fa-h-square"></i>HouseHold</a></li>
+                            <li><a href="@Url.Action("Index", "Accounts")"><i class="fa fa-university"></i>Accounts</a></li>
+                            <li><a href="@Url.Action("Index", "Transactions")"><i class="fa fa-credit-card"></i>Transactions</a></li>
+                            <li><a href="@Url.Action("Index", "Budgets")"><i class="fa fa-google-wallet"></i>Budget</a></li>
+                            <li><a href="@Url.Action("Index", "BudgetItems")"><i class="fa fa-sitemap"></i>BudgetItems</a></li>
+                            <li><a href="@Url.Action("Index", "Invitations")"><i class="fa fa-sign-in"></i>Invitations</a></li>
 
                           
                         </ul>
@@ -90,17 +91,7 @@
                         </div>
 
                         <div class="col-md-3 col-sm-4 col-xs-6">
-                            <!-- Search block -->
-                            <div class="head-search">
-                                <form class="form" role="form">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search...">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-                                        </span>
-                                    </div>
-                                </form>
-                            </div>
+                           <p>@DateTime.Now.ToString("D")</p>
                         </div>
 
                         <div class="col-md-3 col-sm-4 hidden-xs">
