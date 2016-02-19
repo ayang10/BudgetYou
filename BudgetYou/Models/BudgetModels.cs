@@ -65,7 +65,8 @@ namespace BudgetYou.Models
         public string Description { get; set; }
         public DateTimeOffset Date { get; set; }
 
-        public bool TypeOfFunction { get; set; }
+        [Required]
+        public bool Types { get; set; }
 
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Amount { get; set; }

@@ -103,6 +103,7 @@
                                 <th>Account</th>
                                 <th>Category</th>
                                 <th>Description</th>
+                                <th>Type</th>
                                 <th>Amount</th>
                                 <th>Date</th>
                                 <th>Reconciled</th>
@@ -126,12 +127,20 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td>
+                                @if (item.Types == true)
+                                {
+                                    <p class="green">Income</p>
+                                }
+                                else
+                                {
+                                    <p class="red">Expense</p>
+                                }
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Amount)
                             </td>
                             <td>
-                               
                                 @item.Date.ToString("D")
-                                
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Reconciled)
@@ -160,6 +169,7 @@
                                 <th>Account</th>
                                 <th>Category</th>
                                 <th>Description</th>
+                                <th>Type</th>
                                 <th>Amount</th>
                                 <th>Date</th>
                                 <th>Reconciled</th>

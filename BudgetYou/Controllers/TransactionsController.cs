@@ -56,7 +56,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,AccountId,Description,Date,TypeOfFunction,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
+        public ActionResult Create([Bind(Include = "Id,AccountId,Description,Date,Types,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
             transaction.Date = new DateTimeOffset(DateTime.Now);
 
@@ -68,13 +68,21 @@ namespace BudgetYou.Controllers
 
                 var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
                 
-                account.Balance += transaction.Amount;
 
                 transaction.ReconciledAmount = transaction.Amount;
 
                 transaction.Reconciled = true;
-                
-                
+
+                if (transaction.Types == true)
+                {
+                    account.Balance += transaction.Amount;
+                }
+
+                if (transaction.Types == false)
+                {
+                    account.Balance -= transaction.Amount;
+                }
+
                 db.Transactions.Add(transaction);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -107,7 +115,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AccountId,Description,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
+        public ActionResult Edit([Bind(Include = "Id,AccountId,Description,TypeOfFunction,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
             transaction.Date = new DateTimeOffset(DateTime.Now);
 
@@ -116,9 +124,31 @@ namespace BudgetYou.Controllers
                 transaction.Date = new DateTimeOffset(DateTime.Now);
                 transaction.EntryId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
 
-                var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
-                account.Balance += transaction.Amount;
-                
+                var originalBalance = db.Transactions.AsNoTracking().FirstOrDefault(o => o.Id == transaction.Id);
+                var account = db.Accounts.FirstOrDefault(a => a.Id == transaction.AccountId);
+
+                // Reverse original balance calculation
+                if (transaction.Types == true)
+                {
+                    account.Balance = (account.Balance + originalBalance.Amount);
+                }
+                if (transaction.Types == false)
+                {
+                    account.Balance = (account.Balance - originalBalance.Amount);
+                }
+
+                // New edit balance calculation
+                if (transaction.Types == true)
+                {
+                    account.Balance = (account.Balance - transaction.Amount);
+                    db.SaveChanges();
+                }
+                if (transaction.Types == false)
+                {
+                    account.Balance = (account.Balance + transaction.Amount);
+                    db.SaveChanges();
+                }
+
 
                 db.Entry(transaction).State = EntityState.Modified;
                 db.SaveChanges();
@@ -153,7 +183,14 @@ namespace BudgetYou.Controllers
 
             var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
 
-            account.Balance -= transaction.Amount;
+            if (transaction.Types == true)
+            {
+                account.Balance -= transaction.Amount;
+            }
+            if (transaction.Types == false)
+            {
+                account.Balance += transaction.Amount;
+            }
 
             db.Transactions.Remove(transaction);
             db.SaveChanges();
