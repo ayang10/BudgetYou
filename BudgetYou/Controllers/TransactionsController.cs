@@ -18,11 +18,13 @@ namespace BudgetYou.Controllers
         // GET: Transactions
         public ActionResult Index()
         {
-            
+            var user = db.Users.Find(User.Identity.GetUserId());
 
-            var transactions = db.Transactions.Include(t => t.Account).Include(t => t.Category);
+            var transactions = db.Transactions.Where(t => t.Account.HouseholdId == user.HouseholdId).Include(t => t.Category);
 
-            
+             //var users = Convert.ToInt32(User.Identity.GetHouseholdId());
+            //var transactions = db.Transactions.Where(t => t.BankAccountId  == t.BankAccount.Id && t.BankAccount.HouseholdId == user).Include(t => t.Category);
+
             
             return View(transactions.ToList());
         }
@@ -45,7 +47,11 @@ namespace BudgetYou.Controllers
         // GET: Transactions/Create
         public ActionResult Create()
         {
-            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name");
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var getAccount = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
+
+            ViewBag.AccountId = new SelectList(getAccount, "Id", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
             
             return View();
@@ -69,16 +75,20 @@ namespace BudgetYou.Controllers
                 var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
                 
 
+
                 transaction.ReconciledAmount = transaction.Amount;
 
-                transaction.Reconciled = true;
+                if (transaction.ReconciledAmount == transaction.Amount)
+                {
+                    transaction.Reconciled = true;
+                }
 
                 if (transaction.Types == true)
                 {
                     account.Balance += transaction.Amount;
                 }
 
-                if (transaction.Types == false)
+                else 
                 {
                     account.Balance -= transaction.Amount;
                 }
@@ -105,7 +115,11 @@ namespace BudgetYou.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AccountId = new SelectList(db.Accounts, "Id", "Name", transaction.AccountId);
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var getAccount = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
+
+            ViewBag.AccountId = new SelectList(getAccount, "Id", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", transaction.CategoryId);
             return View(transaction);
         }
@@ -115,7 +129,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,AccountId,Description,TypeOfFunction,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
+        public ActionResult Edit([Bind(Include = "Id,AccountId,Description,Types,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
             transaction.Date = new DateTimeOffset(DateTime.Now);
 
@@ -124,29 +138,38 @@ namespace BudgetYou.Controllers
                 transaction.Date = new DateTimeOffset(DateTime.Now);
                 transaction.EntryId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).Id;
 
-                var originalBalance = db.Transactions.AsNoTracking().FirstOrDefault(o => o.Id == transaction.Id);
+                var original = db.Transactions.AsNoTracking().FirstOrDefault(a => a.Id == transaction.Id);
                 var account = db.Accounts.FirstOrDefault(a => a.Id == transaction.AccountId);
+
+                if(transaction.ReconciledAmount == transaction.Amount)
+                {
+                    transaction.Reconciled = true;
+                }
+                else
+                {
+                    transaction.Reconciled = false;
+                }
 
                 // Reverse original balance calculation
                 if (transaction.Types == true)
                 {
-                    account.Balance = (account.Balance + originalBalance.Amount);
+                    account.Balance -= original.Amount;
                 }
-                if (transaction.Types == false)
+                else
                 {
-                    account.Balance = (account.Balance - originalBalance.Amount);
+                    account.Balance += original.Amount;
                 }
 
                 // New edit balance calculation
                 if (transaction.Types == true)
                 {
-                    account.Balance = (account.Balance - transaction.Amount);
-                    db.SaveChanges();
+                    account.Balance += transaction.Amount;
+                   
                 }
-                if (transaction.Types == false)
+                else 
                 {
-                    account.Balance = (account.Balance + transaction.Amount);
-                    db.SaveChanges();
+                    account.Balance -= transaction.Amount;
+                  
                 }
 
 
@@ -187,7 +210,7 @@ namespace BudgetYou.Controllers
             {
                 account.Balance -= transaction.Amount;
             }
-            if (transaction.Types == false)
+            else
             {
                 account.Balance += transaction.Amount;
             }

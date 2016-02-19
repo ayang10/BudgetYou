@@ -137,19 +137,22 @@
                                 }
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Amount)
+                                @string.Format("{0:C}", item.Amount)
                             </td>
                             <td>
                                 @item.Date.ToString("D")
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Reconciled)
+                                @if (item.Reconciled == true)
+                                { <span class="label label-success">Success</span>}
+                                else
+                                { <span class="label label-warning">Failed</span>}
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Entry.UserName)
+                                @item.Entry.FirstName @item.Entry.LastName
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ReconciledAmount)
+                                @string.Format("{0:C}", item.ReconciledAmount)
                             </td>
                             <td>
                                 <a href="@Url.Action("Edit", "Transactions", new { id = item.Id })"><i class="fa fa-edit lblue"></i></a>

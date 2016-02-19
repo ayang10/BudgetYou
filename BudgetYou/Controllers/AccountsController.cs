@@ -23,10 +23,7 @@ namespace BudgetYou.Controllers
             //var accounts = db.Accounts.Include(b => b.Household);
 
             var account = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
-
-           
-
-
+            
             return View(account);
         }
 

@@ -103,7 +103,7 @@ namespace BudgetYou.Controllers
         public ActionResult Leave()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
-            user.HouseholdId = null;
+            user.HouseholdId = 0;
             db.SaveChanges();
 
             return RedirectToAction("Create", "Households");

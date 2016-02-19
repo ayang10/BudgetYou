@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BudgetYou.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BudgetYou.Controllers
 {
@@ -17,8 +18,12 @@ namespace BudgetYou.Controllers
         // GET: BudgetItems
         public ActionResult Index()
         {
-            var budgetItems = db.BudgetItems.Include(b => b.Budget).Include(b => b.Category);
-            return View(budgetItems.ToList());
+            var user = db.Users.Find(User.Identity.GetUserId());
+            
+            var budgetItems = db.BudgetItems.Where(t => t.Budget.HouseholdId == user.HouseholdId).Include(b => b.Category).ToList();
+
+
+            return View(budgetItems);
         }
 
         // GET: BudgetItems/Details/5
@@ -39,7 +44,11 @@ namespace BudgetYou.Controllers
         // GET: BudgetItems/Create
         public ActionResult Create()
         {
-            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name");
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var getBudget = db.Budgets.Where(u => user.HouseholdId == u.HouseholdId).ToList();
+
+            ViewBag.BudgetId = new SelectList(getBudget, "Id", "Name");
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
             return View();
         }
@@ -75,7 +84,11 @@ namespace BudgetYou.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BudgetId = new SelectList(db.Budgets, "Id", "Name", budgetItem.BudgetId);
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            var getBudget = db.Budgets.Where(u => user.HouseholdId == u.HouseholdId).ToList();
+            
+            ViewBag.BudgetId = new SelectList(getBudget, "Id", "Name", budgetItem.BudgetId);
             ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", budgetItem.CategoryId);
             return View(budgetItem);
         }

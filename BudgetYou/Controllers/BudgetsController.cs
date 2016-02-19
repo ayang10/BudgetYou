@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BudgetYou.Models;
+using Microsoft.AspNet.Identity;
 
 namespace BudgetYou.Controllers
 {
@@ -17,8 +18,15 @@ namespace BudgetYou.Controllers
         // GET: Budgets
         public ActionResult Index()
         {
-            var budgets = db.Budgets.Include(b => b.Household);
-            return View(budgets.ToList());
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            //var account = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
+
+
+            var budgets = db.Budgets.Where(u => user.HouseholdId == u.HouseholdId).Include(b => b.Household).ToList();
+
+
+            return View(budgets);
         }
 
         // GET: Budgets/Details/5

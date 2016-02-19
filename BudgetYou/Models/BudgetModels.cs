@@ -19,12 +19,12 @@ namespace BudgetYou.Models
         
       
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Balance { get; set; }
        
         public DateTimeOffset CreationDate { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal ReconcileBalance { get; set; }
 
         public virtual ICollection<Transaction> Transactions { get; set; }
@@ -68,12 +68,12 @@ namespace BudgetYou.Models
         [Required]
         public bool Types { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Amount { get; set; }
         public int CategoryId { get; set; }
         public bool Reconciled { get; set; }
         public string EntryId { get; set; }
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal? ReconciledAmount { get; set; }
 
         public virtual ApplicationUser Entry { get; set; }

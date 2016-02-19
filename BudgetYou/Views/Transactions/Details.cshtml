@@ -42,9 +42,25 @@
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Date)
+                @Model.Date.ToString("D")
             </dd>
 
+            <dt>
+                Income
+            </dt>
+
+            <dd>
+                @Html.RadioButton("Types", true)
+            </dd>
+
+            <dt>
+                Expense
+            </dt>
+
+            <dd>
+                @Html.RadioButton("Types", false)
+                
+            </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Amount)
             </dt>
