@@ -59,7 +59,6 @@
                             <li><a href="@Url.Action("Index", "Transactions")"><i class="fa fa-credit-card"></i>Transactions</a></li>
                             <li><a href="@Url.Action("Index", "Budgets")"><i class="fa fa-google-wallet"></i>Budget</a></li>
                             <li><a href="@Url.Action("Index", "BudgetItems")"><i class="fa fa-sitemap"></i>BudgetItems</a></li>
-                            <li><a href="@Url.Action("Index", "Invitations")"><i class="fa fa-sign-in"></i>Invitations</a></li>
 
                           
                         </ul>
@@ -161,6 +160,42 @@
         <script src="~/theme/js/respond.min.js"></script>
         <!-- HTML5 Support for IE -->
         <script src="~/theme/js/html5shiv.js"></script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+    $(function () {
+        $('#container').highcharts({
+            data: {
+                table: 'datatable'
+            },
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Budget Balance by Category'
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Amount'
+                }
+            },
+           
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.point.y + ' ' + this.point.name.toLowerCase();
+                }
+            }
+        });
+    });
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+
         @RenderSection("scripts", required: false)
 </body>
 </html>

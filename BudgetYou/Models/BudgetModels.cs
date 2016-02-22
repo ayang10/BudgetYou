@@ -45,15 +45,20 @@ namespace BudgetYou.Models
             this.Accounts = new HashSet<Account>();
             this.Budgets = new HashSet<Budget>();
             this.Members = new HashSet<ApplicationUser>();
+            this.Invitations = new HashSet<Invitation>();
+            this.BudgetItems = new HashSet<BudgetItem>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
+
         public virtual ICollection<ApplicationUser> Members { get; set; }
         public virtual ICollection<Category> Categories { get; set; }
         public virtual ICollection<Account> Accounts { get; set; }
         public virtual ICollection<Budget> Budgets { get; set; }
+        public virtual ICollection<BudgetItem> BudgetItems { get; set; }
+        public virtual ICollection<Invitation> Invitations { get; set; }
     }
 
     public class Transaction
@@ -88,6 +93,7 @@ namespace BudgetYou.Models
         public Category()
         {
             this.Households = new HashSet<Household>();
+            this.BudgetItems = new HashSet<BudgetItem>();
             this.Transactions = new HashSet<Transaction>();
         }
 
@@ -96,6 +102,7 @@ namespace BudgetYou.Models
 
         public virtual ICollection<Household> Households { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual ICollection<BudgetItem> BudgetItems { get; set; }
     }
 
     public class Budget
@@ -121,7 +128,7 @@ namespace BudgetYou.Models
         public int BudgetId { get; set; }
         public int CategoryId { get; set; }
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Amount { get; set; }
 
         public virtual Budget Budget { get; set; }
@@ -143,9 +150,10 @@ namespace BudgetYou.Models
     {
         public Household Households { get; set; }
         public ICollection<Invitation> Invitations { get; set; }
-        public Budget Budgets { get; set; }
+        public ICollection<Budget> Budgets { get; set; }
         public ICollection<Account> Accounts { get; set; }
         public ICollection<Transaction> Transactions { get; set; }
+        public ICollection<Category> Categories { get; set; }
 
 
     }

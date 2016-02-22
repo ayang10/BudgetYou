@@ -64,8 +64,8 @@ namespace BudgetYou.Controllers
                 //var user = db.Users.Find(User.Identity.GetUserId());
                 account.HouseholdId = db.Users.FirstOrDefault(u => u.UserName == User.Identity.Name).HouseholdId.Value;
                 account.CreationDate = new DateTimeOffset(DateTime.Now);
-                
-                
+
+                account.ReconcileBalance = account.Balance;
 
                 db.Accounts.Add(account);
                 db.SaveChanges();

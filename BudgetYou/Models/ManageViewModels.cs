@@ -12,6 +12,8 @@ namespace BudgetYou.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
+
     }
 
     public class ManageLoginsViewModel
@@ -23,6 +25,24 @@ namespace BudgetYou.Models
     public class FactorViewModel
     {
         public string Purpose { get; set; }
+    }
+
+    public class EditProfileViewModel
+    {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
     }
 
     public class SetPasswordViewModel
@@ -38,6 +58,7 @@ namespace BudgetYou.Models
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
+    
 
     public class ChangePasswordViewModel
     {

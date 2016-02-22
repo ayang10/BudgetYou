@@ -87,7 +87,7 @@
                                     @Html.DisplayFor(modelItem => item.Category.Name)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Amount)
+                                   @string.Format("{0:C}", item.Amount)
                                 </td>
                                 <td>
                                     <a href="@Url.Action("Edit", "BudgetItems", new { id = item.Id })"><i class="fa fa-edit lblue fa-2x"></i></a>

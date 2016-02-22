@@ -11,10 +11,12 @@ using BudgetYou.Models;
 namespace BudgetYou.Controllers
 {
     [Authorize]
+    
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -61,6 +63,8 @@ namespace BudgetYou.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.EditProfileSuccess ? "Your profile has been updated."
+                : message == ManageMessageId.EditProfileFailed ? "Email address already Existed."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -211,7 +215,46 @@ namespace BudgetYou.Controllers
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
+        // GET: /Manage/EditProfile
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            var name = new EditProfileViewModel();
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            name.FirstName = user.FirstName;
+            name.LastName = user.LastName;
+            name.Email = user.Email;
+
+            return View(name);
+        }
+
         //
+        // POST: /Manage/EditProfile
+        [HttpPost]
+        public ActionResult EditProfile(EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+          
+            var user = db.Users.Find(User.Identity.GetUserId());
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.UserName = model.Email;
+            
+          
+
+            db.SaveChanges();
+
+       
+            return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
+        }
+
+
+
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
@@ -379,6 +422,8 @@ namespace BudgetYou.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
+            EditProfileSuccess,
+            EditProfileFailed,
             Error
         }
 
