@@ -32,9 +32,9 @@ namespace BudgetYou.Controllers
             model.Transactions = db.Transactions.Where(t => t.Account.HouseholdId == user.HouseholdId).OrderByDescending(i => i.Id).Take(6).ToList();
             model.Accounts = db.Accounts.Where(i => i.HouseholdId == model.Households.Id).ToList();
             model.Invitations = db.Invitations.Where(i => i.ToEmail == User.Identity.Name).ToList();
-            model.Budgets = db.Budgets.Where(b => b.HouseholdId == model.Households.Id).ToList();
+            model.Budgets = db.Budgets.First(b => b.HouseholdId == model.Households.Id);
 
-          
+
 
             return View(model);
         }

@@ -38,18 +38,24 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Spent</th>
+                                    <th>BudgetItem</th>
                                     <th>Category</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Households.BudgetItems)
+                                @foreach (var item in Model.Transactions)
+                                {
+
+                                foreach (var v in Model.Budgets.BudgetItems)
                                 {
                                     <tr>
-                                        @*<th>@item.Amount.Count</th>*@
-                                     <td>@item.Budget.BudgetItems.Count</td>
+                                        <th>@v.Category.Name</th>
+                                     <td>@v.Amount</td>
                                       
                                     </tr>
+                                }
+
+
                                 }
                             </tbody>
                         </table>

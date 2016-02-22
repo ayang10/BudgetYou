@@ -150,7 +150,7 @@ namespace BudgetYou.Models
     {
         public Household Households { get; set; }
         public ICollection<Invitation> Invitations { get; set; }
-        public ICollection<Budget> Budgets { get; set; }
+        public Budget Budgets { get; set; }
         public ICollection<Account> Accounts { get; set; }
         public ICollection<Transaction> Transactions { get; set; }
         public ICollection<Category> Categories { get; set; }
