@@ -72,7 +72,7 @@
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 class="panel-title">Accounts</h4>
+                    <h4 class="panel-title">Accounts</h4> 
                 </div>
                 <div class="widget-body no-padd">
 
@@ -96,13 +96,13 @@
                                             @Html.DisplayFor(modelItem => item.Name)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Balance)
+                                            @string.Format("{0:C}", item.Balance)
                                         </td>
                                         <td>
                                             @item.CreationDate.ToString("D")
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ReconcileBalance)
+                                            @string.Format("{0:C}", item.ReconcileBalance)
                                         </td>
                                         <td>
                                             <a href="@Url.Action("Edit", "Accounts", new { id = item.Id })"><i class="fa fa-pencil btn btn-sm btn-warning"></i></a>

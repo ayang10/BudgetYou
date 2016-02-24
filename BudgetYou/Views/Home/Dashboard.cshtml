@@ -14,9 +14,9 @@
                 <h1>
                     @foreach (var item in Model.Accounts)
                     {
-                       
 
-                        if(item.Balance < 6)
+
+                        if (item.Balance < 6)
                         {
                           @item.Name  @(" Account is low on Balance!") 
                         }
@@ -26,37 +26,128 @@
         </div>
     </div>
     <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- Pages widget -->
+                <div class="widget pages-widget">
+
+                    <div class="widget-head br-purple">
+                        <h3>
+                            <i class="fa fa-beer "></i> Spending
+                        </h3>
+                    </div>
+
+                    <div class="widget-body no-padd">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <!-- Table heading -->
+                                <thead>
+                                    <tr>
+                                        <th>Transaction Spent</th>
+                                        <th>Budget Balance</th>
+                                        <th>Balance left to spend</th>
+                                     
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                   
+                                        <tr>
+                                            <td>
+                                               
+                                                @Model.Transactions.Where(t => t.Types == false).Sum(t => t.Amount)
+                                           
+                                            </td>
+                                            <td>
+                                                @Model.Budgets.BudgetItems.Sum(t => t.Amount)
+                                              
+                                            </td>
+                                            <td>
+                                                @(Model.Transactions.Sum(t => t.Amount) - Model.Budgets.BudgetItems.Sum(t => t.Amount))
+                                             
+                                            </td>
+                                         
+                                        </tr>
+                                  
+
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+        </div>
+    </div>
+
+<br />
 
     <div class="container">
         <div class="row">
+            <div class="form-group">
+                @using (Html.BeginForm("UpdateChart", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="col-md-5">
+
+                        Budget Name:  @Html.DropDownList("BudgetId", null, htmlAttributes: new { @class = "form-control", onchange = "this.form.submit();" })
+
+
+
+
+                    </div>
+                }
+              @*@using (Html.BeginForm("ChangeTransactionDate", "Home", FormMethod.Get))
+              {
+                    <div class="col-md-10">
+                        @Html.DropDownList("month", Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }), "-- Month --", new { onchange = "this.form.submit();" })
+                        @Html.DropDownList("year", Enumerable.Range(2010, 50).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Year --", new { onchange = "this.form.submit();" })
+                    </div>
+              }*@
+                </div>
+              
             <div class="col-md-8">
-             
+                
+              
                         <!--bar chart will go here-->
+           
                         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                
 
                         <table id="datatable" >
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>BudgetItem</th>
-                                    <th>Category</th>
+                                    <th>BudgetItems</th>
+                                    <th>Monthly Transactions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model.Transactions)
-                                {
-
-                                foreach (var v in Model.Budgets.BudgetItems)
+                           
+                                @foreach (var v in Model.Budgets.BudgetItems)
                                 {
                                     <tr>
-                                        <th>@v.Category.Name</th>
-                                     <td>@v.Amount</td>
+                                        <th>
+                                           
+                                        @v.Category.Name
+                                        
+                                        </th>
+                                     <td>
+                                        @v.Amount
+                                     </td>
                                       
+                                      <td>@Model.Transactions.Where(a => a.CategoryId == v.CategoryId).Sum(t => t.Amount)</td>
+                                
+                                   
                                     </tr>
-                                }
+
+                                    }
 
 
-                                }
                             </tbody>
                         </table>
 
@@ -196,3 +287,53 @@
     </div>
 </div>
 
+
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+
+    $(function () {
+        $('#container').highcharts({
+
+            data: {
+                table: 'datatable'
+                
+            },
+            chart: {
+                type: 'column'
+               
+            },
+            title: {
+
+                text: 'Budget Balance by Monthly Transactions'
+            },
+
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Amount'
+                }
+            },
+
+            tooltip: {
+
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                        this.point.y + ' ' + this.point.name.toLowerCase();
+                }
+            }
+
+        });
+    });
+</script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="~/Scripts/Highcharts-4.0.1/js/themes/sand-signika.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+    
+
+    
+    }

@@ -47,6 +47,7 @@ namespace BudgetYou.Models
             this.Members = new HashSet<ApplicationUser>();
             this.Invitations = new HashSet<Invitation>();
             this.BudgetItems = new HashSet<BudgetItem>();
+            this.Transactions = new HashSet<Transaction>();
         }
 
         public int Id { get; set; }
@@ -59,6 +60,7 @@ namespace BudgetYou.Models
         public virtual ICollection<Budget> Budgets { get; set; }
         public virtual ICollection<BudgetItem> BudgetItems { get; set; }
         public virtual ICollection<Invitation> Invitations { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 
     public class Transaction
@@ -110,6 +112,7 @@ namespace BudgetYou.Models
         public Budget()
         {
             this.BudgetItems = new HashSet<BudgetItem>();
+            this.Transactions = new HashSet<Transaction>();
         }
 
         public int Id { get; set; }
@@ -118,11 +121,15 @@ namespace BudgetYou.Models
 
         public virtual ICollection<BudgetItem> BudgetItems { get; set; }
         public virtual Household Household { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 
     public class BudgetItem
     {
-        
+        public BudgetItem()
+        {
+            this.Transactions = new HashSet<Transaction>();
+        }
 
         public int Id { get; set; }
         public int BudgetId { get; set; }
@@ -133,6 +140,7 @@ namespace BudgetYou.Models
 
         public virtual Budget Budget { get; set; }
         public virtual Category Category { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 
 
@@ -154,7 +162,8 @@ namespace BudgetYou.Models
         public ICollection<Account> Accounts { get; set; }
         public ICollection<Transaction> Transactions { get; set; }
         public ICollection<Category> Categories { get; set; }
-
+        public BudgetItem BudgetItems { get; set; }
+        public int GetBudgetId { get; set; }
 
     }
 
