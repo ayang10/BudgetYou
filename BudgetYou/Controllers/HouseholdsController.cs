@@ -8,9 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using BudgetYou.Models;
 using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using System.Net.Mail;
+using System.Net.Mime;
 
 namespace BudgetYou.Controllers
 {
+
+    [Authorize]
     public class HouseholdsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -24,6 +29,7 @@ namespace BudgetYou.Controllers
 
 
         // GET: Households
+        [Authorize]
         public ActionResult Index()
         {
 
@@ -36,11 +42,11 @@ namespace BudgetYou.Controllers
             }
 
 
-          
             return View(household);
         }
 
         // GET: Households/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -70,7 +76,7 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Create([Bind(Include = "Id,Name")] Household household)
         {
-          
+
 
             if (ModelState.IsValid)
             {
@@ -93,24 +99,48 @@ namespace BudgetYou.Controllers
                 }
             }
 
-          
+
             return View();
         }
 
+        [HttpGet]
+        //GET: Households/Join
 
-
-
-        public ActionResult Leave()
+        public ActionResult Joins(Guid guid)
         {
-            var user = db.Users.Find(User.Identity.GetUserId());
-            user.HouseholdId = 0;
-            db.SaveChanges();
 
-            return RedirectToAction("Create", "Households");
+            return View(guid);
         }
 
+        [HttpPost]
+        [Authorize]
+        //POST: Households/Join
+        public async Task<ActionResult> Joins(Household model, Guid guid)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.Users.Find(User.Identity.GetUserId());
 
-
+                    var currUserEmail = User.Identity.GetUserName();
+                    var invite = db.Invitations.FirstOrDefault(c => c.JoinCode == guid && c.ToEmail == currUserEmail);
+                    if (invite != null)
+                    {
+                        user.HouseholdId = invite.HouseholdId;
+                        db.Invitations.Remove(invite);
+                      
+                        db.SaveChanges();
+                        return RedirectToAction("Index", new { id = user });
+                    }
+                    else
+                    {
+                        TempData["errorMessage"] = "An error has occurred";
+                        return RedirectToAction("Create", "Households");
+                    }
+            
+            }
+            TempData["errorMessage"] = "An error has occurred";
+            return RedirectToAction("Create", "Households");
+        }
 
         // GET: Households/Edit/5
         [Authorize]
@@ -144,6 +174,7 @@ namespace BudgetYou.Controllers
             }
             return View(household);
         }
+        
 
         // GET: Households/Delete/5
         [Authorize]
@@ -160,6 +191,16 @@ namespace BudgetYou.Controllers
             }
             return View(household);
         }
+
+        public ActionResult Leave()
+        {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            user.HouseholdId = null;
+            db.SaveChanges();
+
+            return RedirectToAction("Create", "Households");
+        }
+
 
         // POST: Households/Delete/5
         [HttpPost, ActionName("Delete")]

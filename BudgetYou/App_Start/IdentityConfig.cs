@@ -23,9 +23,11 @@ namespace BudgetYou
         public Task SendAsync(IdentityMessage message)
         {
 
-            var username = ConfigurationManager.AppSettings["SendGridUserName"];
-            var password = ConfigurationManager.AppSettings["SendGridPassword"];
-            var from = ConfigurationManager.AppSettings["ContactEmail"];
+            ApplicationDbContext db = new ApplicationDbContext();
+
+            var username = db.SendgridCredentials.FirstOrDefault().UserName;
+            var password = db.SendgridCredentials.FirstOrDefault().UserName;
+            var from = "Invitation@budgetyou.net";
 
             SendGridMessage myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);

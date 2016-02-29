@@ -3,11 +3,9 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<br />
 <div class="container">
-    <br />
-    <h1>Accounts</h1>
-    <br />
+    
     <p>
         @Html.ActionLink("+ Add Account", "Create", null, new { @class ="btn btn-success"})
     </p>
@@ -83,6 +81,7 @@
                                     <th>Account Name</th>
                                     <th>@Html.DisplayNameFor(model => model.Balance)</th>
                                     <th>@Html.DisplayNameFor(model => model.CreationDate)</th>
+                                    <th>@Html.DisplayNameFor(model => model.WarningBalance)</th>
                                     <th>@Html.DisplayNameFor(model => model.ReconcileBalance)</th>
                                     <th>Control</th>
                                 </tr>
@@ -100,6 +99,9 @@
                                         </td>
                                         <td>
                                             @item.CreationDate.ToString("D")
+                                        </td>
+                                        <td>
+                                            @string.Format("{0:C}", item.WarningBalance)
                                         </td>
                                         <td>
                                             @string.Format("{0:C}", item.ReconcileBalance)

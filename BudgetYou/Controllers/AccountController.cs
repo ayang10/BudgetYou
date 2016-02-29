@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BudgetYou.Models;
+using System.Collections.Generic;
 
 namespace BudgetYou.Controllers
 {
@@ -90,7 +91,7 @@ namespace BudgetYou.Controllers
                     return View(model);
             }
         }
-
+        
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -175,9 +176,9 @@ namespace BudgetYou.Controllers
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                     //string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                     //await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
                     return RedirectToAction("Dashboard", "Home");
                 }
@@ -188,54 +189,128 @@ namespace BudgetYou.Controllers
             return View(model);
         }
 
+
         //
-        // GET: /Account/ConfirmEmail
+        // GET: /Account/Register
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public ActionResult RegisterToJoinHousehold(int inviteHouseholdId, int invitationId, Guid guid)
         {
-            if (userId == null || code == null)
-            {
-                return View("Error");
-            }
-            var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return View(result.Succeeded ? "ConfirmEmail" : "Error");
+         
+            RegisterViewModel model = new RegisterViewModel();
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            Household HouseholdJoin = db.Households.FirstOrDefault(i => i.Id == inviteHouseholdId);
+            Invitation invited = db.Invitations.FirstOrDefault(i => i.Id == invitationId);
+            ApplicationUser invitedUser = db.Users.FirstOrDefault(x => x.Email == invited.ToEmail);
+            invited.JoinCode = guid;
+
+            model.HouseholdName = HouseholdJoin.Name;
+            model.HouseholdId = HouseholdJoin.Id;
+            model.Email = invited.ToEmail;
+
+
+            db.SaveChanges();
+            return View(model);
         }
 
         //
-        // GET: /Account/ForgotPassword
-        [AllowAnonymous]
-        public ActionResult ForgotPassword()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/ForgotPassword
+        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public async Task<ActionResult> RegisterToJoinHousehold(RegisterViewModel model, int householdId, string Email )
         {
+            
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null)
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
-                }
+               
 
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    HouseholdId = householdId
+                };
+
+                var result = await UserManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+               
+                    return RedirectToAction("Dashboard", "Home");
+                }
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+
+
+        [HttpGet]
+        [Authorize]
+        //Get: Households/Join
+        public ActionResult JoinHousehold(int inviteHouseholdId)
+        {
+            RegisterViewModel model = new RegisterViewModel();
+
+            ApplicationDbContext db = new ApplicationDbContext();
+            var user = db.Users.Find(User.Identity.GetUserId());
+
+            Household HouseholdJoin = db.Households.FirstOrDefault(i => i.Id == inviteHouseholdId);
+
+
+            model.HouseholdName = HouseholdJoin.Name;
+            model.Email = user.Email;
+            model.FirstName = user.FirstName;
+            model.LastName = user.LastName;
+            model.Password = user.PasswordHash;
+            model.ConfirmPassword = user.PasswordHash;
+
+            if (model.HouseholdId == null)
+            {
+                model.HouseholdId = HouseholdJoin.Id;
+            }
+
+
+            db.SaveChanges();
+            return View(model);
+        }
+
+        //// POST: /Account/Register
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task <ActionResult> JoinHousehold(RegisterViewModel model, intss householdId)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+                
+        
+        //        var result = await UserManager.CreateAsync();
+
+        //        if (result.Succeeded)
+        //        {
+        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+
+        //            return RedirectToAction("Dashboard", "Home");
+        //        }
+        //        AddErrors(result);
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}ss
+
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -246,12 +321,7 @@ namespace BudgetYou.Controllers
         }
 
         //
-        // GET: /Account/ResetPassword
-        [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
-        {
-            return code == null ? View("Error") : View();
-        }
+    
 
         //
         // POST: /Account/ResetPassword

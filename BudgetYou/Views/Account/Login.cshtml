@@ -14,7 +14,7 @@
 
     @model LoginViewModel
     @{
-        ViewBag.Title = "Log in";
+        ViewBag.Title = "Budget-You - Log in";
         Layout = null;
     }
 
@@ -48,6 +48,7 @@
                         <!-- Login form -->
 
                         <form role="form" action="index.html">
+                            <p class="text-success">@ViewBag.StatusMessage</p>
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Email)
 

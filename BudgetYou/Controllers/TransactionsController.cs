@@ -11,11 +11,13 @@ using Microsoft.AspNet.Identity;
 
 namespace BudgetYou.Controllers
 {
+    [Authorize]
     public class TransactionsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Transactions
+        [Authorize]
         public ActionResult Index()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
@@ -30,6 +32,8 @@ namespace BudgetYou.Controllers
         }
 
         // GET: Transactions/Details/5
+        [HttpGet]
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -45,6 +49,8 @@ namespace BudgetYou.Controllers
         }
 
         // GET: Transactions/Create
+        [HttpGet]
+        [Authorize]
         public ActionResult Create()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
@@ -62,6 +68,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "Id,AccountId,Description,Date,Types,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
             transaction.Date = new DateTimeOffset(DateTime.Now);
@@ -104,6 +111,8 @@ namespace BudgetYou.Controllers
         }
 
         // GET: Transactions/Edit/5
+        [HttpGet]
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -129,6 +138,7 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "Id,AccountId,Description,Types,Date,Amount,CategoryId,Reconciled,EntryId,ReconciledAmount")] Transaction transaction)
         {
             transaction.Date = new DateTimeOffset(DateTime.Now);
@@ -183,6 +193,8 @@ namespace BudgetYou.Controllers
         }
 
         // GET: Transactions/Delete/5
+        [HttpGet]
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -200,6 +212,7 @@ namespace BudgetYou.Controllers
         // POST: Transactions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             Transaction transaction = db.Transactions.Find(id);

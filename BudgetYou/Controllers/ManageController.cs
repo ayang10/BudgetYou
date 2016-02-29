@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BudgetYou.Models;
+using System.Web.Security;
+using System.Data.Entity;
 
 namespace BudgetYou.Controllers
 {
@@ -65,6 +67,7 @@ namespace BudgetYou.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : message == ManageMessageId.EditProfileSuccess ? "Your profile has been updated."
                 : message == ManageMessageId.EditProfileFailed ? "Email address already Existed."
+                : message == ManageMessageId.NewLogin ? "Login with new Username."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -83,6 +86,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
             ManageMessageId? message;
@@ -105,6 +109,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/AddPhoneNumber
+        [Authorize]
         public ActionResult AddPhoneNumber()
         {
             return View();
@@ -114,6 +119,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
@@ -138,6 +144,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/EnableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
@@ -153,6 +160,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
@@ -166,6 +174,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        [Authorize]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
@@ -177,6 +186,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/VerifyPhoneNumber
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
             if (!ModelState.IsValid)
@@ -200,6 +210,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/RemovePhoneNumber
+        [Authorize]
         public async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
@@ -215,8 +226,9 @@ namespace BudgetYou.Controllers
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
-        // GET: /Manage/EditProfile
+        // GET: /EditProfile
         [HttpGet]
+        [Authorize]
         public ActionResult EditProfile()
         {
             var name = new EditProfileViewModel();
@@ -229,33 +241,88 @@ namespace BudgetYou.Controllers
             return View(name);
         }
 
-        //
-        // POST: /Manage/EditProfile
-        [HttpPost]
+
+        //POST: /EditProfile
+       [HttpPost]
+       [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult EditProfile(EditProfileViewModel model)
         {
+
+            ApplicationDbContext db = new ApplicationDbContext();
+
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-          
+
             var user = db.Users.Find(User.Identity.GetUserId());
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Email = model.Email;
-            user.UserName = model.Email;
-            
           
+
+            var existingUser = db.Users.Where(u => u.Email == model.Email).FirstOrDefault();
+
+            if (existingUser == null)
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.Email = model.Email;
+                user.UserName = model.Email;
+
+            }
+
+           
+            else
+            {
+                existingUser.FirstName = model.FirstName;
+                existingUser.LastName = model.LastName;
+                user.Email = model.Email;
+                user.UserName = model.Email;
+
+                //return RedirectToAction("Login", "Account", new { Message = ManageMessageId.NewLogin });
+            }
+
+            
 
             db.SaveChanges();
 
-       
             return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
+
         }
 
 
+        //[HttpPost]
+        //public async Task<ActionResult> EditProfile(ApplicationUser user)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(user);
+        //    }
+
+        //    ApplicationDbContext db = new ApplicationDbContext();
+        //    var userId = User.Identity.GetUserId();
+        //    ApplicationUser savedUser = db.Users.Single(x => x.Id == userId);
+
+        //    savedUser.FirstName = user.FirstName;
+        //    savedUser.LastName = user.LastName;
+        //    savedUser.Email = user.Email;
+        //    savedUser.UserName = user.UserName;
+
+        //    db.Entry(savedUser).State = EntityState.Modified;
+        //    await db.SaveChangesAsync();
+
+        //    FormsAuthentication.SignOut();
+        //    user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+        //    if (user != null)
+        //    {
+        //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+        //    }
+
+        //    return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
+        //}
+
 
         // GET: /Manage/ChangePassword
+        [Authorize]
         public ActionResult ChangePassword()
         {
             return View();
@@ -265,6 +332,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!ModelState.IsValid)
@@ -287,6 +355,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/SetPassword
+        [Authorize]
         public ActionResult SetPassword()
         {
             return View();
@@ -296,6 +365,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
             if (ModelState.IsValid)
@@ -319,6 +389,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/ManageLogins
+        [Authorize]
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -344,6 +415,7 @@ namespace BudgetYou.Controllers
         // POST: /Manage/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
@@ -352,6 +424,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/LinkLoginCallback
+        [Authorize]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -424,6 +497,7 @@ namespace BudgetYou.Controllers
             RemovePhoneSuccess,
             EditProfileSuccess,
             EditProfileFailed,
+            NewLogin,
             Error
         }
 

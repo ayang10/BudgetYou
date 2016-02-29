@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace BudgetYou.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -23,10 +24,11 @@ namespace BudgetYou.Controllers
             return View();
         }
 
-        public ActionResult Dashboard(int? id)
+        [Authorize]
+        public ActionResult Dashboard(int? id, int? low)
         {
 
-            DashboardViewModels model = new DashboardViewModels();
+            DashboardViewModels model = new DashboardViewModels(); //object of DashboardViewModels
 
             var user = db.Users.Find(User.Identity.GetUserId()); //get user Id
             
@@ -37,9 +39,19 @@ namespace BudgetYou.Controllers
             //model.Invitations = db.Invitations.Where(a => a.ToEmail == User.Identity.Name).ToList(); //
 
             var getBudget = db.Budgets.Where(a => user.HouseholdId == a.HouseholdId).ToList(); //get List of existing budgets in this household
-            var CurrentBudget = db.Budgets.First(a => a.HouseholdId == model.Households.Id); //Get currentbudget for this 
 
-            if (id == null) //there will be a id already, so this step will more than likely be skipped
+            if (model.Households.Budgets.Count == 0)
+            {
+                return RedirectToAction("Create", "Budgets");
+
+            }
+            
+
+                var CurrentBudget = db.Budgets.First(a => a.HouseholdId == model.Households.Id); //Get currentbudget for this 
+
+            
+
+            if (id == null) 
             {
                 
                 ViewBag.BudgetId = new SelectList(getBudget, "Id", "Name", CurrentBudget.Id); //Viewbag to get list of current existing budget
@@ -54,14 +66,34 @@ namespace BudgetYou.Controllers
                 model.Budgets = db.Budgets.First(a => a.Id == id); //get budget assign to id
              
             }
-               
-           
+
+            var currentDate = DateTime.Now;
           
+            model.begin = new DateTime(currentDate.Year, currentDate.Month, 1);
+            ////model.end = new DateTime(currentDate.Year, currentDate.Month,DateTime.DaysInMonth(currentDate.Year, currentDate.Month));
+            model.end = currentDate;
+
+            //int currentAmount = 100;
+            //    if (low == null)
+            //    {
+            //        model.setLowBalance = currentAmount;
+
+            //    }
+            //    else
+            //    {
+            //        currentAmount = (int)low;
+            //        model.setLowBalance = currentAmount;
+            //    }
+                
+
 
             return View(model);
         }
 
+
         [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateChart(int BudgetId)
         {
 
@@ -69,30 +101,36 @@ namespace BudgetYou.Controllers
         }
 
 
-        //[HttpGet]
-        //public ActionResult ChangeTransactionDate(int month, int year)
+
+        //public ActionResult ChangeTransactionDate(DateTime startDate, DateTime endDate)
         //{
+        //    DashboardViewModels model = new DashboardViewModels();
 
-        //    DateTime startDate = new DateTime(year, month, 1, 0, 0, 0);
-        //    DateTime endDate = new DateTime(year, month, DateTime.DaysInMonth(year, month), 23, 59, 59, 999);
+        //    //var currentDate = DateTime.Now;
 
+        //    //model.Transactions = db.Transactions.Where(t => t.Date >= model.begin && t.Date <= model.end).ToList();
+        //    model.begin = startDate;
+        //    model.end = endDate;
 
-        //    Transaction transactions = new Transaction();
-        //    DateTime counterDate = startDate;
-
-
-
-
-        //    return RedirectToAction("Dashboard", new { id = month, year });
+        //    return RedirectToAction("Dashboard", model);
         //}
 
-       
+        //[HttpPost]
+        //[Authorize]
+        //public ActionResult setBalance(int setLowBalance)
+        //{
+           
+        //    return RedirectToAction("Dashboard", new { low = setLowBalance});
 
-        public ActionResult Contact()
+        //}
+
+        public ActionResult About()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your about page.";
 
             return View();
         }
+
+       
     }
 }

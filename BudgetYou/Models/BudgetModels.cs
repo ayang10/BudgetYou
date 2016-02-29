@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -16,8 +17,8 @@ namespace BudgetYou.Models
         public int Id { get; set; }
         public int HouseholdId { get; set; }
         public string Name { get; set; }
-        
-      
+        public decimal WarningBalance { get; set; }
+
 
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:c}")]
         public decimal Balance { get; set; }
@@ -34,8 +35,6 @@ namespace BudgetYou.Models
     }
 
     
-   
-
 
     public class Household
     {
@@ -147,9 +146,12 @@ namespace BudgetYou.Models
     public class Invitation
     {
         public int Id { get; set; }
+        public int HouseholdId { get; set; }
+        public Guid JoinCode { get; set; }
         public string ToEmail { get; set; }
-        public int SendFromId { get; set; }
+        public bool Joined { get; set; }
 
+        public virtual Household Households { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
 
@@ -165,7 +167,23 @@ namespace BudgetYou.Models
         public BudgetItem BudgetItems { get; set; }
         public int GetBudgetId { get; set; }
 
-    }
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTimeOffset begin { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}")]
+        public DateTimeOffset end { get; set; }
+
+        
+        public int setLowBalance { get; set; }
+
+       
+    }
+    
+    public class SendGridCredential
+    {
+        public int id { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+    }
 
 }

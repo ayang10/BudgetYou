@@ -71,10 +71,6 @@ namespace BudgetYou
                  "~/theme/js/jquery.gritter.min.js",
       "~/theme/js/custom.notification.js",
       "~/theme/js/custom.js" 
-
-
-
-
                       ));
 
         }

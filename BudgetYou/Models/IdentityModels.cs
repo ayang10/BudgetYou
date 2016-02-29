@@ -37,7 +37,7 @@ namespace BudgetYou.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("AzureConnection", throwIfV1Schema: false)
         {
         }
 
@@ -53,5 +53,7 @@ namespace BudgetYou.Models
         public DbSet<Budget> Budgets { get; set; }
         public DbSet<BudgetItem> BudgetItems { get; set; }
         public DbSet<Invitation> Invitations { get; set; }
+        public DbSet<SendGridCredential> SendgridCredentials { get; set; }
+
     }
 }

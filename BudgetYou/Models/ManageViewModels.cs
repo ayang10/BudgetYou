@@ -45,6 +45,7 @@ namespace BudgetYou.Models
         public string Email { get; set; }
     }
 
+
     public class SetPasswordViewModel
     {
         [Required]

@@ -87,7 +87,7 @@
             <!-- Heading -->
             <div class="single-head">
                 <!-- Heading -->
-                <h2 class="pull-left"><i class="fa fa-table purple"></i>Transactions</h2> 
+                <h2 class="pull-left"><i class="fa fa-table purple"></i> Transactions</h2> 
                
                 <div class="pull-right">@Html.ActionLink("+ Add Transaction", "Create", null, new { @class = "btn btn-primary" })</div>
                 <div class="clearfix"></div>
@@ -155,9 +155,9 @@
                                 @string.Format("{0:C}", item.ReconciledAmount)
                             </td>
                             <td>
-                                <a href="@Url.Action("Edit", "Transactions", new { id = item.Id })"><i class="fa fa-edit lblue"></i></a>
-                                <a href="@Url.Action("Details", "Transactions", new { id = item.Id })"><i class="fa fa-share-square-o green"></i></a>
-                                <a href="@Url.Action("Delete", "Transactions", new { id = item.Id })"><i class="fa fa-trash-o red"></i></a>
+                                <a href="@Url.Action("Edit", "Transactions", new { id = item.Id })"><i class="fa fa-edit lblue fa-2x"></i></a>
+                                @*<a href="@Url.Action("Details", "Transactions", new { id = item.Id })"><i class="fa fa-share-square-o green"></i></a>*@
+                                <a href="@Url.Action("Delete", "Transactions", new { id = item.Id })"><i class="fa fa-trash-o red fa-2x"></i></a>
 
 
                              

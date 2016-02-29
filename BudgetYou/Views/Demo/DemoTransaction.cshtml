@@ -1,0 +1,348 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Title here -->
+    <title>Budget-You</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="~/theme/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery gritter -->
+    <link href="~/theme/css/jquery.gritter.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="~/theme/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Color CSS -->
+    <link href="~/theme/css/less-style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/theme/css/style.css" rel="stylesheet">
+
+    @*<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+        <link href="~/theme/css/jquery-ui.css" rel="stylesheet" />*@
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="#">
+
+</head>
+<body>
+
+    <div class="outer">
+
+        <!-- Sidebar starts -->
+        <div class="sidebar">
+
+            <div class="sidey">
+
+                <!-- Logo -->
+                <div class="logo">
+
+                    <h1>@Html.ActionLink("Budget-You", "Index", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</h1>
+
+                </div>
+
+                <!-- Sidebar navigation starts -->
+
+                <div class="sidebar-dropdown"><a href="#" class="br-blue"><i class="fa fa-bars"></i></a></div>
+
+                <div class="side-nav">
+
+                    <div class="side-nav-block">
+                        <!-- Sidebar heading -->
+                        <h4>Main</h4>
+                        <!-- Sidebar links -->
+                        <ul class="list-unstyled">
+                            <li><a href="@Url.Action("DemoIndex", "Demo")"><i class="fa fa-home"></i>Dashboard</a></li>
+                            <li><a href="@Url.Action("DemoAbout", "Demo")"><i class="fa fa-home"></i>About</a></li>
+                            <li><a href="@Url.Action("DemoHousehold", "Demo")"><i class="fa fa-h-square"></i>HouseHold</a></li>
+                            <li><a href="@Url.Action("DemoAccount", "Demo")"><i class="fa fa-university"></i>Accounts</a></li>
+                            <li><a href="@Url.Action("DemoTransaction", "Demo")"><i class="fa fa-credit-card"></i>Transactions</a></li>
+                            <li><a href="@Url.Action("DemoBudget", "Demo")"><i class="fa fa-google-wallet"></i>Budget</a></li>
+                            <li><a href="@Url.Action("DemoBudgetItem", "Demo")"><i class="fa fa-sitemap"></i>BudgetItems</a></li>
+                            <li><a href="@Url.Action("DemoInvitation", "Demo")"><i class="fa fa-scissors"></i>Invitations</a></li>
+
+                        </ul>
+                    </div>
+
+
+
+
+                </div>
+
+                <!-- Sidebar navigation ends -->
+
+            </div>
+        </div>
+        <!-- Sidebar ends -->
+        <!-- Mainbar starts -->
+        <div class="mainbar">
+
+            <!-- Mainbar head starts -->
+            <div class="main-head">
+
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <!-- Page title -->
+
+                            <h2><i class="fa fa-desktop lblue"></i> Dashboard</h2>
+                        </div>
+
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <p>@DateTime.Now.ToString("D")</p>
+                        </div>
+
+                        <div class="col-md-3 col-sm-4 hidden-xs">
+
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        <ul class="nav navbar-nav pull-right">
+                            <li>@Html.ActionLink("Hello [Your Email/Username]", "DemoManage", "Demo")</li>
+                            <li>@Html.ActionLink("Log off", "Index", "Home")</li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mainbar head ends -->
+            <div class="main-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <h1>
+                                Demo Display only, Not Functional.
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="main-content">
+                    <div class="container">
+
+                        <div class="page-content">
+
+                            <!-- Heading -->
+                            <div class="single-head">
+                                <!-- Heading -->
+                                <h2 class="pull-left"><i class="fa fa-table purple"></i> Transactions</h2>
+
+                                <div class="pull-right"></div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <!-- Table Page -->
+                            <div class="page-tables">
+                                <!-- Table -->
+                                <div class="table-responsive">
+                                    <table cellpadding="0" cellspacing="0" border="0" id="data-table" width="100%" class="table ">
+                                        <thead>
+                                            <tr>
+                                                <th>Account</th>
+                                                <th>Category</th>
+                                                <th>Description</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                                <th>Reconciled</th>
+                                                <th>Entry</th>
+                                                <th>Reconciled Amount</th>
+                                                <th>Control</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                                <tr>
+                                                    <td>
+                                                        Checking
+                                                    </td>
+                                                    <td>
+                                                        Events
+                                                    </td>
+                                                    <td>
+                                                        Description
+                                                    </td>
+                                                    <td>
+                                                        
+                                                            <p class="green">Income</p>
+                                                      
+                                                    </td>
+                                                    <td>
+                                                        $10.00
+                                                    </td>
+                                                    <td>
+                                                       February 21, 2016
+                                                    </td>
+                                                    <td>
+                                                       <span class="label label-success">Success</span>
+                                                    </td>
+                                                    <td>
+                                                        dummie dum
+                                                    </td>
+                                                    <td>
+                                                        $10.00
+                                                    </td>
+                                                    <td>
+                                                        <i class="fa fa-edit lblue fa-2x"></i>
+                                                        <i class="fa fa-trash-o red fa-2x"></i>
+
+
+
+                                                    </td>
+                                                </tr>
+                                          
+                                            <tr>
+                                                <td>
+                                                    Checking
+                                                </td>
+                                                <td>
+                                                    Events
+                                                </td>
+                                                <td>
+                                                    Description
+                                                </td>
+                                                <td>
+
+                                                    <p class="red">Expense</p>
+
+                                                </td>
+                                                <td>
+                                                    $12.00
+                                                </td>
+                                                <td>
+                                                    February 21, 2016
+                                                </td>
+                                                <td>
+                                                    <span class="label label-success">Success</span>
+                                                </td>
+                                                <td>
+                                                    dummie dum
+                                                </td>
+                                                <td>
+                                                    $12.00
+                                                </td>
+                                                <td>
+                                                    <i class="fa fa-edit lblue fa-2x"></i>
+                                                    <i class="fa fa-trash-o red fa-2x"></i>
+
+
+
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Account</th>
+                                                <th>Category</th>
+                                                <th>Description</th>
+                                                <th>Type</th>
+                                                <th>Amount</th>
+                                                <th>Date</th>
+                                                <th>Reconciled</th>
+                                                <th>Entry</th>
+                                                <th>Reconciled Amount</th>
+                                                <th>Control</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- jQuery -->
+    <script src="~/theme/js/jquery.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/theme/js/bootstrap.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="~/theme/js/jquery-ui.min.js"></script>
+    <!-- Date Time Picker JS -->
+    <script src="~/theme/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Bootstrap wysihtml5 JS -->
+    <script src="~/theme/js/wysihtml5-0.3.0.js"></script>
+    <script src="~/theme/js/prettify.js"></script>
+    <script src="~/theme/js/bootstrap-wysihtml5.min.js"></script>
+
+    <!-- jQuery flot -->
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+    <script src="~/theme/js/jquery.flot.min.js"></script>
+    <script src="~/theme/js/jquery.flot.stack.min.js"></script>
+    <script src="~/theme/js/jquery.flot.pie.min.js"></script>
+    <script src="~/theme/js/jquery.flot.resize.min.js"></script>
+
+    <!-- Validate JS -->
+    <script src="~/theme/js/jquery.validate.js"></script>
+    <!-- Form wizard steps  JS -->
+    <script src="~/theme/js/jquery.steps.min.js"></script>
+    <!-- jQuery Knob -->
+    <script src="~/theme/js/jquery.knob.js"></script>
+    <!-- jQuery Sparklines -->
+    <script src="~/theme/js/jquery.sparklines.js"></script>
+    <!-- jQuery slim scroll -->
+    <script src="~/theme/js/jquery.slimscroll.min.js"></script>
+    <!-- Data Tables JS -->
+    <script src="~/theme/js/jquery.dataTables.min.js"></script>
+    <!-- Pretty Photo JS -->
+    <script src="~/theme/js/jquery.prettyPhoto.js"></script>
+    <!-- Rate It JS -->
+    <script src="~/theme/js/jquery.rateit.min.js"></script>
+    <!-- Full calendar -->
+    <script src="~/theme/js/moment.min.js"></script>
+    <script src="~/theme/js/fullcalendar.min.js"></script>
+
+    <!-- Respond JS for IE8 -->
+    <script src="~/theme/js/respond.min.js"></script>
+    <!-- HTML5 Support for IE -->
+    <script src="~/theme/js/html5shiv.js"></script>
+    <script src="~/theme/js/custom.js"></script>
+
+</body>
+</html>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+		/* ****************************************** */
+		/* Data Table JS */
+		/* ****************************************** */
+
+		$(document).ready(function() {
+			$('#data-table').dataTable({
+			   "sPaginationType": "full_numbers"
+			});
+		});
+
+    </script>
+
+}

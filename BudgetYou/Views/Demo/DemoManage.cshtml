@@ -1,0 +1,242 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Title here -->
+    <title>Budget-You</title>
+    <!-- Description, Keywords and Author -->
+    <meta name="description" content="Your description">
+    <meta name="keywords" content="Your,Keywords">
+    <meta name="author" content="ResponsiveWebInc">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- Styles -->
+    <!-- Bootstrap CSS -->
+    <link href="~/theme/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery gritter -->
+    <link href="~/theme/css/jquery.gritter.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="~/theme/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Color CSS -->
+    <link href="~/theme/css/less-style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/theme/css/style.css" rel="stylesheet">
+
+  
+    <link rel="shortcut icon" href="#">
+
+</head>
+<body>
+
+    <div class="outer">
+
+        <!-- Sidebar starts -->
+        <div class="sidebar">
+
+            <div class="sidey">
+
+                <!-- Logo -->
+                <div class="logo">
+
+                    <h1>@Html.ActionLink("Budget-You", "Index", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</h1>
+
+                </div>
+
+                <!-- Sidebar navigation starts -->
+
+                <div class="sidebar-dropdown"><a href="#" class="br-blue"><i class="fa fa-bars"></i></a></div>
+
+                <div class="side-nav">
+
+                    <div class="side-nav-block">
+                        <!-- Sidebar heading -->
+                        <h4>Main</h4>
+                        <!-- Sidebar links -->
+                        <ul class="list-unstyled">
+                            <li><a href="@Url.Action("DemoIndex", "Demo")"><i class="fa fa-home"></i>Dashboard</a></li>
+                            <li><a href="@Url.Action("DemoAbout", "Demo")"><i class="fa fa-home"></i>About</a></li>
+                            <li><a href="@Url.Action("DemoHousehold", "Demo")"><i class="fa fa-h-square"></i>HouseHold</a></li>
+                            <li><a href="@Url.Action("DemoAccount", "Demo")"><i class="fa fa-university"></i>Accounts</a></li>
+                            <li><a href="@Url.Action("DemoTransaction", "Demo")"><i class="fa fa-credit-card"></i>Transactions</a></li>
+                            <li><a href="@Url.Action("DemoBudget", "Demo")"><i class="fa fa-google-wallet"></i>Budget</a></li>
+                            <li><a href="@Url.Action("DemoBudgetItem", "Demo")"><i class="fa fa-sitemap"></i>BudgetItems</a></li>
+                            <li><a href="@Url.Action("DemoInvitation", "Demo")"><i class="fa fa-scissors"></i>Invitations</a></li>
+
+                        </ul>
+                    </div>
+
+
+
+
+                </div>
+
+                <!-- Sidebar navigation ends -->
+
+            </div>
+        </div>
+        <!-- Sidebar ends -->
+        <!-- Mainbar starts -->
+        <div class="mainbar">
+
+            <!-- Mainbar head starts -->
+            <div class="main-head">
+
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <!-- Page title -->
+
+                            <h2><i class="fa fa-desktop lblue"></i> Dashboard</h2>
+                        </div>
+
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <p>@DateTime.Now.ToString("D")</p>
+                        </div>
+
+                        <div class="col-md-3 col-sm-4 hidden-xs">
+
+                            <div class="clearfix"></div>
+                        </div>
+
+
+                        <ul class="nav navbar-nav pull-right">
+                            <li>@Html.ActionLink("Hello [Your Email/Username]", "DemoManage", "Demo")</li>
+                            <li>@Html.ActionLink("Log off", "Index", "Home")</li>
+
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Mainbar head ends -->
+            <div class="main-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <h1>
+                                Demo Display only, Not Functional.
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="login-panel panel panel-primary">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">Manage</h4>
+                                </div>
+
+                                <section class="panel-body ">
+
+                                    <div class="container">
+
+                                        <h2>@ViewBag.Title.</h2>
+
+                                        <p class="text-success">@ViewBag.StatusMessage</p>
+                                        <div>
+                                          
+                                            <h4>Change your account settings</h4>
+                                            <hr />
+                                            <dl class="dl-horizontal">
+                                                <dt>User Profile:</dt>
+                                                <dd>
+                                              
+                                                </dd>
+                                      
+
+                                                <dt>Password:</dt>
+                                               
+                                                <dt>External Logins:</dt>
+                                                <dd>
+                                                   
+                                                </dd>
+                                             
+                                             
+                                                <dt>Two-Factor Authentication:</dt>
+                                                <dd>
+                                                    <p>
+                                                        There are no two-factor authentication providers configured. See
+                                                        <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                                                        for details on setting up this ASP.NET application to support two-factor authentication.
+                                                    </p>
+                                                 
+                                                </dd>
+                                            </dl>
+                                        </div>
+
+                                    </div>
+
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+        </div>
+
+
+        <!-- jQuery -->
+        <script src="~/theme/js/jquery.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="~/theme/js/bootstrap.min.js"></script>
+        <!-- jQuery UI -->
+        <script src="~/theme/js/jquery-ui.min.js"></script>
+        <!-- Date Time Picker JS -->
+        <script src="~/theme/js/bootstrap-datetimepicker.min.js"></script>
+        <!-- Bootstrap wysihtml5 JS -->
+        <script src="~/theme/js/wysihtml5-0.3.0.js"></script>
+        <script src="~/theme/js/prettify.js"></script>
+        <script src="~/theme/js/bootstrap-wysihtml5.min.js"></script>
+
+        <!-- jQuery flot -->
+        <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/excanvas.min.js"></script><![endif]-->
+        <script src="~/theme/js/jquery.flot.min.js"></script>
+        <script src="~/theme/js/jquery.flot.stack.min.js"></script>
+        <script src="~/theme/js/jquery.flot.pie.min.js"></script>
+        <script src="~/theme/js/jquery.flot.resize.min.js"></script>
+
+        <!-- Validate JS -->
+        <script src="~/theme/js/jquery.validate.js"></script>
+        <!-- Form wizard steps  JS -->
+        <script src="~/theme/js/jquery.steps.min.js"></script>
+        <!-- jQuery Knob -->
+        <script src="~/theme/js/jquery.knob.js"></script>
+        <!-- jQuery Sparklines -->
+        <script src="~/theme/js/jquery.sparklines.js"></script>
+        <!-- jQuery slim scroll -->
+        <script src="~/theme/js/jquery.slimscroll.min.js"></script>
+        <!-- Data Tables JS -->
+        <script src="~/theme/js/jquery.dataTables.min.js"></script>
+        <!-- Pretty Photo JS -->
+        <script src="~/theme/js/jquery.prettyPhoto.js"></script>
+        <!-- Rate It JS -->
+        <script src="~/theme/js/jquery.rateit.min.js"></script>
+        <!-- Full calendar -->
+        <script src="~/theme/js/moment.min.js"></script>
+        <script src="~/theme/js/fullcalendar.min.js"></script>
+
+        <!-- Respond JS for IE8 -->
+        <script src="~/theme/js/respond.min.js"></script>
+        <!-- HTML5 Support for IE -->
+        <script src="~/theme/js/html5shiv.js"></script>
+        <script src="~/theme/js/custom.js"></script>
+
+</body>
+</html>

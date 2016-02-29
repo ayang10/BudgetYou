@@ -1,258 +1,61 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Budget-You Home</title>
-
+﻿
     @{
-        Layout = null;
+        ViewBag.Title = "BudgetYou - Home";
     }
 
-    <!-- Bootstrap -->
-    <link href="~/minimal-portfolio/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <!--plugins-->
-    <link href="~/minimal-portfolio/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/bower_components/flexslider/flexslider.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/bower_components/lightbox2/dist/css/lightbox.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/owl-carousel/owl.carousel.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/owl-carousel/owl.theme.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/owl-carousel/owl.transitions.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/et-line-icons/style.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/css/animate.css" rel="stylesheet">
-    <link href="~/minimal-portfolio/hoe-nav/hoe.css" rel="stylesheet">
+    
+    <!--intro banner start-->
+    <div class="banner">
+        <div class="banner-slider">
 
-    <!--custom css file-->
-    <link href="~/minimal-portfolio/css/style.css" rel="stylesheet">
+            <img src="~/theme/img/Black-Background.png" class="img-responsive" alt="" style="height:920px;">
 
-</head>
-<body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
-
-    <!--side navigation start-->
-    <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
-        <header id="hoe-header" hoe-lpanel-effect="shrink">
-            <div class="hoe-left-header">
-                <a href="#"> Budget-You</a>
-                <span class="hoe-sidebar-toggle"><a href="#"></a></span>
-            </div>
-
-            <div class="hoe-right-header" hoe-position-type="relative">
-                <span class="hoe-sidebar-toggle"><a href="#"></a></span>
-                <ul class="left-navbar"></ul>
-                <ul class="right-navbar socials">
-                    <li>Follow: </li>
-                    <li><a href='#'><i class="fa fa-facebook"></i></a></li>
-                    <li><a href='#'><i class="fa fa-instagram"></i></a></li>
-                    <li><a href='#'><i class="fa fa-linkedin"></i></a></li>
-                </ul>
-            </div>
-        </header>
-        <div id="hoeapp-container" hoe-color-type="lpanel-bg7" hoe-lpanel-effect="shrink">
-            <aside id="hoe-left-panel" hoe-position-type="absolute">
-
-                <ul class="nav panel-list">
-
-                    <li class="active">
-                        <a href="#">
-
-                            <span class="menu-text">Home</span>
-                            <span class="selected"></span>
-                        </a>
-                    </li>
-                    @*<li>
-                        <a href="about.html">
-
-                            <span class="menu-text">About us</span>
-
-                            <span class="selected"></span>
-                        </a>
-                    </li>*@
-                    <li>
-
-                        @Html.ActionLink("LOGIN", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
-                        <span class="selected"></span>
-                    </li>
+        </div>
+        <div class="banner-overlay">
+            <div class="banner-inner">
+                <div class="banner-text">
+                    <div class="row no-margin">
+                        <div class="col-sm-8 col-sm-offset-2 text-center">
+                            <h1>Budget-You</h1>
+                            <p>Save a litte more, Live a little more, Spend a little more</p>
+                            @if (User.Identity.IsAuthenticated == false) { 
 
 
-                </ul>
-            </aside>
+                            <div class="buttons">
+                                @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-skin btn-lg btn-primary" })
 
-
-            <!--start main content-->
-            <section id="main-content" class="container">
-
-                <!--intro banner start-->
-                <div class="banner">
-                    <div class="banner-slider">
-                        <ul class="slides">
-                            <li>
-                                <img src="~/minimal-portfolio/images/budget.jpg" class="img-responsive" alt="">
-                            </li>
-                            <li>
-                                <img src="~/minimal-portfolio/images/budget1.jpg" class="img-responsive" alt="">
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="banner-overlay">
-                        <div class="banner-inner">
-                            <div class="banner-text">
-                                <div class="row no-margin">
-                                    <div class="col-sm-8 col-sm-offset-2 text-center">
-                                        <h1>Budget-You</h1>
-                                        <p>Save a litte more, Live a little more, Spend a little more</p>
-                                        <div class="buttons">
-                                            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-skin btn-lg btn-radius" })
-
-                                            <a href="#" class="btn btn-white btn-lg btn-radius">Demo</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                @Html.ActionLink("Demo", "DemoIndex", "Demo", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-skin btn-lg btn-success" })
                             </div>
+                            }
                         </div>
                     </div>
                 </div>
-                <!--banner end-->
-
-                <div class="space-60"></div>
-                <!--section title start-->
-                <div class="row no-margin ">
-                    <div class="col-sm-12">
-                        <div class="section-title">
-                            <h3>About</h3>
-                        </div>
-                    </div>
-                </div><!--section title-->
-                <!--intro text-->
-                <div class="row wide-image-wrapper no-margin">
-                    <div class="col-sm-8 col-sm-offset-2 text-center">
-                        <div class="intro-text wow animated fadeInUp">
-                            <p>
-                                We want to make budget planning more efficient so that you can keep track of your spending.  Life never been easier without Budget-You, please
-                                take the time to explore and experience it for yourself.
-                            </p>
-                            <h4>A Yang, Budget-You inc.</h4>
-                        </div>
-                    </div>
-                    <div class="space-60"></div>
-                </div><!--end row-->
-                <!--intro text end-->
-
-
-                <div class='space-60'></div>
-
-
-
-                <!--services start-->
-                <div class="row no-margin ">
-                    <div class="col-sm-12">
-                        <div class="section-title">
-
-                            <h3>What is used?</h3>
-                            <p class="sub-title">Programming Languages</p>
-                        </div>
-                    </div>
-                </div><!--section title-->
-
-                <div class="row no-margin">
-                    <div class="col-sm-4">
-                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
-                            <i class="icon-mobile"></i>
-                            <h3>MVC</h3>
-                            <p>
-                                MVC framework was used to build this budget app.  
-                            </p>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-sm-4">
-                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.2s">
-                            <i class="icon-pictures"></i>
-                            <h3>C#</h3>
-                            <p>
-                                C# was used to build this budget app.  
-                            </p>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-sm-4">
-                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.3s">
-                            <i class="icon-camera"></i>
-                            <h3>HTML/CSS/JS</h3>
-                            <p>
-                                HTML/CSS/JS was used to build this budget app.  By applying beautiful details to the front end.
-                            </p>
-                        </div>
-                    </div><!--end col-->
-                </div>
-                <div class="row no-margin">
-                    <div class="col-sm-4">
-                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.4s">
-                            <i class="icon-search"></i>
-                            <h3>SQL</h3>
-                            <p>
-                                SQL database was upsed to build this budget app.  This is where everything is stored, retrieved, and send.
-                            </p>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-sm-4">
-                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.5s">
-                            <i class="icon-presentation"></i>
-                            <h3>LINQ</h3>
-                            <p>
-                                Linq expression helped to retrieve data from the sql database.
-                            </p>
-                        </div>
-                    </div><!--end col-->
-                    <div class="col-sm-4">
-                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.6s">
-                            <i class="icon-gears"></i>
-                            <h3>ASP.NET</h3>
-                            <p>
-                                Web applications and web services.
-                            </p>
-                        </div>
-                    </div><!--end col-->
-                </div>
-                <!--services end-->
-                <div class='space-60'></div>
-
-                <!--footer start-->
-                <footer class="footer row no-margin">
-                    <div class="col-sm-7">
-                        <ul class="list-inline">
-                            <li><a href="#">Home</a></li>
-                            @*<li><a href="#">About</a></li>*@
-                        </ul>
-                    </div>
-                    <div class="col-sm-5 text-right">
-                        <span>&copy; A Yang 2016. All right reserved.</span>
-                    </div>
-                </footer>
-                <!--footer end-->
-            </section>
-            <!--start main content-->
+            </div>
         </div>
     </div>
 
-    <!--back to top-->
-    <a href="#" class="scrollToTop"><i class="fa fa-angle-up"></i></a>
-    <!--back to top end-->
-    <!--side navigation end-->
-    <script src="~/minimal-portfolio/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="~/minimal-portfolio/js/jquery-migrate.min.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/js/jquery.easing.1.3.min.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/minimal-portfolio/js/waypoints.min.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/js/jquery.counterup.min.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/js/jquery.appear.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/bower_components/flexslider/jquery.flexslider-min.js"></script>
-    <script src="~/minimal-portfolio/bower_components/wow/dist/wow.min.js"></script>
-    <script src="~/minimal-portfolio/bower_components/lightbox2/dist/js/lightbox.min.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/js/jquery.hoverdir.js"></script>
-    <script src="~/minimal-portfolio/hoe-nav/hoe.js"></script>
-    <script src="~/minimal-portfolio/js/modernizr.custom.97074.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/js/parallax.min.js" type="text/javascript"></script>
-    <script src="~/minimal-portfolio/js/custom.js" type="text/javascript"></script>
-</body>
-</html>
+    <div class="container">
+        <div class="row no-margin">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <h1 class="black">Fully Functional with</h1>
+                <h5>Including</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 ">
+                <img src="~/theme/img/cs.png" class="img-responsive center-block" alt="" style="height:70px; width: 120px;">
+            </div>
+            <div class="col-md-3">
+                <img src="~/theme/img/sql.png" class="img-responsive center-block" alt="" style="height:70px; width: 120px;">
+            </div>
+            <div class="col-md-3">
+                <img src="~/theme/img/HTML5_CSS_JavaScript.png" class="img-responsive center-block" alt="" style="height:70px; width: 120px;">
+            </div>
+            <div class="col-md-3 ">
+                <img src="~/theme/img/logo-aspnetmvc.png" class="img-responsive center-block" alt="" style="height:70px; width: 120px;">
+            </div>
+        </div>
+    </div>
+    <!--banner end-->
+

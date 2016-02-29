@@ -71,18 +71,23 @@
                             <h4 class="panel-title">Join</h4>
                         </div>
                     <section class="panel-body ">
-                        <form id="contact-form" action="@Url.Action("Join","HouseHolds")" method="post">
+                      
+                        @using (Html.BeginForm("Joins", "Households", FormMethod.Post))
+                        {
+                            
+                                    @Html.AntiForgeryToken()
 
-                            @Html.AntiForgeryToken()
-                            <div class="form-group">
+                        
+                                    <div class="form-group">
                                 <label>Send invitation to join</label>
-                                <input type="text" name="Code" class="form-control" />
+                                <input type="text" name="guid" class="form-control" />
                             </div>
                             <div class="col-md-2 pull-right">
                                 <input type="submit" value="Join" class="btn btn-lg btn-primary btn-block" />
                             </div>
-                        </form>
+                        }
                     </section>
+                    
                 </div>
             </div>
         </div>

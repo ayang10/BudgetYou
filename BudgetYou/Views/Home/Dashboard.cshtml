@@ -4,21 +4,19 @@
     ViewBag.Title = "Dashboard";
 }
 
-
-<br />
 <div class="main-content">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
 
                 <h1>
-                    @foreach (var item in Model.Accounts)
+                    @foreach (var item in Model.Accounts) //retrieve everything from Model Accounts until empty
                     {
 
 
-                        if (item.Balance < 6)
+                        if (item.Balance < item.WarningBalance) //if the account balance if less than the warning Balance
                         {
-                          @item.Name  @(" Account is low on Balance!") 
+                         <p class="red"> <b>@item.Name  @(" Account is low on Balance!")</b></p> //return balance and message
                         }
                     }
                 </h1>
@@ -32,7 +30,7 @@
                 <!-- Pages widget -->
                 <div class="widget pages-widget">
 
-                    <div class="widget-head br-purple">
+                    <div class="widget-head br-blue">
                         <h3>
                             <i class="fa fa-beer "></i> Spending
                         </h3>
@@ -45,32 +43,39 @@
                                 <!-- Table heading -->
                                 <thead>
                                     <tr>
-                                        <th>Transaction Spent</th>
-                                        <th>Budget Balance</th>
+                                        <th>@Model.begin.ToString("MMMM yyyy") Transaction Spent</th>  <!--Return the date of the beginning of the month and year-->
+                                        <th>Budget Balance</th> 
                                         <th>Balance left to spend</th>
                                      
                                     </tr>
                                 </thead>
                                 <tbody>
 
-                                   
+                                 
                                         <tr>
                                             <td>
                                                
-                                                @Model.Transactions.Where(t => t.Types == false).Sum(t => t.Amount)
+                                                @string.Format("{0:C}", Model.Transactions.Where(t => t.Types == false).Sum(t => t.Amount)) 
                                            
                                             </td>
                                             <td>
-                                                @Model.Budgets.BudgetItems.Sum(t => t.Amount)
+                                                @string.Format("{0:C}",Model.Budgets.BudgetItems.Sum(t => t.Amount))
                                               
                                             </td>
                                             <td>
-                                                @(Model.Transactions.Sum(t => t.Amount) - Model.Budgets.BudgetItems.Sum(t => t.Amount))
-                                             
+                                                @if ((Model.Budgets.BudgetItems.Sum(t => t.Amount) - Model.Transactions.Sum(t => t.Amount)) < 0)
+                                                {
+                                                    <p class="red">Budget Spending has been exceeded!!! of  @(string.Format("{0:C}", Model.Budgets.BudgetItems.Sum(t => t.Amount) - Model.Transactions.Sum(t => t.Amount)))</p>
+                                                }
+                                                            else
+                                                            {
+                                                    <p class="green"><b>@(string.Format("{0:C}", Model.Budgets.BudgetItems.Sum(t => t.Amount) - Model.Transactions.Sum(t => t.Amount)))</b></p>
+                                                }
+
                                             </td>
-                                         
+
                                         </tr>
-                                  
+
 
 
                                 </tbody>
@@ -83,6 +88,7 @@
                 </div>
         </div>
     </div>
+        </div>
 
 <br />
 
@@ -94,27 +100,40 @@
                     @Html.AntiForgeryToken()
                     <div class="col-md-5">
 
-                        Budget Name:  @Html.DropDownList("BudgetId", null, htmlAttributes: new { @class = "form-control", onchange = "this.form.submit();" })
-
-
-
+                        <b>Budget Name:</b>  @Html.DropDownList("BudgetId", null, htmlAttributes: new { @class = "form-control", onchange = "this.form.submit();" })
 
                     </div>
                 }
-              @*@using (Html.BeginForm("ChangeTransactionDate", "Home", FormMethod.Get))
+              @using (Html.BeginForm())
               {
-                    <div class="col-md-10">
-                        @Html.DropDownList("month", Enumerable.Range(1, 12).Select(i => new SelectListItem { Value = i.ToString(), Text = System.Globalization.CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(i) }), "-- Month --", new { onchange = "this.form.submit();" })
-                        @Html.DropDownList("year", Enumerable.Range(2010, 50).Select(i => new SelectListItem { Value = i.ToString(), Text = i.ToString() }), "-- Year --", new { onchange = "this.form.submit();" })
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <div class="col-md-2">
+                      
+                        <b>Begin Date:</b>
+                        <h3> @Html.DisplayFor(c => c.begin, new { @class = " panel form-control" })</h3>
+                        @*<p><input type="text" id="datepickerone" placeholder="Begin Date" class="begin"></p>*@
+
                     </div>
-              }*@
+                    <div class="col-md-1">
+                        <b>To:</b>
+                    </div>
+                    <div class="col-md-2">
+                        <b>End Date:</b>
+                        <h3>
+                            @Html.DisplayFor(c => c.end, new { @class = " panel endDate form-control" })
+                        </h3>
+                            @*<p><input type="text" id="datepickertwo" placeholder="End Date" class="end"></p>*@
+</div>
+                  
                 </div>
-              
-            <div class="col-md-8">
-                
-              
-                        <!--bar chart will go here-->
+              }
+                </div>
            
+
+            <div class="col-md-8">
+              
+                        <!--bar chart-->
                         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                 
 
@@ -127,22 +146,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                           
+
                                 @foreach (var v in Model.Budgets.BudgetItems)
-                                {
+                       {
+                                    //var currentDate = DateTime.Now;
+
                                     <tr>
                                         <th>
-                                           
+
                                         @v.Category.Name
-                                        
+
                                         </th>
                                      <td>
                                         @v.Amount
                                      </td>
-                                      
-                                      <td>@Model.Transactions.Where(a => a.CategoryId == v.CategoryId).Sum(t => t.Amount)</td>
-                                
-                                   
+                                        <td>@Model.Transactions.Where(a => a.CategoryId == v.CategoryId && a.Date >= Model.begin && a.Date <= Model.end).Sum(t => t.Amount)</td>
+                                      @*<td>@Model.Transactions.Where(a => a.CategoryId == v.CategoryId && a.Date.Year == currentDate.Year && a.Date.Month == currentDate.Month).Sum(t => t.Amount)</td>*@
+                                    @*<td>@Model.Transactions.Where(a => a.CategoryId == v.CategoryId).Sum(t => t.Amount)</td>*@
+                                  
                                     </tr>
 
                                     }
@@ -212,7 +233,20 @@
 
                     <div class="widget-foot">
                         <span class="pull-right">
-                            @Html.ActionLink("+ Add Account", "Create", null, new { @class = "btn btn-success" })
+                            @Html.ActionLink("+ Add Account", "Create", "Accounts", null, new { @class = "btn btn-success" })
+                            
+                            @*@using (Html.BeginForm("setBalance", "Home", FormMethod.Post))
+                            {
+                                @Html.AntiForgeryToken()
+
+                               
+                                @Html.TextBoxFor(model => model.setLowBalance, new { @class = "form-control" })
+
+                                <input type="submit" value="submit" class="btn btn-primary" />
+                            }*@
+
+                            
+
                         </span>
 
                         <div class="clearfix"></div>

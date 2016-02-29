@@ -11,11 +11,13 @@ using Microsoft.AspNet.Identity;
 
 namespace BudgetYou.Controllers
 {
+    [Authorize]
     public class BudgetItemsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: BudgetItems
+        [Authorize]
         public ActionResult Index()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
@@ -27,6 +29,7 @@ namespace BudgetYou.Controllers
         }
 
         // GET: BudgetItems/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,6 +45,7 @@ namespace BudgetYou.Controllers
         }
 
         // GET: BudgetItems/Create
+        [Authorize]
         public ActionResult Create()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
@@ -57,6 +61,7 @@ namespace BudgetYou.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,BudgetId,CategoryId,Amount")] BudgetItem budgetItem)
         {
@@ -73,6 +78,7 @@ namespace BudgetYou.Controllers
         }
 
         // GET: BudgetItems/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -97,6 +103,7 @@ namespace BudgetYou.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,BudgetId,CategoryId,Amount")] BudgetItem budgetItem)
         {
@@ -112,6 +119,7 @@ namespace BudgetYou.Controllers
         }
 
         // GET: BudgetItems/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -129,6 +137,7 @@ namespace BudgetYou.Controllers
         // POST: BudgetItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             BudgetItem budgetItem = db.BudgetItems.Find(id);
