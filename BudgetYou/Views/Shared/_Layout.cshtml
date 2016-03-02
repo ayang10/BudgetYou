@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- Title here -->
-    <title>Budget-You</title>
+    <title>Budget-You - Welcome</title>
     <!-- Description, Keywords and Author -->
     <meta name="description" content="Your description">
     <meta name="keywords" content="Your,Keywords">
@@ -23,12 +23,10 @@
     <!-- Custom CSS -->
     <link href="~/theme/css/style.css" rel="stylesheet">
 
-    @*<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link href="~/theme/css/jquery.dataTables.css" rel="stylesheet">
 
-    <link href="~/theme/css/jquery-ui.css" rel="stylesheet" />*@
     <!-- Favicon -->
-    <link rel="shortcut icon" href="#">
+    <link rel="shortcut icon" href="~/theme/img/budgetbulb.png">
 
 </head>
 <body>
@@ -58,13 +56,21 @@
                         <h4>Main</h4>
                         <!-- Sidebar links -->
                         <ul class="list-unstyled">
+                            </br>
                             <li><a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-home"></i>Dashboard</a></li>
+                            </br>
                             <li><a href="@Url.Action("About", "Home")"><i class="fa fa-home"></i>About</a></li>
+                            <br />
                             <li><a href="@Url.Action("Index", "Households")"><i class="fa fa-h-square"></i>HouseHold</a></li>
+                            <br />
                             <li><a href="@Url.Action("Index", "Accounts")"><i class="fa fa-university"></i>Accounts</a></li>
+                            <br />
                             <li><a href="@Url.Action("Index", "Transactions")"><i class="fa fa-credit-card"></i>Transactions</a></li>
+                            <br />
                             <li><a href="@Url.Action("Index", "Budgets")"><i class="fa fa-google-wallet"></i>Budget</a></li>
+                            <br />
                             <li><a href="@Url.Action("Index", "BudgetItems")"><i class="fa fa-sitemap"></i>BudgetItems</a></li>
+                            <br />
                             <li><a href="@Url.Action("Index", "Invitations")"><i class="fa fa-scissors"></i>Invitations</a></li>
 
                         </ul>

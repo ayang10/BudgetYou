@@ -1,7 +1,8 @@
 ﻿@model BudgetYou.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Budget-You - JoinHousehold";
 }
+
 
 <br />
 <div class="container">
@@ -35,7 +36,7 @@
 
 
             <div class="col-md-6">
-                <div class="login-panel panel panel-default">
+                <div class="login-panel panel panel-primary">
                     <div class="panel-heading">
                         <h4 class="panel-title">Join</h4>
                     </div>
@@ -78,7 +79,7 @@
                                 @*@Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Email" })*@
 
                             </div>
-                           
+
                             @Html.HiddenFor(m => m.Password)
                             @Html.HiddenFor(m => m.ConfirmPassword)
 
@@ -103,7 +104,6 @@
         </div>
 
     </div>
-
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

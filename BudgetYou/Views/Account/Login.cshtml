@@ -1,4 +1,5 @@
-﻿
+﻿@using BudgetYou.Models
+@model LoginViewModel
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,15 +11,23 @@
     <meta name="author" content="ResponsiveWebInc">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   @using BudgetYou.Models
+  
 
-    @model LoginViewModel
     @{
         ViewBag.Title = "Budget-You - Log in";
         Layout = null;
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="~/theme/img/budgetbulb.png">
     }
 
-    @Styles.Render("~/theme/css")
+    <!-- Bootstrap CSS -->
+    <link href="~/theme/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font awesome CSS -->
+    <link href="~/theme/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Custom Color CSS -->
+    <link href="~/theme/css/less-style.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/theme/css/style.css" rel="stylesheet">
 
 
 
@@ -75,11 +84,17 @@
                             <div class="row">
                                 <br />
                                 <p>@Html.ActionLink("Register as a new user", "Register")</p>
-                                <p>
+                                @*<p>
                                     @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                                </p>
+                                </p>*@
                             </div>
-
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <section id="socialLoginForm">
+                                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                                    </section>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -89,7 +104,7 @@
             </div>
 
         }
-
+       
         @*<h2>@ViewBag.Title.</h2>
 
             <div class="row">
@@ -144,13 +159,21 @@
                     </section>
                 </div>
             </div>*@
+      
 
-    </div>
+    <!-- Javascript files -->
+    <!-- jQuery -->
+    <script src="~/theme/js/jquery.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="~/theme/js/bootstrap.min.js"></script>
+    <!-- Respond JS for IE8 -->
+    <script src="~/theme/js/respond.min.js"></script>
+    <!-- HTML5 Support for IE -->
+    <script src="~/theme/js/html5shiv.js"></script>
+
 
 </body>
 </html>
 
 
-@section Scripts {
-    @Styles.Render("~/theme/js")
-}
+

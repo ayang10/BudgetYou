@@ -19,8 +19,9 @@ namespace BudgetYou
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
 
-           
         }
         protected void Application_BeginRequest()
         {

@@ -30,7 +30,7 @@
 
     <div class="outer-page">
 
-        @using (Html.BeginForm("RegisterToJoinHousehold", "JoinHousehold", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("RegisterToJoinHousehold", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
 

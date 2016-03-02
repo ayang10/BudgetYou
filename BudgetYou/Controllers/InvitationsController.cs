@@ -10,6 +10,7 @@ using BudgetYou.Models;
 using System.Net.Mail;
 using Microsoft.AspNet.Identity;
 using System.Net.Mime;
+using System.Threading.Tasks;
 
 namespace BudgetYou.Controllers
 {
@@ -18,36 +19,30 @@ namespace BudgetYou.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Invitations
+        [Authorize]
         public ActionResult Index()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
 
             var invitations = db.Invitations.Include(i => i.Households).Where(u => user.HouseholdId == u.HouseholdId).ToList();
 
+            Household household = db.Households.Find(user.HouseholdId);
+            if (household == null)
+            {
+                return RedirectToAction("Create", "Households");
+            }
+
             return View(invitations);
         }
-
-        // GET: Invitations/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Invitation invitation = db.Invitations.Find(id);
-            if (invitation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(invitation);
-        }
-
+        
         // GET: Invitations/Create
+        [HttpGet]
+        [Authorize]
         public ActionResult Create()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
 
-            var userHousehold = db.Households.Where(u => user.HouseholdId == u.Id).ToList();
+            var userHousehold = db.Households.AsNoTracking().Where(u => user.HouseholdId == u.Id).ToList();
 
             ViewBag.HouseholdId = new SelectList(userHousehold, "Id", "Name");
 
@@ -59,7 +54,8 @@ namespace BudgetYou.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,HouseholdId,JoinCode,ToEmail,Joined")] Invitation invitation)
+        [Authorize]
+        public async Task<ActionResult> Create([Bind(Include = "Id,HouseholdId,JoinCode,ToEmail,Joined")] Invitation invitation)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +66,7 @@ namespace BudgetYou.Controllers
                 invitation.JoinCode = Guid.NewGuid();
                 invitation.HouseholdId = household.Id;
                 db.Invitations.Add(invitation);
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
                 try
                 {
                     //Build Email Message
@@ -82,10 +78,10 @@ namespace BudgetYou.Controllers
                     
                     if (existingUser != null)
                     {
-                        var callbackUrlForExistingUser = Url.Action("Create", "Households", new { guid = invitation.JoinCode}, protocol: Request.Url.Scheme);
+                        var callbackUrlForExistingUser = Url.Action("JoinHousehold", "Account", new { inviteHouseholdId = invitation.HouseholdId }, protocol: Request.Url.Scheme);
 
                         string bodytext = String.Concat(@"<p>I would like to invite you to join my household <i> ", household.Name,
-                                    " </i>in the Budget-You app budgeting system", invitation.JoinCode, "</p> <p><a href='"
+                                    " </i>in the Budget-You app budgeting system", "</p> <p><a href='"
                                     , callbackUrlForExistingUser, "'>Join</a></p>");
                         mailMessage.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(bodytext, null, MediaTypeNames.Text.Html));
 
@@ -108,7 +104,8 @@ namespace BudgetYou.Controllers
                     smtpClient.Credentials = credentials;
                     smtpClient.Send(mailMessage);
 
-                    return RedirectToAction("Index", "Invitations");
+                    
+                    return RedirectToAction("Dashboard", "Home");
 
                 }
                 catch (Exception ex)
@@ -117,52 +114,29 @@ namespace BudgetYou.Controllers
                     return View(invitation);
                 }
             }
+            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", invitation.HouseholdId);
             return View(invitation);
         }
-    
+
+
         
-
-// GET: Invitations/Edit/5
-public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Invitation invitation = db.Invitations.Find(id);
-            if (invitation == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", invitation.HouseholdId);
-            return View(invitation);
-        }
-
-        // POST: Invitations/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,HouseholdId,JoinCode,ToEmail,Joined")] Invitation invitation)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(invitation).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.HouseholdId = new SelectList(db.Households, "Id", "Name", invitation.HouseholdId);
-            return View(invitation);
-        }
-
         // GET: Invitations/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Invitation invitation = db.Invitations.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == invitation.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Invitation invitation = db.Invitations.Find(id);
+            //Invitation invitation = db.Invitations.Find(id);
             if (invitation == null)
             {
                 return HttpNotFound();
@@ -173,9 +147,18 @@ public ActionResult Edit(int? id)
         // POST: Invitations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Invitation invitation = db.Invitations.Find(id);
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Invitation invitation = db.Invitations.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == invitation.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+            //Invitation invitation = db.Invitations.Find(id);
             db.Invitations.Remove(invitation);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -4,6 +4,7 @@
     ViewBag.Title = "Dashboard";
 }
 
+
 <div class="main-content">
     <div class="container">
         <div class="row">
@@ -180,7 +181,7 @@
                 <!-- Pages widget -->
                 <div class="widget pages-widget">
 
-                    <div class="widget-head br-red">
+                    <div class="widget-head br-blue">
                         <h3>
                             <i class="fa fa-university"></i> Accounts / Balances
                         </h3>
@@ -354,7 +355,7 @@
             tooltip: {
 
                 formatter: function () {
-                    return '<b>' + this.series.name + '</b><br/>' +
+                    return '<b><br/>' + this.series.name  + '</b><br/>' +
                         this.point.y + ' ' + this.point.name.toLowerCase();
                 }
             }

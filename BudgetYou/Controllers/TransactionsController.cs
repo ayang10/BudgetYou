@@ -23,30 +23,27 @@ namespace BudgetYou.Controllers
             var user = db.Users.Find(User.Identity.GetUserId());
 
             var transactions = db.Transactions.Where(t => t.Account.HouseholdId == user.HouseholdId).Include(t => t.Category);
-
-             //var users = Convert.ToInt32(User.Identity.GetHouseholdId());
-            //var transactions = db.Transactions.Where(t => t.BankAccountId  == t.BankAccount.Id && t.BankAccount.HouseholdId == user).Include(t => t.Category);
-
+            
             
             return View(transactions.ToList());
         }
 
-        // GET: Transactions/Details/5
-        [HttpGet]
-        [Authorize]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Transaction transaction = db.Transactions.Find(id);
-            if (transaction == null)
-            {
-                return HttpNotFound();
-            }
-            return View(transaction);
-        }
+        //// GET: Transactions/Details/5
+        //[HttpGet]
+        //[Authorize]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Transaction transaction = db.Transactions.Find(id);
+        //    if (transaction == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(transaction);
+        //}
 
         // GET: Transactions/Create
         [HttpGet]
@@ -115,17 +112,27 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Transaction transaction = db.Transactions.FirstOrDefault(x => x.Id == id);
+            Account account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
+            Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            //Transaction transaction = db.Transactions.Find(id);
             if (transaction == null)
             {
                 return HttpNotFound();
             }
-            var user = db.Users.Find(User.Identity.GetUserId());
-
+            
             var getAccount = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
 
             ViewBag.AccountId = new SelectList(getAccount, "Id", "Name");
@@ -197,11 +204,21 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Transaction transaction = db.Transactions.FirstOrDefault(x => x.Id == id);
+            Account account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
+            Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Transaction transaction = db.Transactions.Find(id);
+            //Transaction transaction = db.Transactions.Find(id);
             if (transaction == null)
             {
                 return HttpNotFound();
@@ -215,17 +232,27 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Transaction transaction = db.Transactions.Find(id);
+            //Transaction transaction = db.Transactions.Find(id);
 
-            var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
+            //var account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
 
-            if (transaction.Types == true)
+            //if (transaction.Types == true)
+            //{
+            //    account.Balance -= transaction.Amount;
+            //}
+            //else
+            //{
+            //    account.Balance += transaction.Amount;
+            //}
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Transaction transaction = db.Transactions.FirstOrDefault(x => x.Id == id);
+            Account account = db.Accounts.FirstOrDefault(x => x.Id == transaction.AccountId);
+            Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+            if (!household.Members.Contains(user))
             {
-                account.Balance -= transaction.Amount;
-            }
-            else
-            {
-                account.Balance += transaction.Amount;
+                return RedirectToAction("Unauthorized", "Error");
             }
 
             db.Transactions.Remove(transaction);

@@ -31,7 +31,9 @@ namespace BudgetYou.Models
         public virtual ICollection<Transaction> Transactions { get; set; }
         public virtual Household Household { get; set; }
      
-       
+
+        public Transaction GetTransactions { get; set; }
+        
     }
 
     
@@ -165,6 +167,7 @@ namespace BudgetYou.Models
         public ICollection<Transaction> Transactions { get; set; }
         public ICollection<Category> Categories { get; set; }
         public BudgetItem BudgetItems { get; set; }
+
         public int GetBudgetId { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}")]

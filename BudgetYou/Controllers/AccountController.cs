@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BudgetYou.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace BudgetYou.Controllers
 {
@@ -204,7 +205,7 @@ namespace BudgetYou.Controllers
 
             Household HouseholdJoin = db.Households.FirstOrDefault(i => i.Id == inviteHouseholdId);
             Invitation invited = db.Invitations.FirstOrDefault(i => i.Id == invitationId);
-            ApplicationUser invitedUser = db.Users.FirstOrDefault(x => x.Email == invited.ToEmail);
+            
             invited.JoinCode = guid;
 
             model.HouseholdName = HouseholdJoin.Name;
@@ -221,7 +222,7 @@ namespace BudgetYou.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RegisterToJoinHousehold(RegisterViewModel model, int householdId, string Email )
+        public async Task<ActionResult> RegisterToJoinHousehold(RegisterViewModel model, int householdId)
         {
             
             if (ModelState.IsValid)
@@ -252,8 +253,7 @@ namespace BudgetYou.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-
+        
 
         [HttpGet]
         [Authorize]
@@ -285,31 +285,38 @@ namespace BudgetYou.Controllers
             return View(model);
         }
 
-        //// POST: /Account/Register
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task <ActionResult> JoinHousehold(RegisterViewModel model, intss householdId)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-                
-        
-        //        var result = await UserManager.CreateAsync();
+        // POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult JoinHousehold(RegisterViewModel model/*, int inviteHouseholdId*/)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            //RegisterViewModel model = new RegisterViewModel();
 
-        //        if (result.Succeeded)
-        //        {
-        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            var updatedUser = db.Users.Find(User.Identity.GetUserId());
+
+            if (ModelState.IsValid)
+            {
+
+                updatedUser.FirstName = model.FirstName;
+                updatedUser.LastName = model.LastName;
+                updatedUser.Email = model.Email;
+                updatedUser.UserName = model.Email;
+                updatedUser.HouseholdId = model.HouseholdId;
+
+                    db.Entry(updatedUser).State = EntityState.Modified;
 
 
-        //            return RedirectToAction("Dashboard", "Home");
-        //        }
-        //        AddErrors(result);
-        //    }
+                db.SaveChanges();
+                return RedirectToAction("Dashboard", "Home");
+            }
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}ss
+            
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
 
 
         //

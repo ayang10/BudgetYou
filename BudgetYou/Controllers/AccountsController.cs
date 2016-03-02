@@ -20,29 +20,32 @@ namespace BudgetYou.Controllers
         public ActionResult Index()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
-            //Account account = db.Accounts.Find(user.HouseholdId);
-            //var accounts = db.Accounts.Include(b => b.Household);
-
             var account = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
-            
+
+            Household household = db.Households.Find(user.HouseholdId);
+            if (household == null)
+            {
+                return RedirectToAction("Create", "Households");
+            }
+
             return View(account);
         }
 
-        // GET: Accounts/Details/5
-        [Authorize]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Account account = db.Accounts.Find(id);
-            if (account == null)
-            {
-                return HttpNotFound();
-            }
-            return View(account);
-        }
+        //// GET: Accounts/Details/5
+        //[Authorize]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Account account = db.Accounts.Find(id);
+        //    if (account == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(account);
+        //}
 
         // GET: Accounts/Create
         [Authorize]
@@ -84,11 +87,21 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Account account = db.Accounts.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            //Account account = db.Accounts.Find(id);
             if (account == null)
             {
                 return HttpNotFound();
@@ -125,11 +138,20 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Account account = db.Accounts.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Account account = db.Accounts.Find(id);
+            //Account account = db.Accounts.Find(id);
             if (account == null)
             {
                 return HttpNotFound();
@@ -143,7 +165,16 @@ namespace BudgetYou.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Account account = db.Accounts.Find(id);
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Account account = db.Accounts.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+            //Account account = db.Accounts.Find(id);
             db.Accounts.Remove(account);
             db.SaveChanges();
             return RedirectToAction("Index");

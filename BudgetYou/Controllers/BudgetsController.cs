@@ -21,31 +21,33 @@ namespace BudgetYou.Controllers
         public ActionResult Index()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
-
-            //var account = db.Accounts.Where(u => user.HouseholdId == u.HouseholdId).ToList();
-
-
+            
             var budgets = db.Budgets.Where(u => user.HouseholdId == u.HouseholdId).Include(b => b.Household).ToList();
 
+            Household household = db.Households.Find(user.HouseholdId);
+            if (household == null)
+            {
+                return RedirectToAction("Create", "Households");
+            }
 
             return View(budgets);
         }
 
-        // GET: Budgets/Details/5
-        [Authorize]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Budget budget = db.Budgets.Find(id);
-            if (budget == null)
-            {
-                return HttpNotFound();
-            }
-            return View(budget);
-        }
+        //// GET: Budgets/Details/5
+        //[Authorize]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Budget budget = db.Budgets.Find(id);
+        //    if (budget == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(budget);
+        //}
 
         // GET: Budgets/Create
         [Authorize]
@@ -80,11 +82,20 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Budget budget = db.Budgets.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == budget.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Budget budget = db.Budgets.Find(id);
+            //Budget budget = db.Budgets.Find(id);
             if (budget == null)
             {
                 return HttpNotFound();
@@ -117,11 +128,20 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Budget budget = db.Budgets.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == budget.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Budget budget = db.Budgets.Find(id);
+            //Budget budget = db.Budgets.Find(id);
             if (budget == null)
             {
                 return HttpNotFound();
@@ -135,7 +155,16 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Budget budget = db.Budgets.Find(id);
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Budget budget = db.Budgets.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == budget.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+            //Budget budget = db.Budgets.Find(id);
             db.Budgets.Remove(budget);
             db.SaveChanges();
             return RedirectToAction("Index");

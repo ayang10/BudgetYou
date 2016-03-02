@@ -21,28 +21,32 @@ namespace BudgetYou.Controllers
         public ActionResult Index()
         {
             var user = db.Users.Find(User.Identity.GetUserId());
-            
             var budgetItems = db.BudgetItems.Where(t => t.Budget.HouseholdId == user.HouseholdId).Include(b => b.Category).ToList();
 
+            Household household = db.Households.Find(user.HouseholdId);
+            if (household == null)
+            {
+                return RedirectToAction("Create", "Households");
+            }
 
             return View(budgetItems);
         }
 
-        // GET: BudgetItems/Details/5
-        [Authorize]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            BudgetItem budgetItem = db.BudgetItems.Find(id);
-            if (budgetItem == null)
-            {
-                return HttpNotFound();
-            }
-            return View(budgetItem);
-        }
+        //// GET: BudgetItems/Details/5
+        //[Authorize]
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    BudgetItem budgetItem = db.BudgetItems.Find(id);
+        //    if (budgetItem == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(budgetItem);
+        //}
 
         // GET: BudgetItems/Create
         [Authorize]
@@ -81,17 +85,25 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Edit(int? id)
         {
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            BudgetItem budgetItem = db.BudgetItems.FirstOrDefault(x => x.Id == id);
+            Budget budget = db.Budgets.FirstOrDefault(x => x.Id == budgetItem.BudgetId);
+            Household household = db.Households.FirstOrDefault(x => x.Id == budget.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BudgetItem budgetItem = db.BudgetItems.Find(id);
+            //BudgetItem budgetItem = db.BudgetItems.Find(id);
             if (budgetItem == null)
             {
                 return HttpNotFound();
             }
-            var user = db.Users.Find(User.Identity.GetUserId());
-
             var getBudget = db.Budgets.Where(u => user.HouseholdId == u.HouseholdId).ToList();
             
             ViewBag.BudgetId = new SelectList(getBudget, "Id", "Name", budgetItem.BudgetId);
@@ -122,11 +134,20 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult Delete(int? id)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            BudgetItem budgetItem = db.BudgetItems.FirstOrDefault(x => x.Id == id);
+            Budget budget = db.Budgets.FirstOrDefault(x => x.Id == budgetItem.BudgetId);
+            Household household = db.Households.FirstOrDefault(x => x.Id == budget.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BudgetItem budgetItem = db.BudgetItems.Find(id);
+            //BudgetItem budgetItem = db.BudgetItems.Find(id);
             if (budgetItem == null)
             {
                 return HttpNotFound();
@@ -140,7 +161,16 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            BudgetItem budgetItem = db.BudgetItems.Find(id);
+            var user = db.Users.Find(User.Identity.GetUserId());
+            BudgetItem budgetItem = db.BudgetItems.FirstOrDefault(x => x.Id == id);
+            Budget budget = db.Budgets.FirstOrDefault(x => x.Id == budgetItem.BudgetId);
+            Household household = db.Households.FirstOrDefault(x => x.Id == budget.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+            //BudgetItem budgetItem = db.BudgetItems.Find(id);
             db.BudgetItems.Remove(budgetItem);
             db.SaveChanges();
             return RedirectToAction("Index");

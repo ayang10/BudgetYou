@@ -20,15 +20,6 @@ namespace BudgetYou.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //// GET: Households
-        //public ActionResult Index()
-        //{
-
-        //    return View(db.Households.ToList());
-        //}
-
-
-        // GET: Households
         [Authorize]
         public ActionResult Index()
         {
@@ -45,21 +36,26 @@ namespace BudgetYou.Controllers
             return View(household);
         }
 
-        // GET: Households/Details/5
-        [Authorize]
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
-            if (household == null)
-            {
-                return HttpNotFound();
-            }
-            return View(household);
-        }
+        //// GET: Households/Details/5
+        //[Authorize]
+        //public ActionResult Details(int? id)
+        //{
+        //    //check to see if user has access to change 
+        //    ApplicationUser user = db.Users.FirstOrDefault(x => x.UserName == User.Identity.Name);
+        //    Account account = db.Accounts.FirstOrDefault(x => x.Id == id);
+        //    Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    //Household household = db.Households.Find(id);
+        //    if (household == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(household);
+        //}
 
         // GET: Households/Create
         [Authorize]
@@ -103,94 +99,67 @@ namespace BudgetYou.Controllers
             return View();
         }
 
-        [HttpGet]
-        //GET: Households/Join
+       
 
-        public ActionResult Joins(Guid guid)
-        {
+        //// GET: Households/Edit/5
+        //[Authorize]
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Household household = db.Households.Find(id);
+        //    if (household == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(household);
+        //}
 
-            return View(guid);
-        }
-
-        [HttpPost]
-        [Authorize]
-        //POST: Households/Join
-        public async Task<ActionResult> Joins(Household model, Guid guid)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = db.Users.Find(User.Identity.GetUserId());
-
-                    var currUserEmail = User.Identity.GetUserName();
-                    var invite = db.Invitations.FirstOrDefault(c => c.JoinCode == guid && c.ToEmail == currUserEmail);
-                    if (invite != null)
-                    {
-                        user.HouseholdId = invite.HouseholdId;
-                        db.Invitations.Remove(invite);
-                      
-                        db.SaveChanges();
-                        return RedirectToAction("Index", new { id = user });
-                    }
-                    else
-                    {
-                        TempData["errorMessage"] = "An error has occurred";
-                        return RedirectToAction("Create", "Households");
-                    }
-            
-            }
-            TempData["errorMessage"] = "An error has occurred";
-            return RedirectToAction("Create", "Households");
-        }
-
-        // GET: Households/Edit/5
-        [Authorize]
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
-            if (household == null)
-            {
-                return HttpNotFound();
-            }
-            return View(household);
-        }
-
-        // POST: Households/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [Authorize]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Household household)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(household).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(household);
-        }
+        //// POST: Households/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //[Authorize]
+        //public ActionResult Edit([Bind(Include = "Id,Name")] Household household)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(household).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(household);
+        //}
         
 
-        // GET: Households/Delete/5
-        [Authorize]
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Household household = db.Households.Find(id);
-            if (household == null)
-            {
-                return HttpNotFound();
-            }
-            return View(household);
-        }
+        //// GET: Households/Delete/5
+        //[Authorize]
+        //public ActionResult Delete(int? id)
+        //{
+        //    //check for authorization
+        //    var user = db.Users.Find(User.Identity.GetUserId());
+        //    Account account = db.Accounts.FirstOrDefault(x => x.Id == id);
+        //    Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+        //    if (!household.Members.Contains(user))
+        //    {
+        //        return RedirectToAction("Unauthorized", "Error");
+        //    }
+
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    //
+        //    if (household == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(household);
+        //}
 
         public ActionResult Leave()
         {
@@ -208,7 +177,17 @@ namespace BudgetYou.Controllers
         [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
-            Household household = db.Households.Find(id);
+            //check for authorization
+            var user = db.Users.Find(User.Identity.GetUserId());
+            Account account = db.Accounts.FirstOrDefault(x => x.Id == id);
+            Household household = db.Households.FirstOrDefault(x => x.Id == account.HouseholdId);
+
+            if (!household.Members.Contains(user))
+            {
+                return RedirectToAction("Unauthorized", "Error");
+            }
+
+            //Household household = db.Households.Find(id);
             db.Households.Remove(household);
             db.SaveChanges();
             return RedirectToAction("Index");

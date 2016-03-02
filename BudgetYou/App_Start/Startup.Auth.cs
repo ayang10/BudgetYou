@@ -55,14 +55,14 @@ namespace BudgetYou
             //   consumerSecret: "");
 
             //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            //   appId: "181598038871887",
+            //   appSecret: "46827e78222083dd287345d3ffd7078f");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "333094364194-0n69q18kb9v92256olscn17benbq31p3.apps.googleusercontent.com",
+               ClientSecret = "_Ur1BsuwI_h-1o1sMblgXQFa"
+            });
         }
     }
 }

@@ -24,6 +24,12 @@ namespace BudgetYou.Controllers
             return View();
         }
 
+        // GET: Accounts/ LoginNewUsername
+        public ActionResult LoginNewUsername()
+        {
+            return View();
+        }
+
         [Authorize]
         public ActionResult Dashboard(int? id, int? low)
         {
@@ -32,8 +38,15 @@ namespace BudgetYou.Controllers
 
             var user = db.Users.Find(User.Identity.GetUserId()); //get user Id
             
+           
 
             model.Households = db.Users.FirstOrDefault(a => a.UserName == User.Identity.Name).Household; //get users of Household
+
+            if (model.Households == null)
+            {
+                return RedirectToAction("Create", "Households");
+            }
+
             model.Transactions = db.Transactions.Where(a => a.Account.HouseholdId == user.HouseholdId).OrderByDescending(a => a.Id).Take(6).ToList(); //get in descending order transactions
             model.Accounts = db.Accounts.Where(a => a.HouseholdId == model.Households.Id).ToList(); //get all account for this household
             //model.Invitations = db.Invitations.Where(a => a.ToEmail == User.Identity.Name).ToList(); //
@@ -53,7 +66,7 @@ namespace BudgetYou.Controllers
 
             if (id == null) 
             {
-                
+                                                
                 ViewBag.BudgetId = new SelectList(getBudget, "Id", "Name", CurrentBudget.Id); //Viewbag to get list of current existing budget
                 model.GetBudgetId = CurrentBudget.Id; //assign current budget id to existing var to hold the value
                 model.Budgets = CurrentBudget; //assign the current budget to show on chart

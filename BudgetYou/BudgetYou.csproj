@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -250,6 +250,9 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\zocial-less-gh-pages\css\zocial-regular-webfont.svg" />
+    <Content Include="Content\zocial-less-gh-pages\css\zocial.css" />
+    <Content Include="Content\zocial-less-gh-pages\index.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -585,6 +588,12 @@
     <Content Include="Models\minimal-portfolio\scss\_header.scss" />
     <Content Include="Models\minimal-portfolio\scss\_mixins.scss" />
     <Content Include="Models\minimal-portfolio\scss\_variables.scss" />
+    <Content Include="Content\zocial-less-gh-pages\bower.json" />
+    <Content Include="Content\zocial-less-gh-pages\css\zocial-regular-webfont.eot" />
+    <Content Include="Content\zocial-less-gh-pages\css\zocial-regular-webfont.ttf" />
+    <Content Include="Content\zocial-less-gh-pages\css\zocial-regular-webfont.woff" />
+    <Content Include="Content\zocial-less-gh-pages\css\zocial.less" />
+    <Content Include="Content\zocial-less-gh-pages\README.md" />
     <None Include="Properties\PublishProfiles\ayang-budgetyou.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -682,6 +691,7 @@
     <Content Include="theme\gallery.html" />
     <Content Include="theme\grid.html" />
     <Content Include="theme\img\Black-Background.png" />
+    <Content Include="theme\img\budgetbulb.png" />
     <Content Include="theme\img\chart.PNG" />
     <Content Include="theme\img\cs.png" />
     <Content Include="theme\img\data-tables\back_disabled.png" />
@@ -856,29 +866,23 @@
     <Content Include="theme\less\less-style.less" />
     <Content Include="Views\Households\Create.cshtml" />
     <Content Include="Views\Households\Delete.cshtml" />
-    <Content Include="Views\Households\Details.cshtml" />
-    <Content Include="Views\Households\Edit.cshtml" />
     <Content Include="Views\Households\Index.cshtml" />
     <Content Include="Views\Transactions\Create.cshtml" />
     <Content Include="Views\Transactions\Delete.cshtml" />
-    <Content Include="Views\Transactions\Details.cshtml" />
     <Content Include="Views\Transactions\Edit.cshtml" />
     <Content Include="Views\Transactions\Index.cshtml" />
     <Content Include="Views\Accounts\Create.cshtml" />
     <Content Include="Views\Accounts\Delete.cshtml" />
-    <Content Include="Views\Accounts\Details.cshtml" />
     <Content Include="Views\Accounts\Edit.cshtml" />
     <Content Include="Views\Accounts\Index.cshtml" />
     <Content Include="Views\Account\ConfirmationSent.cshtml" />
     <Content Include="Views\Account\ResendEmailConfirmation.cshtml" />
     <Content Include="Views\Budgets\Create.cshtml" />
     <Content Include="Views\Budgets\Delete.cshtml" />
-    <Content Include="Views\Budgets\Details.cshtml" />
     <Content Include="Views\Budgets\Edit.cshtml" />
     <Content Include="Views\Budgets\Index.cshtml" />
     <Content Include="Views\BudgetItems\Create.cshtml" />
     <Content Include="Views\BudgetItems\Delete.cshtml" />
-    <Content Include="Views\BudgetItems\Details.cshtml" />
     <Content Include="Views\BudgetItems\Edit.cshtml" />
     <Content Include="Views\BudgetItems\Index.cshtml" />
     <Content Include="Views\Manage\EditProfile.cshtml" />
@@ -893,6 +897,7 @@
     <Content Include="Views\Demo\DemoAbout.cshtml" />
     <Content Include="Views\Account\RegisterToJoinHousehold.cshtml" />
     <Content Include="Views\Account\JoinHousehold.cshtml" />
+    <Content Include="Views\Home\LoginNewUsername.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

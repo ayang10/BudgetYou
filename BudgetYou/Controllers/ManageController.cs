@@ -13,7 +13,6 @@ using System.Data.Entity;
 namespace BudgetYou.Controllers
 {
     [Authorize]
-    
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -67,7 +66,8 @@ namespace BudgetYou.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : message == ManageMessageId.EditProfileSuccess ? "Your profile has been updated."
                 : message == ManageMessageId.EditProfileFailed ? "Email address already Existed."
-                : message == ManageMessageId.NewLogin ? "Login with new Username."
+                : message == ManageMessageId.NewFirstName ? "Updated First Name."
+                : message == ManageMessageId.NewLastName ? "Updated Last Name."
                 : "";
 
             var userId = User.Identity.GetUserId();
@@ -174,6 +174,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/VerifyPhoneNumber
+        [HttpGet]
         [Authorize]
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
@@ -210,6 +211,7 @@ namespace BudgetYou.Controllers
 
         //
         // GET: /Manage/RemovePhoneNumber
+        [HttpGet]
         [Authorize]
         public async Task<ActionResult> RemovePhoneNumber()
         {
@@ -243,8 +245,8 @@ namespace BudgetYou.Controllers
 
 
         //POST: /EditProfile
-       [HttpPost]
-       [Authorize]
+        [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(EditProfileViewModel model)
         {
@@ -257,7 +259,7 @@ namespace BudgetYou.Controllers
             }
 
             var user = db.Users.Find(User.Identity.GetUserId());
-          
+
 
             var existingUser = db.Users.Where(u => u.Email == model.Email).FirstOrDefault();
 
@@ -268,60 +270,33 @@ namespace BudgetYou.Controllers
                 user.Email = model.Email;
                 user.UserName = model.Email;
 
+                db.SaveChanges();
+                AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                return RedirectToAction("LoginNewUsername", "Home");
             }
 
-           
+
             else
             {
                 existingUser.FirstName = model.FirstName;
                 existingUser.LastName = model.LastName;
-                user.Email = model.Email;
-                user.UserName = model.Email;
+                //user.Email = model.Email;
+                //user.UserName = model.Email;
+                db.SaveChanges();
 
-                //return RedirectToAction("Login", "Account", new { Message = ManageMessageId.NewLogin });
+                return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileFailed });
+
             }
 
-            
 
-            db.SaveChanges();
+        
 
-            return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
+            //return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
 
         }
-
-
-        //[HttpPost]
-        //public async Task<ActionResult> EditProfile(ApplicationUser user)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(user);
-        //    }
-
-        //    ApplicationDbContext db = new ApplicationDbContext();
-        //    var userId = User.Identity.GetUserId();
-        //    ApplicationUser savedUser = db.Users.Single(x => x.Id == userId);
-
-        //    savedUser.FirstName = user.FirstName;
-        //    savedUser.LastName = user.LastName;
-        //    savedUser.Email = user.Email;
-        //    savedUser.UserName = user.UserName;
-
-        //    db.Entry(savedUser).State = EntityState.Modified;
-        //    await db.SaveChangesAsync();
-
-        //    FormsAuthentication.SignOut();
-        //    user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-        //    if (user != null)
-        //    {
-        //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-        //    }
-
-        //    return RedirectToAction("Index", new { Message = ManageMessageId.EditProfileSuccess });
-        //}
-
-
+        
         // GET: /Manage/ChangePassword
+        [HttpGet]
         [Authorize]
         public ActionResult ChangePassword()
         {
@@ -497,7 +472,8 @@ namespace BudgetYou.Controllers
             RemovePhoneSuccess,
             EditProfileSuccess,
             EditProfileFailed,
-            NewLogin,
+            NewFirstName,
+            NewLastName,
             Error
         }
 

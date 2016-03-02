@@ -27,7 +27,7 @@ namespace BudgetYou
 
             var username = db.SendgridCredentials.FirstOrDefault().UserName;
             var password = db.SendgridCredentials.FirstOrDefault().UserName;
-            var from = "Invitation@budgetyou.net";
+            var from = "smtp.sendgrid.net";
 
             SendGridMessage myMessage = new SendGridMessage();
             myMessage.AddTo(message.Destination);
