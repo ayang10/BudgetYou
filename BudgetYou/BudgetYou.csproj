@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -210,6 +211,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\css\styles.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -252,6 +254,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="gulpfile.js" />
     <Content Include="Models\minimal-portfolio\ajax\loadMore.html" />
     <Content Include="Models\minimal-portfolio\ajax\project1.html" />
     <Content Include="Models\minimal-portfolio\ajax\project10.html" />
@@ -589,6 +592,8 @@
     <Content Include="Content\zocial-less-gh-pages\css\zocial-regular-webfont.woff" />
     <Content Include="Content\zocial-less-gh-pages\css\zocial.less" />
     <Content Include="Content\zocial-less-gh-pages\README.md" />
+    <Content Include="package.json" />
+    <Content Include="assets\sass\styles.scss" />
     <None Include="Properties\PublishProfiles\budget101.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -896,6 +901,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="assets\js\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
