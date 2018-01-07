@@ -4,20 +4,16 @@
     ViewBag.Title = "Dashboard";
 }
 
-
 <div class="main-content">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-
                 <h1>
                     @foreach (var item in Model.Accounts) //retrieve everything from Model Accounts until empty
                     {
-
-
                         if (item.Balance < item.WarningBalance) //if the account balance if less than the warning Balance
                         {
-                         <p class="red"> <b>@item.Name  @(" Account is low on Balance!")</b></p> //return balance and message
+                         <p class="red"><b>@item.Name  @(" Account is low on Balance!")</b></p> //return balance and message
                         }
                     }
                 </h1>
@@ -30,13 +26,11 @@
             <div class="col-md-12">
                 <!-- Pages widget -->
                 <div class="widget pages-widget">
-
                     <div class="widget-head br-blue">
                         <h3>
                             <i class="fa fa-beer "></i> Spending
                         </h3>
                     </div>
-
                     <div class="widget-body no-padd">
 
                         <div class="table-responsive">
@@ -51,8 +45,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                 
                                         <tr>
                                             <td>
                                                
@@ -74,13 +66,8 @@
                                                 }
 
                                             </td>
-
                                         </tr>
-
-
-
                                 </tbody>
-
                             </table>
                         </div>
 
@@ -90,9 +77,7 @@
         </div>
     </div>
         </div>
-
 <br />
-
     <div class="container">
         <div class="row">
             <div class="form-group">
@@ -131,13 +116,9 @@
               }
                 </div>
            
-
             <div class="col-md-8">
-              
                         <!--bar chart-->
                         <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-                
-
                         <table id="datatable" >
                             <thead>
                                 <tr>
@@ -168,19 +149,13 @@
                                     </tr>
 
                                     }
-
-
                             </tbody>
                         </table>
-
-
             </div>
-
 
             <div class="col-md-4 ">
                 <!-- Pages widget -->
                 <div class="widget pages-widget">
-
                     <div class="widget-head br-blue">
                         <h3>
                             <i class="fa fa-university"></i> Accounts / Balances
@@ -188,7 +163,6 @@
                     </div>
 
                     <div class="widget-body no-padd">
-
                         <div class="table-responsive">
                             <table class="table table-bordered">
                                 <!-- Table heading -->
@@ -221,15 +195,9 @@
                                             </td>
                                         </tr>
                                     }
-
-
                                 </tbody>
-
-
-
                             </table>
                         </div>
-
                     </div>
 
                     <div class="widget-foot">
@@ -246,15 +214,10 @@
                                 <input type="submit" value="submit" class="btn btn-primary" />
                             }*@
 
-                            
-
                         </span>
-
                         <div class="clearfix"></div>
                     </div>
-
                 </div>
-
             </div>
 
             <div class="row">
@@ -298,36 +261,21 @@
                                             <span>@tran.Date.ToString("D")</span>
                                         </p>
 
-
-
-
                                     </li>
                                 }
 
                             </ul>
-
                         </div>
-
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
-
-
     </div>
 </div>
-
-
 
 @section Scripts{
 
     <script type="text/javascript">
-
 
     $(function () {
         $('#container').highcharts({
@@ -365,10 +313,8 @@
 </script>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="~/Scripts/Highcharts-4.0.1/js/themes/sand-signika.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
     
-
     
     }

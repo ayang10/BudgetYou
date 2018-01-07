@@ -2,7 +2,7 @@
 <html>
 <head>
     <!-- Title here -->
-    <title>Budget-You - Welcome</title>
+    <title>FamBudget - Welcome</title>
     <!-- Description, Keywords and Author -->
     <meta name="description" content="Your description">
     <meta name="keywords" content="Your,Keywords">
@@ -32,23 +32,15 @@
 <body>
 
     <div class="outer">
-
         <!-- Sidebar starts -->
         <div class="sidebar">
-
             <div class="sidey">
-
                 <!-- Logo -->
                 <div class="logo">
-
-                    <h1>@Html.ActionLink("Budget-You", "Index", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</h1>
-
+                    <h1>@Html.ActionLink("FamBudget", "Dashboard", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</h1>
                 </div>
-
                 <!-- Sidebar navigation starts -->
-
                 <div class="sidebar-dropdown"><a href="#" class="br-blue"><i class="fa fa-bars"></i></a></div>
-
                 <div class="side-nav">
 
                     <div class="side-nav-block">
@@ -58,8 +50,6 @@
                         <ul class="list-unstyled">
                             </br>
                             <li><a href="@Url.Action("Dashboard", "Home")"><i class="fa fa-home"></i>Dashboard</a></li>
-                            </br>
-                            <li><a href="@Url.Action("About", "Home")"><i class="fa fa-home"></i>About</a></li>
                             <br />
                             <li><a href="@Url.Action("Index", "Households")"><i class="fa fa-h-square"></i>HouseHold</a></li>
                             <br />
