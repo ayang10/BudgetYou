@@ -7,9 +7,7 @@
     <meta name="description" content="Your description">
     <meta name="keywords" content="Your,Keywords">
     <meta name="author" content="ResponsiveWebInc">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 
     <!-- Styles -->
     <!-- Bootstrap CSS -->
@@ -30,7 +28,6 @@
     @RenderSection("css", required: false)
 </head>
 <body>
-
     <div class="outer">
         <!-- Sidebar starts -->
         <div class="sidebar">
@@ -62,15 +59,9 @@
                             <li><a href="@Url.Action("Index", "BudgetItems")"><i class="fa fa-sitemap"></i>BudgetItems</a></li>
                             <br />
                             <li><a href="@Url.Action("Index", "Invitations")"><i class="fa fa-scissors"></i>Invitations</a></li>
-
                         </ul>
                     </div>
-
-
-
-
                 </div>
-
                 <!-- Sidebar navigation ends -->
 
             </div>
@@ -78,37 +69,25 @@
         <!-- Sidebar ends -->
         <!-- Mainbar starts -->
         <div class="mainbar">
-
             <!-- Mainbar head starts -->
             <div class="main-head">
-
                 <div class="container">
-
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-6">
                             <!-- Page title -->
-
                             <h2><i class="fa fa-desktop lblue"></i> Dashboard</h2>
                         </div>
-
                         <div class="col-md-3 col-sm-4 col-xs-6">
                            <p>@DateTime.Now.ToString("D")</p>
                         </div>
-
                         <div class="col-md-3 col-sm-4 hidden-xs">
-                          
                             <div class="clearfix"></div>
                         </div>
-
-
                         <div class="col-md-3">
-
                             @Html.Partial("_LoginPartial")
-
                         </div>
                     </div>
                 </div>
-
             </div>
             @RenderBody()
             <!-- Mainbar head ends -->
