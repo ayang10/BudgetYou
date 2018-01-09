@@ -17,9 +17,9 @@ gulp.task('watch', function () {
 });
 
 gulp.task('minify-css', function () {
-    return gulp.src('./assets/css/style.css')
+    return gulp.src('./assets/css/styles.min.css')
         .pipe(minifyCSS({ keepSpecialComments: 1 }))
-        .pipe(gulp.dest('./assets/minify-css'));
+        .pipe(gulp.dest('./assets/css'));
 });
 
 gulp.task('default', ['sass', 'watch']);

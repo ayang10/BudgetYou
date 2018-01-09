@@ -212,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\styles.css" />
+    <Content Include="assets\css\styles.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\accordion.css" />
