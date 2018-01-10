@@ -814,25 +814,6 @@ ul.nav-tabs li {
   margin: 7px 0px;
 }
 
-/* Knob */
-
-.knobs .knob-item {
-  margin: 20px 0px;
-  height: 150px !important;
-  h4 {
-    font-size: 13px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  .knob {
-    font-size: 25px !important;
-    font-weight: bold !important;
-  }
-  canvas {
-    margin: 0px;
-  }
-}
-
 /* Current status */
 
 .current-status {
@@ -1028,20 +1009,6 @@ ul.nav-tabs li {
   }
 }
 
-/* Report widget */
-
-.report-widget tr td {
-  &:first-child {
-    font-size: 14px;
-    color: #888;
-  }
-  &:nth-child(2), &:nth-child(3) {
-    color: #888;
-    font-size: 11px;
-    line-height: 20px;
-  }
-}
-
 /* Pages widget */
 
 .pages-widget .table {
@@ -1107,105 +1074,6 @@ ul.nav-tabs li {
         font-size: 13px;
       }
     }
-  }
-}
-
-/* Chat widget */
-
-.chat-widget {
-  ul {
-    list-style-type: none;
-    margin: 0px;
-    padding: 0px;
-  }
-  li {
-    margin-top: 20px;
-    margin-bottom: 22px;
-    padding: 0px;
-    &:first-child {
-      margin-top: 10px;
-    }
-  }
-  img {
-    border-radius: 100px;
-    background: #fff;
-    max-width: 45px;
-  }
-  .chat-meta {
-    font-size: 11px;
-    color: #aaa;
-    margin-bottom: 3px;
-  }
-  .by-me .chat-content {
-    background: #fff;
-    margin-left: 70px;
-    position: relative;
-    padding: 8px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    line-height: 18px;
-    color: #888;
-    border: 1px solid #ccc;
-    &:after, &:before {
-      right: 100%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-    }
-    &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-right-color: #fff;
-      border-width: 6px;
-      top: 30%;
-      margin-top: -10px;
-    }
-    &:before {
-      border-color: rgba(238, 238, 238, 0);
-      border-right-color: #bbb;
-      border-width: 7px;
-      top: 30%;
-      margin-top: -11px;
-    }
-  }
-  .by-other .chat-content {
-    background: #fff;
-    margin-right: 70px;
-    position: relative;
-    padding: 8px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    line-height: 18px;
-    color: #888;
-    border: 1px solid #ccc;
-    &:after, &:before {
-      left: 100%;
-      border: solid transparent;
-      content: " ";
-      height: 0;
-      width: 0;
-      position: absolute;
-      pointer-events: none;
-    }
-    &:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-left-color: #fff;
-      border-width: 6px;
-      top: 30%;
-      margin-top: -6px;
-    }
-    &:before {
-      border-color: rgba(204, 204, 204, 0);
-      border-left-color: #bbb;
-      border-width: 7px;
-      top: 30%;
-      margin-top: -7px;
-    }
-  }
-  .form-group {
-    width: 80% !important;
   }
 }
 
@@ -1300,118 +1168,6 @@ ul.nav-tabs li {
   }
   .table {
     background: #fff;
-  }
-}
-
-/* Calendar */
-
-.page-calendar {
-  .fc-header-title h2 {
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 30px;
-  }
-  .fc-event {
-    background-color: #51bfd2;
-    border-color: #3aa8bc;
-    text-shadow: none;
-  }
-  .fc-button {
-    border: 1px solid #ddd;
-    background: #fafafa;
-    padding: 2px 10px;
-    height: 30px;
-    border-radius: 3px !important;
-    box-shadow: none !important;
-    margin-right: 5px;
-  }
-}
-
-.page-content .fc-button:hover {
-  background: #fcfcfc !important;
-}
-
-.page-calendar {
-  .fc-button-month, .fc-button-agendaWeek, .fc-button-agendaDay {
-    right: 20px;
-  }
-  .fc-state-default {
-    background: #eee !important;
-    &:hover {
-      background: #ddd !important;
-    }
-  }
-  .fc-widget-header {
-    padding: 7px 0px !important;
-    color: #666;
-    background: #fafafa;
-    border-color: #e7e7e7;
-  }
-  .fc-content td:hover {
-    background: #f3f3f3;
-  }
-  .fc-widget-content {
-    border-color: #e7e7e7;
-  }
-}
-
-/* Lock page */
-
-.lock-block {
-  max-width: 400px;
-  min-height: 160px;
-  margin: 0px auto;
-  border-radius: 5px;
-  border: 2px solid #fff;
-  box-shadow: 0px 0px 13px #888;
-  padding: 4px;
-}
-
-.inner-lock-block {
-  width: 100%;
-  min-height: 176px;
-  border-radius: 4px;
-  border: 1px dashed #fff;
-  padding: 5px;
-}
-
-.lock-block {
-  .lock-user-pic {
-    max-width: 108px;
-    height: 108px;
-    border-radius: 100px;
-    padding: 3px;
-    margin: 25px auto;
-    margin-bottom: 0px;
-    position: relative;
-    z-index: 100;
-    img {
-      width: 100px;
-      border-radius: 100px;
-      border: 3px solid #fff;
-      background: #222;
-      box-shadow: 0px 0px 15px #333;
-    }
-  }
-  .unlock-form {
-    margin-top: 35px;
-    input {
-      border: 1px solid #fff;
-      box-shadow: none;
-      font-size: 12px;
-      max-width: 160px;
-    }
-    h5 {
-      font-size: 18px;
-      color: #fff;
-      margin: 0px;
-    }
-    p {
-      color: #fff;
-      margin: 5px 0px 8px 0px;
-      font-size: 12px;
-      font-style: italic;
-    }
   }
 }
 
