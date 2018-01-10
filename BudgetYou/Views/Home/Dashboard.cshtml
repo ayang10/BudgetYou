@@ -4,6 +4,51 @@
     ViewBag.Title = "Dashboard";
 }
 
+@section Scripts{
+
+    <script type="text/javascript">
+
+    $(function () {
+        $('#container').highcharts({
+
+            data: {
+                table: 'datatable'
+
+            },
+            chart: {
+                type: 'column'
+
+            },
+            title: {
+
+                text: 'Budget Balance by Monthly Transactions'
+            },
+
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Amount'
+                }
+            },
+
+            tooltip: {
+
+                formatter: function () {
+                    return '<b><br/>' + this.series.name  + '</b><br/>' +
+                        this.point.y + ' ' + this.point.name.toLowerCase();
+                }
+            }
+
+        });
+    });
+    </script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+}
+
 <div class="main-content">
     <div class="container">
         <div class="row">
@@ -273,48 +318,3 @@
     </div>
 </div>
 
-@section Scripts{
-
-    <script type="text/javascript">
-
-    $(function () {
-        $('#container').highcharts({
-
-            data: {
-                table: 'datatable'
-                
-            },
-            chart: {
-                type: 'column'
-               
-            },
-            title: {
-
-                text: 'Budget Balance by Monthly Transactions'
-            },
-
-            yAxis: {
-                allowDecimals: false,
-                title: {
-                    text: 'Amount'
-                }
-            },
-
-            tooltip: {
-
-                formatter: function () {
-                    return '<b><br/>' + this.series.name  + '</b><br/>' +
-                        this.point.y + ' ' + this.point.name.toLowerCase();
-                }
-            }
-
-        });
-    });
-</script>
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/data.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-    
-    
-    }

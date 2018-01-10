@@ -89,6 +89,7 @@ namespace BudgetYou.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
+                    //ModelState.AddModelError("password", "Invalid login attempt."); add to viewmodel to display error, not sure if I want to do this yet
                     return View(model);
             }
         }
