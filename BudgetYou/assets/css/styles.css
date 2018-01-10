@@ -382,7 +382,7 @@ ul.nav-tabs li {
   width: auto;
   min-height: 1000px;
   margin-left: 180px;
-  background: #f7f7f7 url("../img/download.jpg") repeat; }
+  background:#f7f7f7 url("../img/download.jpg") repeat; }
   .mainbar .container {
     width: 100%;
     max-width: 100%; }
