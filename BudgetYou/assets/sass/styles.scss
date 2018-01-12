@@ -1,4 +1,9 @@
-﻿body {
+﻿
+// Variables
+$light-gray: #9a9a9a;
+$border-color: #ddd;
+
+body {
   font-size: 12px;
   line-height: 24px;
   -webkit-font-smoothing: antialiased;
@@ -77,7 +82,7 @@ form {
     font-size: 12px !important;
     border-radius: 2px !important;
     border: 1px solid #ccc !important;
-    color: #9a9a9a !important;
+    color: $light-gray !important;
     padding-left: 8px !important;
   }
   label {
@@ -176,9 +181,9 @@ ul.nav-tabs li {
       line-height: 23px;
       border: 1px solid #eaeaea;
       border-radius: 3px;
-      color: #9a9a9a;
+      color: $light-gray;
       &:hover {
-        border: 1px solid #ddd;
+        border: 1px solid $border-color;
       }
     }
     &.active a i {
@@ -196,23 +201,23 @@ ul.nav-tabs li {
 .nav-tabs.nav-justified > li > a {
   border-color: #eaeaea;
   &:hover {
-    border-color: #ddd;
+    border-color: $border-color;
   }
 }
 
 /* Nav Drop down */
 
 .nav .open > a {
-  border-color: #ddd;
+  border-color: $border-color;
   &:hover, &:focus {
-    border-color: #ddd;
+    border-color: $border-color;
   }
 }
 
 .nav-tabs .dropdown {
   .dropdown-menu {
     border-radius: 3px;
-    border: 1px solid #ddd;
+    border: 1px solid $border-color;
   }
   li {
     margin: 0px;
@@ -261,7 +266,7 @@ ul.nav-tabs li {
 /* Pagination */
 
 .pagination li a {
-  color: #9a9a9a;
+  color: $light-gray;
 }
 
 .pagination-xs li a {
@@ -496,7 +501,7 @@ ul.nav-tabs li {
             color: #aaa;
             font-weight: normal;
             &:hover {
-              color: #ddd;
+              color: $border-color;
             }
           }
         }
@@ -617,7 +622,7 @@ ul.nav-tabs li {
           color: #666;
           width: 100%;
           border: 1px solid #ccc;
-          border-bottom: 1px solid #ddd;
+          border-bottom: 1px solid $border-color;
           border-top: 0px;
           background: #fff;
           white-space: normal;
@@ -652,7 +657,7 @@ ul.nav-tabs li {
           border-top-right-radius: 3px;
           background: #f6f6f6;
           border: 1px solid #ccc;
-          border-bottom: 1px solid #ddd;
+          border-bottom: 1px solid $border-color;
           position: relative;
           &:after, &:before {
             bottom: 100%;
@@ -1034,7 +1039,7 @@ ul.nav-tabs li {
       &.c-list {
         cursor: pointer;
         padding: 8px;
-        border: 1px solid #ddd;
+        border: 1px solid $border-color;
         border-radius: 5px;
         background: #fff;
         box-shadow: inset 0px 1px 1px #fff;
@@ -1181,7 +1186,7 @@ ul.nav-tabs li {
     margin: 0px;
     padding: 0px;
     background: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid $border-color;
     border-right: 0px;
     padding-left: 10px;
     li {
@@ -1405,7 +1410,7 @@ ul.nav-tabs li {
   p {
     font-size: 13px;
     line-height: 23px;
-    color: #9a9a9a;
+    color: $light-gray;
   }
   form.form-inline {
     margin-top: 5px !important;
@@ -1465,7 +1470,7 @@ ul.nav-tabs li {
       margin-right: 20px;
       margin-bottom: 15px;
       padding: 5px 5px 0px 5px;
-      border: 1px solid #ddd;
+      border: 1px solid $border-color;
       display: inline-block;
       border-radius: 5px;
       background: #fafafa;
@@ -1516,8 +1521,8 @@ ul.nav-tabs li {
   padding: 8px 0px;
   margin: 10px 0px;
   font-size: 14px;
-  border: 1px solid #ddd;
-  color: #9a9a9a;
+  border: 1px solid $border-color;
+  color: $light-gray;
 }
 
 /* Chart page */
@@ -1573,7 +1578,7 @@ ul.nav-tabs li {
   .form-group label {
     font-size: 13px;
     font-weight: 300;
-    color: #9a9a9a;
+    color: $light-gray;
     position: relative;
     top: -3px;
   }
@@ -1677,7 +1682,7 @@ ul.nav-tabs li {
     font-size: 12px;
     font-weight: normal;
     select {
-      border-color: #ddd;
+      border-color: $border-color;
       border-radius: 2px;
     }
   }
@@ -1688,13 +1693,13 @@ ul.nav-tabs li {
     font-weight: normal;
     input {
       border-radius: 3px;
-      border: 1px solid #ddd;
+      border: 1px solid $border-color;
       padding: 3px;
       line-height: 12px;
     }
   }
   #data-table {
-    border: 1px solid #ddd;
+    border: 1px solid $border-color;
   }
   table#data-table {
     thead th {
@@ -1703,14 +1708,14 @@ ul.nav-tabs li {
       border-bottom: 0px;
     }
     tfoot th {
-      border-top: 1px solid #ddd;
+      border-top: 1px solid $border-color;
       padding: 7px 10px;
       font-weight: normal;
       background: #fff;
     }
     td {
       background: #fcfcfc;
-      border-top: 1px solid #ddd;
+      border-top: 1px solid $border-color;
     }
   }
   .dataTables_info {
@@ -1720,7 +1725,7 @@ ul.nav-tabs li {
     margin-bottom: 20px;
     a {
       background: #fff !important;
-      border: 1px solid #ddd !important;
+      border: 1px solid $border-color !important;
       border-radius: 2px !important;
       margin-right: 2px !important;
       padding: 0px 10px !important;
@@ -1862,13 +1867,13 @@ form label.error {
   .nav-pills li {
     margin-right: 0px;
     &.active .badge {
-      color: #9a9a9a !important;
+      color: $light-gray !important;
       background: #fff !important;
     }
   }
   .inbox-mail {
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid $border-color;
     table {
       margin-bottom: 0px;
     }
@@ -1883,7 +1888,7 @@ form label.error {
       p {
         font-size: 13px;
         line-height: 23px;
-        color: #9a9a9a;
+        color: $light-gray;
         text-overflow: ellipsis;
       }
     }
@@ -1900,7 +1905,7 @@ form label.error {
     padding: 15px;
     padding-bottom: 6px;
     border-radius: 4px;
-    border: 1px solid #ddd;
+    border: 1px solid $border-color;
   }
 }
 
@@ -1910,7 +1915,7 @@ form label.error {
   .mail-head {
     margin-bottom: 8px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $border-color;
   }
   .mail-read .mail-head {
     padding-bottom: 10px;
@@ -1945,10 +1950,10 @@ form label.error {
       margin-bottom: 16px;
       padding-bottom: 8px;
       font-size: 18px;
-      border-bottom: 1px solid #ddd;
+      border-bottom: 1px solid $border-color;
     }
     p {
-      color: #9a9a9a;
+      color: $light-gray;
     }
     .mail-attach {
       background: #fcfcfc;
