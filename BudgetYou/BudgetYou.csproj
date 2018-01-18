@@ -243,7 +243,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="gulpfile.js" />
     <Content Include="Models\minimal-portfolio\ajax\loadMore.html" />
     <Content Include="Models\minimal-portfolio\ajax\project1.html" />
@@ -694,7 +693,6 @@
     <Content Include="theme\img\sql.png" />
     <Content Include="theme\img\star.gif" />
     <Content Include="theme\js\bootstrap-datetimepicker.min.js" />
-    <Content Include="theme\js\bootstrap-wysihtml5.min.js" />
     <Content Include="theme\js\bootstrap.js" />
     <Content Include="theme\js\bootstrap.min.js" />
     <Content Include="theme\js\custom.js" />
@@ -721,7 +719,6 @@
     <Content Include="theme\js\moment.min.js" />
     <Content Include="theme\js\prettify.js" />
     <Content Include="theme\js\respond.min.js" />
-    <Content Include="theme\js\wysihtml5-0.3.0.js" />
     <Content Include="Views\Invitations\Create.cshtml" />
     <Content Include="Views\Invitations\Delete.cshtml" />
     <Content Include="Views\Invitations\Details.cshtml" />
